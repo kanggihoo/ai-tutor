@@ -68,6 +68,6 @@ README.md 상단에는 사용자가 연습 중 입력한 것으로 보이는 asd
 
 ## GitHub 저장 관련
 
-개인 실습 자료를 비공개 저장소로 올리라는 사용자 요청을 받았습니다. 저장소 이름은 lazyvim-practice를 우선 사용합니다.
+사용자의 최종 요청은 공개(public) GitHub 저장소 생성과 푸시입니다. 처음 비공개 요청에서 공개로 변경했습니다. 저장소 이름은 lazyvim-practice를 우선 사용합니다.
 인계 작성 시 Windows gh auth status는 미로그인입니다. WSL 조회는 E_ACCESSDENIED로 실패했습니다.
 로컬 커밋과 실제 GitHub 푸시 상태는 git log, git remote -v, gh repo view로 확인합니다.
