@@ -69,5 +69,5 @@ README.md 상단에는 사용자가 연습 중 입력한 것으로 보이는 asd
 ## GitHub 저장 관련
 
 사용자의 최종 요청은 공개(public) GitHub 저장소 생성과 푸시입니다. 처음 비공개 요청에서 공개로 변경했습니다. 저장소 이름은 lazyvim-practice를 우선 사용합니다.
-인계 작성 시 Windows gh auth status는 미로그인입니다. WSL 조회는 E_ACCESSDENIED로 실패했습니다.
+사용자가 GitHub 로그인 완료를 알렸으나, 에이전트 실행 환경에는 APPDATA가 없었습니다. 경로를 복원해 gh를 실행하면 AppData/Roaming/GitHub CLI/config.yml 읽기가 Access is denied로 실패합니다. 로그인 미완료로 단정하지 말고 실행 환경의 설정 파일 접근 제한을 먼저 확인하세요. WSL 조회도 E_ACCESSDENIED로 실패했습니다.
 로컬 커밋과 실제 GitHub 푸시 상태는 git log, git remote -v, gh repo view로 확인합니다.
