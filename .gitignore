@@ -1,0 +1,8 @@
+# Neovim temporary files
+*.swp
+*.swo
+*~
+Session.vim
+Session.vim.*
+.DS_Store
+Thumbs.db

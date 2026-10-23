@@ -1,0 +1,5 @@
+[
+  { "id": "americano", "name": "아메리카노", "price": 3500 },
+  { "id": "latte", "name": "카페라테", "price": 4500 },
+  { "id": "tea", "name": "얼그레이", "price": 4000 }
+]
