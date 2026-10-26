@@ -7,7 +7,7 @@ asdsd
 
 ## 실습 이어가기
 
-사용자는 대화로 한 문제씩 안내받으며 실습합니다. 다음 세션 담당자는 [HANDOFF.md](HANDOFF.md)를 읽고 마지막 ciw 연습의 완료 여부부터 확인하세요. 진행 요약은 [PROGRESS.md](PROGRESS.md)에 있습니다.
+사용자는 대화로 한 문제씩 안내받으며 실습합니다. 다음 세션 담당자는 [HANDOFF.md](HANDOFF.md)의 다음 시작점을 확인하세요. 진행 요약은 [PROGRESS.md](PROGRESS.md), 복습 키와 풀이는 [ANSWERS.md](ANSWERS.md), 전체 초기 계획은 [MISSIONS.md](MISSIONS.md)에 있습니다.
 
 ## 시작하기
 
