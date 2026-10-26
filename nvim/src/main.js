@@ -7,3 +7,5 @@ const total = calculateTotal(order.subtotal, order.region);
 console.log("DEBUG: checkout preview", order);
 console.log(config.storeName, total);
 console.log(validateCoupon({ expired: true }));
+
+ORDER

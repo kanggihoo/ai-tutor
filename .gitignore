@@ -6,3 +6,6 @@ Session.vim
 Session.vim.*
 .DS_Store
 Thumbs.db
+
+# Rust build output
+target/
