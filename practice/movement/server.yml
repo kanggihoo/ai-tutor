@@ -1,0 +1,73 @@
+# server config (lesson 2 practice)
+app_setting_01: value-1
+app_setting_02: value-2
+app_setting_03: value-3
+app_setting_04: value-4
+app_setting_05: value-5
+app_setting_06: value-6
+app_setting_07: value-7
+app_setting_08: value-8
+app_setting_09: value-9
+app_setting_10: value-10
+app_setting_11: value-11
+app_setting_12: value-12
+app_setting_13: value-13
+app_setting_14: value-14
+app_setting_15: value-15
+app_setting_16: value-16
+app_setting_17: value-17
+app_setting_18: value-18
+app_setting_19: value-19
+app_setting_20: value-20
+app_setting_21: value-21
+app_setting_22: value-22
+app_setting_23: value-23
+app_setting_24: value-24
+app_setting_25: value-25
+app_setting_26: value-26
+app_setting_27: value-27
+app_setting_28: value-28
+app_setting_29: value-29
+app_setting_30: value-30
+
+database:
+  host: localhost
+  port: 5432
+  pool_timeout: 30   # <- 과제 2의 목표
+
+app_setting_31: value-31
+app_setting_32: value-32
+app_setting_33: value-33
+app_setting_34: value-34
+app_setting_35: value-35
+app_setting_36: value-36
+app_setting_37: value-37
+app_setting_38: value-38
+app_setting_39: value-39
+app_setting_40: value-40
+app_setting_41: value-41
+app_setting_42: value-42
+app_setting_43: value-43
+app_setting_44: value-44
+app_setting_45: value-45
+app_setting_46: value-46
+app_setting_47: value-47
+app_setting_48: value-48
+app_setting_49: value-49
+app_setting_50: value-50
+app_setting_51: value-51
+app_setting_52: value-52
+app_setting_53: value-53
+app_setting_54: value-54
+app_setting_55: value-55
+app_setting_56: value-56
+app_setting_57: value-57
+app_setting_58: value-58
+app_setting_59: value-59
+app_setting_60: value-60
+
+security:
+  secret_key: abc123   # <- 과제 3의 목표
+  token_ttl: 3600
+
+# END OF FILE

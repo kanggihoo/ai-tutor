@@ -1,5 +1,3 @@
-
-asdsd
 # LazyVim 실습실 — 작은 카페의 하루
 
 파일 찾기, 전체 검색, 버퍼 전환, 창 분할을 실제 프로젝트에서 연습합니다.
@@ -7,13 +5,13 @@ asdsd
 
 ## 실습 이어가기
 
-사용자는 대화로 한 문제씩 안내받으며 실습합니다. 다음 세션 담당자는 [HANDOFF.md](HANDOFF.md)의 다음 시작점을 확인하세요. 진행 요약은 [PROGRESS.md](PROGRESS.md), 복습 키와 풀이는 [ANSWERS.md](ANSWERS.md), 전체 초기 계획은 [MISSIONS.md](MISSIONS.md)에 있습니다.
+Mac과 Windows 두 곳에서 AI 튜터(Claude Code)와 대화로 한 문제씩 실습합니다. 튜터 규칙과 기기별 차이는 [AGENTS.md](AGENTS.md), 진도·약점·다음 단계는 [PROGRESS.md](PROGRESS.md), 복습 키와 풀이는 [ANSWERS.md](ANSWERS.md), 미션 목록은 [MISSIONS.md](MISSIONS.md)에 있습니다.
 
 ## 시작하기
 
 터미널에서 이 폴더를 작업 디렉터리로 열어 주세요. 아래는 셸 명령이며 nvim 안의 명령이 아닙니다.
 
-PowerShell:
+Mac(zsh) / Windows PowerShell:
 
     cd ~/Desktop/lazyvim-practice
     nvim README.md
@@ -58,4 +56,4 @@ Linux 홈의 Desktop에 자료를 복사했다면 그 경로로 이동하세요.
 파일 검색이 비거나 오류가 나면 검색창을 닫고 안내 메시지를 확인하세요. grep 기능은 ripgrep(rg)이 필요합니다.
 
 단축키 참고: https://www.lazyvim.org/keymaps
-확인일: 2026-10-23
+확인일: 2026-10-26 (LazyVim 16.0.1 소스와 대조)
