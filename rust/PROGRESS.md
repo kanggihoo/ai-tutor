@@ -9,23 +9,26 @@
 - Rust로 해 보고 싶은 것 (2026-10-27): **Tauri 데스크톱 앱**(React/TS 프론트 + Rust 백엔드) 또는 **CLI 도구**. 예시 코드와 미니 프로젝트를 이쪽으로 맞춘다(`#[tauri::command]`, `serde`, `clap`).
 - nvim 과목 기록상 선호: 세션당 20~30분, 문서 정독보다 대화로 한 문제씩, 쉬운 건 빠르게 넘어가길 원함. "이걸 쓸 일이 있나?"를 자주 물으므로 실제 쓰임새를 함께 알려 준다.
 
-## 커리큘럼 (실제 코드에서 자주 보이는 순서)
+## 커리큘럼 (문법 + 실무 개발 흐름. 🛠 = 실무 레슨)
 | # | 레슨 | 핵심 | 상태 |
 |---|---|---|---|
-| 01 | Cargo와 프로젝트 구조 읽기 | `Cargo.toml`, `main.rs`/`lib.rs`, `cargo run/check/test/clippy`, `let`/`mut`, 함수, `println!` | ⬜ |
+| 01 | 🛠 Cargo 시작 | `cargo new/run/check/build --release`, `Cargo.toml`의 `[package]`, `Cargo.lock`, `target/`(uv·pyproject 비교), `let`/`mut`, 함수, `println!` | ⬜ |
 | 02 | 소유권 | move, `Copy`, `clone`, 스코프와 drop | ⬜ |
 | 03 | 빌림 | `&`/`&mut`, 빌림 규칙, `String` vs `&str`, 슬라이스 | ⬜ |
-| 04 | 구조체 | `struct`, `impl`, `self`/`&self`/`&mut self`, `new` 관례 | ⬜ |
+| 04 | 구조체 | `struct`, `impl`, `self`/`&self`/`&mut self`, `Type::new()` 관례 | ⬜ |
 | 05 | 열거형과 패턴 | `enum`, `match`, `if let`, `Option` | ⬜ |
-| 06 | 에러 처리 | `Result`, `?`, `unwrap`/`expect`를 쓸 때와 피할 때, `anyhow`/`thiserror` 맛보기 | ⬜ |
-| 07 | 모듈 | `mod`, `pub`, `use`, `crate::`/`super::`, 파일 분리, 외부 크레이트 | ⬜ |
-| 08 | 속성 `#[...]` | `#[derive(Debug, Clone, PartialEq)]`, `#[cfg(test)]`/`#[test]`, `#[allow]`, `#[serde(...)]`, `#[tokio::main]` 미리보기 | ⬜ |
-| 09 | 트레이트와 제네릭 | `trait`, `impl Trait for`, `impl Trait`, `T: Trait`, `Display`/`From` | ⬜ |
-| 10 | 컬렉션과 반복자 | `Vec`, `HashMap`, `iter`/`map`/`filter`/`collect`, 클로저 | ⬜ |
-| 11 | 라이프타임 읽기 | `'a`가 보이면 무슨 뜻인지, 언제 필요한지(작성보다 읽기) | ⬜ |
-| 12 | 스마트 포인터와 공유 | `Box`, `Rc`, `Arc`, `Mutex` (읽기용) | ⬜ |
-| 13 | async 읽기 | `async`/`await`, `tokio`, `Future` 감 잡기 | ⬜ |
-| 14 | 미니 프로젝트 지휘 | ① `clap` CLI 도구 → ② Tauri 앱(`#[tauri::command]`로 React에서 Rust 호출). 요구사항은 사용자, 구현은 AI, 설명·리뷰는 사용자 | ⬜ |
+| 06 | 🛠 외부 크레이트 쓰기 | `cargo add/remove/tree/update`, `[dependencies]`·버전 표기·features, `::` 경로와 `use`, docs.rs 읽는 법, `serde_json`·`rand` 실제로 써 보기 | ⬜ |
+| 07 | 🛠 실무 에러 처리 | `Result`, `?`, `unwrap`/`expect`를 쓸 때와 피할 때, `anyhow`(앱)·`thiserror`(라이브러리), `.context()`, `main`에서 에러 반환, `RUST_BACKTRACE=1` | ⬜ |
+| 08 | 모듈과 프로젝트 구조 | `mod`, `pub`, `use`, `crate::`/`super::`, 파일 분리, `main.rs`+`lib.rs`, 워크스페이스 | ⬜ |
+| 09 | 🛠 속성과 derive 실전 | `#[derive(Debug, Clone, PartialEq)]`, `serde`로 JSON↔구조체(`#[serde(rename)]`), `clap`의 `#[derive(Parser)]`, `#[allow]`, `#[cfg]` | ⬜ |
+| 10 | 트레이트와 제네릭 | `trait`, `impl Trait for`, `impl Trait`, `T: Trait`, `Display`/`From` | ⬜ |
+| 11 | 컬렉션과 반복자 | `Vec`, `HashMap`, `iter`/`map`/`filter`/`collect`, 클로저 | ⬜ |
+| 12 | 🛠 테스트와 품질 도구 | `#[test]`, `#[cfg(test)]`, `tests/` 폴더, `cargo test`, `cargo fmt`, `cargo clippy` 경고 읽고 고치기, `dbg!`, `cargo doc --open` | ⬜ |
+| 13 | 라이프타임 읽기 | `'a`가 보이면 무슨 뜻인지, 언제 필요한지(작성보다 읽기) | ⬜ |
+| 14 | 스마트 포인터와 공유 | `Box`, `Rc`, `Arc`, `Mutex` (읽기용) | ⬜ |
+| 15 | 🛠 async와 HTTP | `async`/`await`, `#[tokio::main]`, `reqwest`로 API 호출, `.env` 설정값 읽기 | ⬜ |
+| 16 | 🛠 미니 프로젝트 ① CLI | `clap` + `serde` + `anyhow`로 CLI 도구. `cargo install --path .`로 설치해서 실제로 쓰기. 요구사항은 사용자, 구현은 AI, 설명·리뷰는 사용자 | ⬜ |
+| 17 | 🛠 미니 프로젝트 ② Tauri | React/TS + `#[tauri::command]`, 공유 상태, 프론트로 에러 전달, 빌드 | ⬜ |
 
 상태: ⬜ 안 함 · 🔄 진행 중 · ✅ 완료
 
