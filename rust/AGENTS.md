@@ -51,6 +51,6 @@
 ## 환경
 | 항목 | Mac | Windows (SSAFY) |
 |---|---|---|
-| 툴체인 | rustc/cargo 1.95.0, clippy 있음 (2026-10-26 확인) | 미확인. 없으면 rustup 설치부터 |
-| rust-analyzer | 미설치. rustup 실행 파일 껍데기(shim)만 있음(`rustup component add rust-analyzer`) | 미확인 |
+| 툴체인 | rustc/cargo 1.95.0, clippy 있음 (2026-10-26 확인) | rustc/cargo 1.97.1, clippy, rustfmt 있음 (2026-10-27 확인) |
+| rust-analyzer | 미설치. rustup 실행 파일 껍데기(shim)만 있음(`rustup component add rust-analyzer`) | 미설치 |
 | nvim Rust LSP | LazyVim `lang.rust` extra 꺼져 있음. 필요해지면 사용자가 `:LazyExtras`에서 직접 켜도록 안내 | 미확인 |

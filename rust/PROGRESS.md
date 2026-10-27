@@ -12,8 +12,8 @@
 ## 커리큘럼 (문법 + 실무 개발 흐름. 🛠 = 실무 레슨)
 | # | 레슨 | 핵심 | 상태 |
 |---|---|---|---|
-| 01 | 🛠 Cargo 시작 | `cargo new/run/check/build --release`, `Cargo.toml`의 `[package]`, `Cargo.lock`, `target/`(uv·pyproject 비교), `let`/`mut`, 함수, `println!` | ⬜ |
-| 02 | 소유권 | move, `Copy`, `clone`, 스코프와 drop | ⬜ |
+| 01 | 🛠 Cargo 시작 | `cargo new/run/check/build --release`, `Cargo.toml`의 `[package]`, `Cargo.lock`, `target/`(uv·pyproject 비교), `let`/`mut`, 함수, `println!` | ✅ |
+| 02 | 소유권 | move, `Copy`, `clone`, 스코프와 drop | 🔄 |
 | 03 | 빌림 | `&`/`&mut`, 빌림 규칙, `String` vs `&str`, 슬라이스 | ⬜ |
 | 04 | 구조체 | `struct`, `impl`, `self`/`&self`/`&mut self`, `Type::new()` 관례 | ⬜ |
 | 05 | 열거형과 패턴 | `enum`, `match`, `if let`, `Option` | ⬜ |
@@ -33,16 +33,26 @@
 상태: ⬜ 안 함 · 🔄 진행 중 · ✅ 완료
 
 ## 약점 (Weak spots)
-- (아직 없음)
+- 불변 기본(`let` vs `let mut`)을 처음엔 놓침 (Q1, 2026-10-27)
+- 섀도잉(같은 이름 `let` 재선언) 낯설어함, 블록 안 섀도잉 출력 순서 처음엔 헷갈림 (Q2)
+- `;` 유무에 따른 반환값 (Q3: 처음엔 "문제 없다"고 답함)
+- `cargo run --bin <이름>` 사용법 (파일 경로를 넣음)
 
 ## 확인한 진도
 "확인"은 cargo로 결과를 본 것, "설명만"은 안내만 하고 확인하지 못한 것.
 
 | 레슨 | 항목 | 상태 |
 |---|---|---|
+| 01 | 퀴즈 Q1 불변 변수 재대입 에러 | 확인 (처음엔 오답, 이후 정정) |
+| 01 | 퀴즈 Q2 섀도잉 출력 `hi`/`10` | 확인 (재질문 후 정답, 실행은 튜터가 함) |
+| 01 | 퀴즈 Q3 `;` 때문에 반환 타입 불일치 | 확인 (실전 문제에서 같은 에러를 사용자가 직접 고침) |
+| 01 | 실전 고치기 `01_fix_p1`, clippy, `--release` 실행 | 확인 (사용자가 직접 실행) |
 
 ## 세션 로그
 - 2026-10-26~27 (Mac): 과목 구조 생성, 저장소를 `ai-tutor`로 이름 변경(nvim/ · rust/ 분리), 프로필 확인. 학습 방식(이론 → 예측 퀴즈 → 실전)과 기록 방식(PROGRESS·QNA·notes) 확정. 레슨 진행은 아직 안 함.
 
+- 2026-10-27 (Windows): 레슨 01 이론·퀴즈 완료. Windows 툴체인 확인(cargo/rustc 1.97.1, clippy 0.1.97, rust-analyzer 없음). 질문 6개 QNA 기록.
+
 ## 다음 단계
-1. 레슨 01 시작: `lab/`의 `Cargo.toml`부터 같이 읽는다.
+1. 다음 세션 시작 시 복습 퀴즈(`QNA.md`의 `복습` 항목: 섀도잉, `;` 반환, `run --release`).
+2. 레슨 02 소유권 이어서: 이론(move 기본, `Copy`, drop, C++와 비교)은 설명 끝. `lab/src/bin/02_own_q1~q3.rs` 퀴즈 3개를 사용자가 예측해 답하는 단계부터(정답은 튜터가 컴파일해 확인함: Q1 에러 E0382, Q2 `5 5`, Q3 `KIM!` / `kim 3`). 그다음 실전(고치기 → 리뷰: 불필요한 `clone` 찾기), `notes/02-ownership.md` 작성.
