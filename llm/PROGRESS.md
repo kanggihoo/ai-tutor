@@ -21,12 +21,12 @@
 ## 커리큘럼 (12주, 슬롯 = 약 50분, 필수 최대 8 + 복구 2)
 | 주 | 날짜 | 주제 | 필수 슬롯 | 원문 (카드) | 완료 증거 | 상태 |
 |---|---|---|---|---|---|---|
-| W1 | 10/27~11/2 | Transformer 복습 + **KV Cache** | 환경 2(지원 확인표는 문서 확인만, 이미지 pull 시작) · nanoGPT A 2(짧은 학습, Attention 논문과 대응) · B 3(캐시 없는 생성 → 캐시 구현 → logits 일치 검증 후 지연 측정) · 기록 1 | Attention 복습 (GPT-2, GPT-3) | `env/support.md`, `nanogpt/kv_cache/` | ⬜ |
+| W1 | 10/27~11/2 | Transformer 복습 + **KV Cache** | 환경 2(지원 확인표는 문서 확인만, 이미지 pull 시작) · nanoGPT A 2(짧은 학습, Attention 논문과 대응) · B 3(캐시 없는 생성 → 캐시 구현 → logits 일치 검증 후 지연 측정. 기준 코드: reasoning-from-scratch의 `KVCache`, `compare_inference.py`, [RESOURCES.md](RESOURCES.md) 참고) · 기록 1 | Attention 복습 (GPT-2, GPT-3) | `env/support.md`, `nanogpt/kv_cache/` | ⬜ |
 | W2 | 11/3~11/9 | 2022 이후 구조 + 샘플링·양자화 | C 3(RMSNorm → RoPE → GQA, **별도 분기**, 변형마다 cache on/off 일치 확인) · D 2(GPT-2 호환 경로로 샘플링, INT8) · F 1(FastAPI로 직접 짠 서빙, 동시 요청) · vLLM 단일 요청 1(Qwen3-1.7B) · 기록 1 | (RoFormer, GQA, Llama, hybrid cache) | `nanogpt/variants/`, `naive_serve/` | ⬜ |
 | W3 | 11/10~16 | **vLLM** (PagedAttention, continuous batching) | vLLM 원문 2 · base 서빙 + 하네스 v0 2 · Grafana 1 · sweep 1(Qwen3-1.7B로 KV 예측 확인 → Qwen3.5 관찰) · 기록 1 · 복구 1 | **vLLM** (Orca) | `bench/`, `results/vllm-4070/`, `dashboards/` | ⬜ |
 | W4 | 11/17~23 | LoRA·QLoRA + Triton | SFT 최소 개념 1 · LoRA 원문 1 · QLoRA 2(**호환성 관문**: 짧게 학습 → 저장 → 재로드 → vLLM 서빙) · 어댑터 서빙 1 · Triton+vLLM 2 · 기록 1 | **LoRA** | `finetune/`, `triton/` | ⬜ |
 | W5 | 11/24~30 | SGLang + spec decoding + **반납 체크아웃** | SGLang 2 · spec decoding 2(같은 target on/off, 동시성 1과 중간값) · 체크아웃 1 · 기록 1 · 복구 2 (하네스 v1: prefix 2세트) | (SGLang, Speculative Decoding, EAGLE) | `results/sglang-4070/`, `CHECKOUT.md` | ⬜ |
-| W6 | 12/1~7 | 학습 흐름 (SFT → RLHF → DPO → GRPO) | InstructGPT 2 · R1 2 · DPO·증류·MoE 카드 1 · Mac 기본 추론 1 · 비교 설명 1 · 기록 1 | **InstructGPT**, **DeepSeek-R1** | `notes/` | ⬜ |
+| W6 | 12/1~7 | 학습 흐름 (SFT → RLHF → DPO → GRPO) | InstructGPT 2 · R1 2 · DPO·증류·MoE 카드 1(선택: reasoning-from-scratch `ch06.py` GRPO, `ch08.py` 증류 코드 읽기) · Mac 기본 추론 1 · 비교 설명 1 · 기록 1 | **InstructGPT**, **DeepSeek-R1** | `notes/` | ⬜ |
 | W7 | 12/8~14 | 클라우드 배포 | Modal 배포(가중치는 Volume에) · cold start 분해 · 같은 하네스로 재측정 · 비용 기록 | – | `deploy/modal/`, `results/modal-*/`, `COSTS.md` | ⬜ |
 | W8 | 12/15~21 | 커널 최적화 + TensorRT-LLM | FlashAttention 2 · 지원 확인·변환·빌드 2 · Triton 배치 1 · 벤치 1 · Dynamo 카드 1 · 기록 1 | **FlashAttention** (Megatron) | `trtllm/` | ⬜ |
 | W9 | 12/22~28 | K8s 맛보기 | kind 1 · llama.cpp 서버 + probe 2(startupProbe vs readiness) · PVC + initContainer 1 · 롤링 업데이트·롤백 1 · Helm 1 · production-stack GPU chart 읽기 1 · 기록 1 | – | `deploy/k8s/` | ⬜ |

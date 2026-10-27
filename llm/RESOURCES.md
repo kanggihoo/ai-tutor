@@ -18,6 +18,14 @@
 - [Paper: _Efficiently Scaling Transformer Inference_ (Pope et al., 2022)](https://arxiv.org/abs/2211.05102)
   PaLM 추론 분석. multiquery attention의 낮은 메모리로 긴 컨텍스트를 확장. Use for: 0003 prefill/decode 병목 (본문 미확인, 다음 레슨 전에 읽고 확인).
 
+### 코드 레퍼런스 (from scratch)
+- [Repo: rasbt/reasoning-from-scratch](https://github.com/rasbt/reasoning-from-scratch)
+  *Build a Reasoning Model (From Scratch)* 코드. Qwen3-0.6B를 PyTorch로 직접 구현(Apache 2.0). 서빙 엔진(vLLM 등)은 다루지 않는다. 2026-10-27 clone해서 확인. CPU 실행 가능 여부는 README만 봤고 **미실측**. Use for:
+  - W1 B 슬롯(캐시 구현): `reasoning_from_scratch/qwen3.py`의 `KVCache`(층별 `(K,V)`를 `cat`), `ch02.py`의 `generate_text_basic_stream_cache`. 캐시 없는 생성과 비교.
+  - W1 지연 측정: `ch02/03_optimized-LLM/compare_inference.py`(`--cache`, `--compile`, `--optimize`), `qwen3_optimized.py`의 사전 할당 `KVCache`(PagedAttention이 풀려는 낭비와 대비).
+  - W3 continuous batching 직관: `qwen3_batched.py`의 `shrink_kv_cache_inplace`(끝난 시퀀스를 배치에서 제거).
+  - W6 선택 읽기: `ch06.py` GRPO(`compute_grpo_loss`, `reward_rlvr`), `ch08.py` 증류. 샘플링 보충은 `ch04.py`(`top_p_filter`, `self_consistency_vote`).
+
 ### 모델 설정
 - [Config: Qwen3-1.7B config.json](https://huggingface.co/Qwen/Qwen3-1.7B/blob/main/config.json)
   2026-10-27 확인: hidden 2048, 28층, Q 16 / KV 8 head, head_dim 128, bfloat16, max_position_embeddings 40960.
