@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0003 · KV Cache는 얼마나 큰가</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body>
+<main>
+
+<header class="top">
+  <div class="crumb">KV Cache · 레슨 0003 · 약 15분</div>
+  <h1>K는 왜 "KV head 수 × head 크기"인가</h1>
+  <p class="lead">외울 식이 아닙니다. K 벡터 <b>하나</b>를 조각낸 모양일 뿐이라는 걸 원 논문 숫자로 확인하고, 마지막에 Qwen3-1.7B의 실제 config로 직접 계산합니다.</p>
+</header>
+
+<section class="goal">
+  <b>이 레슨이 끝나면</b>
+  <p>아무 모델의 <code>config.json</code>을 보고 <b>토큰 1개당 KV 크기</b>를 직접 계산하고, 식의 항이 왜 있는지 하나씩 설명할 수 있습니다.</p>
+</section>
+
+<section class="step">
+  <div class="tag">1 · K 벡터는 하나다</div>
+  <h2>토큰 벡터 × W_K = K 벡터 하나</h2>
+  <p>원 논문 base 모델은 토큰 하나를 512칸짜리 벡터로 들고 다닙니다(<code>d_model = 512</code>). 학습된 행렬 <code>W_K</code>를 곱하면 K가 나옵니다. 여기까지는 head라는 개념이 없습니다.</p>
+  <div class="scroll"><div style="display:flex;flex-direction:column;gap:8px">
+    <div class="vrow"><div class="lab">x (토큰)</div><div class="vec"><div style="background:var(--muted)">512</div></div></div>
+    <div class="varrow">↓ × W_K</div>
+    <div class="vrow"><div class="lab">K</div><div class="vec plain"><div>512</div></div></div>
+  </div></div>
+</section>
+
+<section class="step">
+  <div class="tag">2 · 잘라서 나눠 준다</div>
+  <h2>512칸을 64칸씩 8조각 — 이게 "head"</h2>
+  <p>논문은 head를 8개 두고 각 head의 크기를 <code>d_model / h = 64</code>로 정합니다. 같은 K 벡터를 색칠만 다르게 한 것입니다. 계산은 없고, 칸 나누기(<code>reshape</code>)만 합니다.</p>
+  <blockquote>"h = 8 parallel attention layers, or heads. For each of these we use d_k = d_v = d_model/h = 64." — Vaswani et al., 2017, §3.2.2</blockquote>
+  <div class="scroll"><div style="display:flex;flex-direction:column;gap:8px">
+    <div class="vrow"><div class="lab">K</div><div class="vec plain"><div>512</div></div></div>
+    <div class="varrow">↓ reshape(8, 64)</div>
+    <div class="vrow"><div class="lab">K (8 head)</div><div class="vec">
+      <div class="h0">64</div><div class="h1">64</div><div class="h2">64</div><div class="h3">64</div>
+      <div class="h4">64</div><div class="h5">64</div><div class="h6">64</div><div class="h7">64</div></div></div>
+  </div></div>
+  <p>왜 자를까요? head마다 서로 다른 관계를 보게 하려는 겁니다. 논문 표현으로는 <i>"different representation subspaces"</i>입니다. Jay Alammar의 그림 해설도 같은 동작을 "긴 벡터를 행렬로 reshape한다"고 설명합니다.</p>
+  <p class="take">"head 수 × head 크기"는 조각을 다시 이어 붙인 길이, 즉 K 벡터 전체 길이입니다.</p>
+  <div class="quiz" data-quiz='{"q":"원 논문 base에서 head 하나가 가지는 K 조각의 길이는?","options":["8칸","512칸","64칸","4096칸"],"answer":2,"why":"512칸을 8개 head로 나누면 조각 하나는 64칸입니다."}'></div>
+</section>
+
+<section class="step">
+  <div class="tag">3 · 층마다, 토큰마다</div>
+  <h2>토큰 하나가 층마다 K·V를 하나씩 남긴다</h2>
+  <p>레슨 0002에서 본 것처럼 층마다 <code>W_K</code>, <code>W_V</code>가 따로 있습니다. 그래서 토큰 하나는 <b>층 수 × 2(K, V)</b>개의 벡터를 캐시에 남깁니다.</p>
+  <div class="formula">토큰당 KV 바이트 = 2(K,V) × 층 수 × (KV head 수 × head 크기) × 숫자 하나의 바이트</div>
+  <p><b>검증:</b> vLLM 논문(§3)은 OPT-13B로 이 식을 그대로 계산합니다. OPT-13B는 MHA라서 K 길이가 hidden 크기(5120)와 같습니다.</p>
+  <div class="formula">2 × 5120 × 40층 × 2바이트(FP16) = 819,200 B ≈ 800 KB / 토큰</div>
+  <blockquote>"the KV cache of a single token demands 800 KB of space" — Kwon et al., 2023 (vLLM), §3</blockquote>
+</section>
+
+<section class="step">
+  <div class="tag">4 · 2019~2023의 변화</div>
+  <h2>왜 Q head 수가 아니라 KV head 수를 세나</h2>
+  <p>캐시에 들어가는 건 K와 V뿐입니다. 그런데 K·V 조각을 Q만큼 많이 둘 필요가 없다는 연구가 나왔습니다.</p>
+  <div class="scroll">
+  <table class="t">
+    <tr><th>방식</th><th>Q 조각</th><th>K·V 조각</th><th>KV 메모리</th><th>출처</th></tr>
+    <tr><td>MHA</td><td class="num">8</td><td class="num">8</td><td>기준</td><td>Vaswani 2017</td></tr>
+    <tr><td>MQA</td><td class="num">8</td><td class="num">1</td><td>1/8</td><td>Shazeer 2019</td></tr>
+    <tr><td>GQA</td><td class="num">8</td><td class="num">2~4 (Q 여러 개가 공유)</td><td>그 사이</td><td>Ainslie 2023</td></tr>
+  </table>
+  </div>
+  <p>GQA 논문은 MHA에 가까운 품질과 MQA에 가까운 속도를 보고합니다. 디코딩은 매 스텝 KV Cache를 메모리에서 읽어야 하므로 캐시가 작으면 읽을 양이 줄고, 같은 GPU에 요청이 더 들어갑니다.</p>
+  <p><b>Qwen3-1.7B</b>(공식 config.json 확인): <code>num_attention_heads=16</code>, <code>num_key_value_heads=8</code>, <code>head_dim=128</code>, <code>hidden_size=2048</code>, 28층.</p>
+  <div class="scroll"><div style="display:flex;flex-direction:column;gap:8px">
+    <div class="vrow"><div class="lab">Q (16 head)</div><div class="vec">
+      <div class="h0">128</div><div class="h0">128</div><div class="h1">128</div><div class="h1">128</div><div class="h2">128</div><div class="h2">128</div><div class="h3">128</div><div class="h3">128</div>
+      <div class="h4">128</div><div class="h4">128</div><div class="h5">128</div><div class="h5">128</div><div class="h6">128</div><div class="h6">128</div><div class="h7">128</div><div class="h7">128</div></div></div>
+    <div class="vrow"><div class="lab">K (8 head)</div><div style="display:flex"><div class="vec" style="width:50%;min-width:240px">
+      <div class="h0">128</div><div class="h1">128</div><div class="h2">128</div><div class="h3">128</div>
+      <div class="h4">128</div><div class="h5">128</div><div class="h6">128</div><div class="h7">128</div></div></div></div>
+  </div></div>
+  <p class="take">같은 색의 Q 두 조각이 K 한 조각을 같이 씁니다. 그래서 Qwen3-1.7B의 K는 hidden(2048)이 아니라 8 × 128 = 1024칸입니다.</p>
+  <div class="quiz" data-quiz='{"q":"토큰당 KV 크기 식에 들어가지 않는 값은?","options":["층 수","KV head 수","head 크기","Q head 수"],"answer":3,"why":"캐시에는 K와 V만 들어갑니다. Q head 수는 계산량에는 영향을 주지만 캐시 크기와는 상관없습니다."}'></div>
+</section>
+
+<section class="step">
+  <div class="tag">5 · 직접 계산</div>
+  <h2>손으로 먼저, 계산기는 나중에</h2>
+  <div class="quiz" data-num='{"q":"원 논문 base 디코더(MHA, 6층, 8 head × 64, FP32=4바이트)의 토큰당 KV는 몇 바이트?","answer":24576,"tol":0.001,"unit":"바이트","why":"2 × 6 × (8 × 64) × 4 = 24,576 B ≈ 24 KB.","hint":"2 × 층 × (head × 크기) × 바이트. FP32는 4바이트입니다."}'></div>
+  <div class="quiz" data-num='{"q":"Qwen3-1.7B (28층, KV 8 head, head_dim 128, BF16=2바이트)의 토큰당 KV는 몇 바이트?","answer":114688,"tol":0.001,"unit":"바이트","why":"2 × 28 × (8 × 128) × 2 = 114,688 B = 112 KB.","hint":"Q head 수(16)가 아니라 KV head 수(8)를 넣었나요?"}'></div>
+  <p>이제 계산기로 확인하고, "MHA였다면" 버튼으로 GQA가 아낀 양을 보세요. "KV에 쓸 메모리 3GB"는 8GB GPU에서 가중치(약 3.4GB)와 실행 여유분을 뺀 대략값입니다. 실제 값은 W2에서 vLLM 시작 로그로 확인합니다.</p>
+  <div data-kv-calc='{"presets":{"원 논문 base":{"L":6,"H":8,"D":64,"B":4},"Qwen3-1.7B":{"L":28,"H":8,"D":128,"B":2},"Qwen3-1.7B가 MHA였다면":{"L":28,"H":16,"D":128,"B":2},"OPT-13B (vLLM 논문)":{"L":40,"H":40,"D":128,"B":2}},"mem":3,"tokens":2000}'></div>
+  <p class="src">OPT-13B 프리셋은 hidden 5120을 40 head × 128로 나눠 넣었습니다(MHA라 곱이 5120이면 결과가 같습니다). 40 head는 논문에서 직접 확인한 값이 아닙니다.</p>
+</section>
+
+<footer class="next">
+  <p><b>1차 자료 (10분):</b> <a href="https://jalammar.github.io/illustrated-gpt2/">Jay Alammar, The Illustrated GPT-2</a>의 "1.5- Splitting into attention heads" 절. 긴 K 벡터를 head로 자르는 장면이 그림으로 나옵니다. 숫자 검증은 <a href="https://arxiv.org/abs/2309.06180">vLLM 논문</a> §3 "Large KV cache" 한 문단만 읽으세요.</p>
+  <p>논문: <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> §3.2.2 · <a href="https://arxiv.org/abs/1911.02150">MQA (Shazeer 2019)</a> · <a href="https://arxiv.org/abs/2305.13245">GQA (Ainslie 2023)</a> · <a href="https://huggingface.co/Qwen/Qwen3-1.7B/blob/main/config.json">Qwen3-1.7B config.json</a></p>
+  <p><b>이전:</b> <a href="0002-why-cache-k-and-v.html">0002 · 왜 K와 V를 저장하나</a> · <b>요약표:</b> <a href="../reference/kv-cache.html">KV Cache 요약</a> · <b>다음(예정):</b> 0004 prefill과 decode의 병목 → 0005 PagedAttention과 prefix caching</p>
+  <div class="ask">막히면 튜터에게 바로 물어보세요. 예: "2단계에서 자르기만 하는데 왜 head마다 다른 걸 보게 되는지 모르겠어요."</div>
+</footer>
+
+</main>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/kv-calc.js"></script>
+</body>
+</html>

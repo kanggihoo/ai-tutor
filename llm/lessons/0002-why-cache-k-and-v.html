@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0002 · 왜 K와 V를 저장하나</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body>
+<main>
+
+<header class="top">
+  <div class="crumb">KV Cache · 레슨 0002 · 약 10분</div>
+  <h1>생성 한 스텝에서 무엇을 다시 쓰고 무엇을 버리나</h1>
+  <p class="lead">Q·K·V 역할이 흐릿하면 이전 레슨 <a href="0001-qkv-and-masked-attention.html">0001 · Q·K·V와 masked attention</a>부터 보세요. LLM은 토큰을 하나씩 만듭니다. 그때 같은 계산이 매번 반복된다는 걸 직접 버튼으로 확인합니다.</p>
+</header>
+
+<section class="goal">
+  <b>이 레슨이 끝나면</b>
+  <p>t번째 토큰을 만들 때 <b>새로 계산하는 것</b>, <b>캐시에서 꺼내 쓰는 것</b>, <b>버리는 것</b>을 한 문장씩 말할 수 있습니다.</p>
+</section>
+
+<section class="step">
+  <div class="tag">1 · 생성은 루프다</div>
+  <h2>토큰 하나 만들고, 그걸 다시 입력에 붙인다</h2>
+  <p>"나는 오늘"이 들어오면 모델은 다음 토큰 "점심으로"를 냅니다. 그다음엔 "나는 오늘 점심으로" 전체가 다시 입력이 됩니다. 이렇게 한 번에 하나씩 만드는 걸 <b>autoregressive 생성</b>이라고 합니다.</p>
+  <blockquote>"To predict the 1000th token, the model requires information from the previous 999 tokens." — Hugging Face Transformers, Caching</blockquote>
+  <p class="take">문제: 1001번째를 만들 때도 앞의 999개 정보가 또 필요합니다. 같은 걸 매번 다시 계산하면 낭비입니다.</p>
+</section>
+
+<section class="step">
+  <div class="tag">2 · 한 스텝에서 attention이 하는 일</div>
+  <h2>지금 토큰의 Q가 과거 모든 토큰의 K를 훑는다</h2>
+  <p>Attention 논문에서 본 그대로입니다. 지금 토큰의 <b>Q</b>(질문)를 모든 토큰의 <b>K</b>(색인)와 내적해서 점수를 내고, 그 점수로 <b>V</b>(내용)를 섞습니다.</p>
+  <div class="formula">Attention( q_t , [k_1 … k_(t-1), k_t] , [v_1 … v_(t-1), v_t] )</div>
+  <p>백엔드로 치면 Q는 검색어, K는 인덱스, V는 실제 레코드입니다. 새 검색어는 하나뿐이고, 인덱스와 레코드는 과거 것이 전부 필요합니다.</p>
+  <p class="take">필요한 것: 지금 토큰의 Q 1개 + 과거·현재 모든 토큰의 K와 V.</p>
+</section>
+
+<section class="step">
+  <div class="tag">3 · 왜 저장해도 되나</div>
+  <h2>과거 토큰의 K·V는 나중에 바뀌지 않는다</h2>
+  <p>GPT 계열은 <b>causal mask</b>를 씁니다. 각 토큰은 자기보다 <b>앞</b>만 볼 수 있습니다. 그래서 "오늘"의 K·V는 "나는 오늘"만 보고 정해지고, 뒤에 무슨 토큰이 오든 같습니다.</p>
+  <blockquote>"Once a token is processed, its representation never changes with respect to future tokens, which means K_past and V_past can be cached and reused." — Hugging Face Transformers, Caching</blockquote>
+  <p>직접 해 보세요. <b>다음 토큰 생성</b>을 여러 번 누르고, 모드를 "캐시 없음"으로 바꿔 빨간 테두리(다시 계산하는 행)를 보세요.</p>
+  <div data-decode-sim='{"words":["나는","오늘","점심으로","김치찌개를","먹었다",".","그리고","커피를","마셨다","."],"heads":8}'></div>
+  <p class="take">캐시가 있으면 매 스텝 새 행 1개만 계산합니다. 없으면 1+2+3+…로 쌓여서 길이의 제곱으로 늘어납니다.</p>
+</section>
+
+<section class="step">
+  <div class="tag">4 · Q는?</div>
+  <h2>Q는 왜 저장하지 않을까</h2>
+  <p>시뮬레이터 맨 아래 점선 행을 보세요. 어떤 Q가 쓰이고 있나요? 답을 먼저 정하고 아래 퀴즈를 푸세요.</p>
+  <div class="quiz" data-quiz='{"q":"Q를 캐시하지 않는 이유는?","options":["Q는 K보다 메모리를 더 써서","Q에는 RoPE가 적용되지 않아서","Q는 항상 V와 크기가 달라서","과거 Q는 다시 쓰이지 않아서"],"answer":3,"why":"과거 토큰의 Q는 그 토큰을 만들 때 한 번 쓰이고 끝납니다. 다시 쓰이는 것만 캐시할 가치가 있습니다.","hint":"점선 Q 행에는 몇 개의 토큰이 있나요?"}'></div>
+</section>
+
+<section class="step">
+  <div class="tag">5 · 층마다 따로</div>
+  <h2>캐시는 층 수만큼 있다</h2>
+  <p>층마다 K·V를 만드는 행렬이 따로 있어서, 같은 토큰이라도 층마다 다른 K·V가 나옵니다. 그래서 캐시는 <b>층별 목록</b>입니다. Hugging Face 구현에서 층 하나의 캐시 모양은 다음과 같습니다.</p>
+  <pre class="code">cache.layers[i].keys   : [batch, num_heads, seq_len, head_dim]
+cache.layers[i].values : [batch, num_heads, seq_len, head_dim]
+# 새 토큰이 오면 seq_len 방향으로 붙인다 (torch.cat, dim=-2)</pre>
+  <p class="take">대가: 계산은 줄지만 메모리는 토큰마다 늘어납니다. 얼마나 늘어나는지가 다음 레슨입니다.</p>
+</section>
+
+<section class="step">
+  <div class="tag">헷갈리기 쉬운 것</div>
+  <div class="warnbox">
+    <p><b>KV Cache ≠ API 프롬프트 캐싱 할인.</b> KV Cache는 <b>요청 하나 안에서</b> 이전 토큰의 K·V를 다시 계산하지 않으려는 것입니다. API 할인은 <b>요청 사이에서</b> 같은 앞부분(시스템 프롬프트 등)의 K·V를 재사용하는 <b>prefix caching</b>입니다. 둘 다 K·V를 저장하지만 범위가 다릅니다. prefix caching은 이후 레슨에서 다룹니다.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="tag">확인 (기억으로 풀기)</div>
+  <div class="quiz" data-quiz='{"q":"1. 캐시가 있을 때 t번째 스텝에서 새로 계산하는 K·V는?","options":["앞 토큰 전부의 K·V","새 토큰 하나의 K·V","첫 토큰 하나의 K·V","앞 토큰 절반의 K·V"],"answer":1,"why":"과거 K·V는 캐시에서 꺼내고, 방금 들어온 토큰의 K·V만 계산해서 캐시에 붙입니다."}'></div>
+  <div class="quiz" data-quiz='{"q":"2. 과거 토큰의 K·V가 나중에 바뀌지 않는 이유는?","options":["RoPE가 위치를 고정시켜서","softmax가 합을 맞춰 줘서","causal mask가 미래를 가려서","LayerNorm이 크기를 맞춰서"],"answer":2,"why":"각 토큰은 자기 앞만 보므로, 뒤에 오는 토큰이 과거 토큰의 K·V에 영향을 줄 수 없습니다."}'></div>
+  <div class="quiz" data-quiz='{"q":"3. API 프롬프트 캐싱 할인과 가장 가까운 것은?","options":["요청 안의 KV Cache","요청 사이 prefix caching","가중치 INT8 양자화","배치 크기 늘리기"],"answer":1,"why":"요청 사이에서 같은 앞부분의 K·V를 재사용하는 것이 prefix caching입니다."}'></div>
+</section>
+
+<footer class="next">
+  <p><b>1차 자료 (5분):</b> <a href="https://huggingface.co/docs/transformers/v5.14.0/cache_explanation">Hugging Face Transformers — Caching</a>. 이 레슨의 인용과 캐시 모양은 여기서 가져왔습니다. 그림으로 더 보고 싶으면 <a href="https://jalammar.github.io/illustrated-gpt2/">Jay Alammar, The Illustrated GPT-2</a>의 "Evaluation Time: Processing One Token at a Time" 절을 보세요.</p>
+  <p><b>이전:</b> <a href="0001-qkv-and-masked-attention.html">0001 · Q·K·V와 masked attention</a> · <b>다음:</b> <a href="0003-kv-cache-size.html">0003 · KV Cache는 얼마나 큰가</a> · 요약표: <a href="../reference/kv-cache.html">KV Cache 요약</a></p>
+  <div class="ask">이해 안 되는 부분이 있으면 튜터에게 바로 물어보세요. "3단계의 causal mask가 왜 그렇게 되는지 모르겠어요"처럼 어디서 막혔는지 말해 주면 됩니다.</div>
+</footer>
+
+</main>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/decode-sim.js"></script>
+</body>
+</html>

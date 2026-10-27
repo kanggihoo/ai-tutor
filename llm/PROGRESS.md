@@ -68,7 +68,8 @@
 필수 실습을 📖로 남겼다면 "기록 정리 완료, 필수 실습 미완료"로 함께 표시한다.
 
 ## 약점 (Weak spots)
-- (아직 없음. 인터뷰 기준 공백은 프로필 참고)
+- RoPE 원리: "상대 위치"라는 말만 알고, 회전하면 내적에 m−n만 남는 이유를 모름 (2026-10-27 퀴즈)
+- KV Cache: 왜 K·V만 재사용해도 되는지, K 모양이 "KV head × head_dim"인 이유를 모름. API 프롬프트 캐싱(prefix caching)과 혼동함 → 레슨 0001~0003
 
 ## 확인한 진도
 | 주 | 항목 | 상태 | 증거 |
@@ -80,6 +81,7 @@
 
 ## 세션 로그
 - 2026-10-27 (Windows): 인터뷰로 수준 파악, Claude와 Codex(GPT-6.1-Sol)가 20턴 토론으로 주차안 확정, 과목 폴더 생성. 레슨 진행은 아직 안 함.
+- 2026-10-27 (Windows): W1 환경 ① 시작. WSL2 `nvidia-smi` 확인(4070 8188MiB). Docker Desktop이 꺼져 있어서 pull은 대기 중. 복습 퀴즈에서 KV Cache 공백을 확인하고 `/teach` 구조를 도입함(lessons 0001~0003, reference/kv-cache.html).
 
 ## 다음 단계
 1. **W1 환경 슬롯 ①**: WSL2에서 `nvidia-smi` 확인, Docker `--gpus all` 테스트, vLLM·SGLang·Triton 이미지 pull을 백그라운드로 시작, HF와 Modal 가입.

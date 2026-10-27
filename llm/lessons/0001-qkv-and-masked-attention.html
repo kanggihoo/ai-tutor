@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0001 · Q·K·V와 masked attention</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body>
+<main>
+
+<header class="top">
+  <div class="crumb">KV Cache · 레슨 0001 · 약 20분</div>
+  <h1>Q·K·V는 무엇이고, 과거 K·V는 왜 안 바뀌나</h1>
+  <p class="lead">Attention 논문에서 Q·K·V라는 이름은 봤지만 각자 무슨 일을 하는지는 흐릿한 상태에서 시작합니다. 문장 하나로 직접 눌러 보면서 확인합니다.</p>
+</header>
+
+<section class="goal">
+  <b>이 레슨이 끝나면</b>
+  <ul>
+    <li>Q·K·V가 각각 무슨 역할인지 예시 문장으로 설명할 수 있습니다.</li>
+    <li>multi-head attention에서 head 하나가 따로 하는 일이 무엇인지 말할 수 있습니다.</li>
+    <li>"과거 토큰의 K·V는 새 토큰이 와도 안 바뀐다"를 <b>층별 의존 관계</b>로 증명할 수 있습니다.</li>
+  </ul>
+</section>
+
+<!-- 1 -->
+<section class="step">
+  <div class="tag">1 · 한 토큰에서 세 벡터</div>
+  <h2>같은 토큰 벡터에 서로 다른 행렬 세 개를 곱한다</h2>
+  <p>층에 들어온 토큰 벡터 <code>x</code>는 하나입니다. 여기에 학습된 행렬 <code>W_Q</code>, <code>W_K</code>, <code>W_V</code>를 각각 곱하면 역할이 다른 벡터 세 개가 나옵니다. 재료는 같고 용도만 다릅니다.</p>
+  <div class="scroll"><div style="display:flex;flex-direction:column;gap:8px">
+    <div class="vrow"><div class="lab">x ("울었다")</div><div class="vec"><div style="background:var(--muted)">토큰 벡터</div></div></div>
+    <div class="vrow"><div class="lab">x · W_Q →</div><div class="vec"><div style="background:var(--new)">Q : 내가 찾는 것</div></div></div>
+    <div class="vrow"><div class="lab">x · W_K →</div><div class="vec"><div style="background:var(--accent)">K : 나를 찾을 때 쓰는 라벨</div></div></div>
+    <div class="vrow"><div class="lab">x · W_V →</div><div class="vec"><div style="background:var(--ok)">V : 내가 건네줄 내용</div></div></div>
+  </div></div>
+  <blockquote>"An attention function can be described as mapping a query and a set of key-value pairs to an output … The output is computed as a weighted sum of the values." — Vaswani et al., 2017, §3.2</blockquote>
+</section>
+
+<!-- 2 -->
+<section class="step">
+  <div class="tag">2 · 역할</div>
+  <h2>서류함에서 자료 찾기</h2>
+  <blockquote>"The query is like a sticky note with the topic you're researching. The keys are like the labels of the folders inside the cabinet." 라벨이 맞으면 폴더를 열어 내용물을 꺼내는데, 그 내용물이 value vector다. — Jay Alammar, The Illustrated GPT-2</blockquote>
+  <div class="qkv">
+    <div><span class="big" style="color:var(--new)">Q</span><b>찾는 것 (포스트잇)</b><span>"울었다"의 Q: "누가 울었지?"</span><span class="src">백엔드: 검색어</span></div>
+    <div><span class="big" style="color:var(--accent)">K</span><b>찾기용 라벨 (폴더 이름표)</b><span>"고양이는"의 K: "나는 주어가 될 수 있는 명사"</span><span class="src">백엔드: 인덱스 키</span></div>
+    <div><span class="big" style="color:var(--ok)">V</span><b>건네줄 내용 (폴더 속 서류)</b><span>"고양이는"의 V: 고양이라는 의미 자체</span><span class="src">백엔드: 레코드 본문</span></div>
+  </div>
+  <p><b>K와 V를 왜 따로 두나요?</b> 찾기 좋은 표현과 건네줄 내용은 다릅니다. 도서관 색인 카드에는 "주제: 고양이"라고만 적혀 있고, 실제로 가져가는 건 책 내용입니다. 둘을 나눠 두면 모델이 "무엇으로 찾을지"와 "무엇을 넘길지"를 따로 학습할 수 있습니다.</p>
+  <p class="src">예시 속 "주어", "의미" 같은 말은 이해를 위한 비유입니다. 실제 벡터는 사람이 읽을 수 있는 이름표가 아니라 숫자 묶음입니다.</p>
+  <div class="quiz" data-quiz='{"q":"K와 V를 따로 두는 이유로 가장 맞는 것은?","options":["메모리를 절반으로 줄이려고","찾는 표현과 넘길 내용이 달라서","학습 속도를 두 배로 하려고","위치 정보를 따로 담으려고"],"answer":1,"why":"K는 매칭에 쓰이고 V는 결과에 섞입니다. 역할이 달라서 따로 학습합니다."}'></div>
+</section>
+
+<!-- 3 -->
+<section class="step">
+  <div class="tag">3 · 한 head의 계산 4단계</div>
+  <h2>점수 → 가리기 → softmax → V 섞기</h2>
+  <ol>
+    <li><b>점수</b>: 지금 위치의 Q와 각 토큰의 K를 내적합니다. 라벨이 잘 맞을수록 점수가 큽니다.</li>
+    <li><b>가리기 (causal mask)</b>: 지금보다 <b>뒤</b> 토큰의 점수는 −∞로 바꿉니다.</li>
+    <li><b>softmax</b>: 점수를 합이 100%인 비율로 바꿉니다. −∞는 0%가 됩니다.</li>
+    <li><b>V 섞기</b>: 그 비율대로 V들을 더합니다. 이것이 이 위치의 출력입니다.</li>
+  </ol>
+  <p>직접 해 보세요. 지금 위치를 바꿔 보고, mask를 끄면 뒤 토큰까지 섞이는 것도 확인하세요.</p>
+  <div data-attn-demo='{"tokens":["그","고양이는","배가","고파서","울었다"],"heads":{"head A":{"ask":"누가/무엇이? (주어 찾기)","scores":[[2,1,0,0,0],[2,3,0,0,1],[0,2,2,1,0],[0,1,3,2,0],[0,4,0,1,1]]},"head B":{"ask":"왜? 어떤 상태? (이유 찾기)","scores":[[2,0,0,0,0],[1,2,0,0,0],[0,1,2,2,0],[0,0,3,2,1],[0,1,3,4,1]]}}}'></div>
+  <p class="src">점수는 설명용으로 만든 숫자입니다. softmax와 mask 계산은 실제와 같습니다.</p>
+  <div class="quiz" data-quiz='{"q":"\"울었다\"의 Q가 \"고양이는\"의 K와 잘 맞으면, 결과에 많이 섞이는 것은?","options":["\"울었다\"의 K","\"울었다\"의 V","\"고양이는\"의 V","\"고양이는\"의 Q"],"answer":2,"why":"점수는 Q·K로 정하고, 실제로 섞이는 것은 그 점수를 받은 토큰의 V입니다."}'></div>
+</section>
+
+<!-- 4 -->
+<section class="step">
+  <div class="tag">4 · multi-head</div>
+  <h2>질문을 여러 개 동시에 던진다</h2>
+  <p>위 데모에서 head A와 head B를 바꿔 보세요. 같은 "울었다"인데 head A는 "고양이는"을, head B는 "배가 고파서"를 봅니다. head마다 자기만의 <code>W_Q</code>, <code>W_K</code>, <code>W_V</code> 조각이 있어서, <b>서로 다른 질문</b>으로 1~3단계를 따로 계산합니다.</p>
+  <div class="formula">head 1 … head 8 각자 attention → 결과를 이어 붙임(concat) → W_O 곱하기 → 다음으로</div>
+  <blockquote>"Multi-head attention allows the model to jointly attend to information from different representation subspaces" … "These are concatenated and once again projected, resulting in the final values." — Vaswani et al., 2017, §3.2.2</blockquote>
+  <p>head마다 별도 행렬을 쓰는 것과 큰 행렬 하나로 만든 Q·K·V를 head 수만큼 <b>잘라 쓰는 것</b>은 같은 계산입니다. 실제 코드는 후자로 짜고, 그래서 K 길이가 "head 수 × head 크기"가 됩니다. 이 모양 이야기는 <a href="0003-kv-cache-size.html">0003</a>에서 이어집니다.</p>
+  <div class="quiz" data-quiz='{"q":"multi-head에서 head 하나가 따로 하는 일은?","options":["자기 층을 하나씩 따로 맡음","자기 토큰을 하나씩 따로 맡음","자기 조각으로 attention 계산","자기 출력을 바로 토큰으로 냄"],"answer":2,"why":"모든 head는 같은 토큰들을 보지만, 자기 Q·K·V 조각으로 점수와 가중합을 따로 계산합니다."}'></div>
+</section>
+
+<!-- 5 -->
+<section class="step">
+  <div class="tag">5 · 핵심</div>
+  <h2>과거 토큰의 K·V는 왜 안 바뀌나</h2>
+  <p>토큰 i의 ℓ층 K는 <code>K = x_i · W_K</code>입니다. 그러니 <b>W_K</b>와 <b>x_i</b> 두 가지가 그대로면 K도 그대로입니다. V도 같습니다.</p>
+  <div class="scroll"><table class="t">
+    <tr><th>재료</th><th>왜 그대로인가</th></tr>
+    <tr><td><code>W_K</code>, <code>W_V</code></td><td>추론 중에는 학습하지 않아서 가중치가 고정입니다.</td></tr>
+    <tr><td>토큰 i의 위치</td><td>새 토큰은 <b>맨 뒤</b>에 붙으므로 과거 토큰의 위치 번호가 밀리지 않습니다. 그래서 RoPE 회전 각도도 그대로입니다.</td></tr>
+    <tr><td><code>x_i</code> (층 입력)</td><td>causal mask 때문에 x_i는 토큰 1~i로만 계산됩니다. 아래 격자에서 확인합니다.</td></tr>
+  </table></div>
+  <blockquote>"We need to prevent leftward information flow in the decoder to preserve the auto-regressive property." 그래서 위치 i의 예측은 "can depend only on the known outputs at positions less than i." — Vaswani et al., 2017, §3.2.3, §3.1</blockquote>
+  <p><b>층을 따라 올라가며 확인하기.</b> 맨 아래 임베딩 x_i는 토큰 i 하나로 정해집니다. 1층 출력 x_i는 mask 때문에 임베딩 x_1~x_i만 봅니다. 2층도 1층의 x_1~x_i만 봅니다. 그러니 몇 층을 올라가도 x_i는 토큰 1~i로만 정해집니다. 토큰 i+1이 새로 와도 x_i는 바뀌지 않습니다.</p>
+  <p>직접 해 보세요. ① 3층 출력의 x2를 눌러 무엇에 의존하는지 보세요. ② <b>토큰 하나 추가</b>를 눌러 어떤 칸이 새로 생기거나 바뀌는지 보세요. ③ mask를 끄고 다시 추가해 보세요.</p>
+  <div data-causal-grid='{"tokens":["그","고양이는","배가","고파서"],"layers":3,"extra":["울었다","."]}'></div>
+  <div class="warnbox">
+    <p><b>BERT와 비교.</b> BERT는 mask 없이 양쪽을 모두 봅니다. Alammar는 일반 self-attention이 "allows a position to peak at tokens to its right"라고 씁니다. 그러면 새 토큰이 붙을 때 과거 토큰의 1층 이상 출력이 전부 바뀝니다. 그래서 BERT 같은 양방향 모델로는 이런 방식의 KV Cache를 쓸 수 없습니다.</p>
+  </div>
+  <div class="quiz" data-quiz='{"q":"GPT 계열에서 3층의 토큰 2 출력은 어떤 토큰들로 정해지나?","options":["토큰 1~5 전부","토큰 2 하나만","토큰 3 이후만","토큰 1과 2만"],"answer":3,"why":"mask 때문에 어느 층이든 위치 2는 위치 1~2만 봅니다. 층을 올라가도 범위가 넓어지지 않습니다."}'></div>
+  <div class="quiz" data-quiz='{"q":"mask 없는 양방향 모델에 토큰을 하나 더 붙이면?","options":["새 토큰 K·V만 바뀐다","과거 V만 다시 바뀐다","과거 K·V도 전부 바뀐다","과거 K만 다시 바뀐다"],"answer":2,"why":"과거 위치들도 새 토큰을 보게 되므로 1층 이상의 출력, 그리고 그 출력에서 만든 K·V가 모두 바뀝니다."}'></div>
+</section>
+
+<!-- 6 -->
+<section class="step">
+  <div class="tag">6 · 합치기</div>
+  <h2>생성 한 스텝, 층 하나에서 일어나는 일</h2>
+  <pre class="code">q, k, v = x_new @ W_Q, x_new @ W_K, x_new @ W_V   # 새 토큰 1개분만 계산
+cache.K.append(k); cache.V.append(v)               # 과거 K·V는 그대로, 뒤에 붙이기
+for h in heads:                                    # head마다 따로
+    점수   = q[h] · cache.K[h]                      # 과거 + 지금 토큰 전부
+    비율   = softmax(점수)                          # mask 불필요: 캐시엔 과거만 있음
+    out[h] = 비율 · cache.V[h]
+x_new = concat(out) @ W_O  → MLP → 다음 층</pre>
+  <p class="take">지금 토큰의 Q는 한 번 쓰고 버립니다. K·V는 다음 스텝에서도 쓰이므로 저장합니다. 이것이 KV Cache입니다.</p>
+</section>
+
+<footer class="next">
+  <p><b>1차 자료 (15분):</b> <a href="https://jalammar.github.io/illustrated-gpt2/">Jay Alammar, The Illustrated GPT-2</a>의 "Self-Attention Process"와 "Masked Self-Attention" 절. 서류함 비유와 BERT 비교가 그림으로 나옵니다. 원문 확인은 <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a> §3.1~3.2.3.</p>
+  <p><b>다음:</b> <a href="0002-why-cache-k-and-v.html">0002 · 왜 K와 V를 저장하나</a> → <a href="0003-kv-cache-size.html">0003 · KV Cache는 얼마나 큰가</a> · 요약표: <a href="../reference/kv-cache.html">KV Cache 요약</a></p>
+  <div class="ask">막히면 튜터에게 바로 물어보세요. 예: "5단계 격자에서 왜 2층이 1층의 x1~x2만 보는지 모르겠어요."</div>
+</footer>
+
+</main>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/attention-viz.js"></script>
+</body>
+</html>

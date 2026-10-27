@@ -14,6 +14,16 @@
 - 답: 여전히 사실상 표준이다(ALiBi는 경쟁에서 밀림). 다만 그대로 쓰기보다 조정하는 쪽이다. 회전 주파수 조정(`rope_theta`, YaRN), 층마다 다른 설정(Gemma 3의 local/global), 일부 층은 위치 인코딩 없이 두기(Llama 4 iRoPE), 차원 일부에만 적용(DeepSeek MLA), 멀티모달 확장(M-RoPE)이 있다. linear attention 층은 RoPE를 쓰지 않는다(hybrid 모델). Qwen3.5와 Gemma 4의 실제 설정은 W2에서 `config.json`으로 확인한다.
 - 한 줄 요약: RoPE는 교체되지 않았고, 조정·부분 적용·NoPE 혼합으로 변형되는 중이다.
 
+### Q. KV Cache 메모리는 왜 그 계산식이 되나? (가중치와는 뭐가 다른가)
+- 2026-10-27 · W1 · 복습
+- 답: 층마다 attention이 따로 있으므로 토큰 하나가 층마다 K와 V를 남긴다. 한 층의 K 크기는 KV head 수 × head 크기이고, V도 같다. 그래서 토큰당 KV = 2 × 층 수 × KV head 수 × head 크기 × 바이트다. Qwen3-1.7B(28층, KV 8 head, head_dim 128은 config.json에서 확인함, BF16)는 114,688B ≈ 112KB/토큰이다. 가중치는 고정 크기(1.7B × 2B ≈ 3.4GB)지만, KV는 토큰 수 × 동시 요청 수만큼 늘어나서 동시 처리 한도를 정한다.
+- 한 줄 요약: 토큰당 KV = 2(K,V) × 층 × KV head × head 크기 × 바이트. 가중치는 고정, KV는 토큰 × 동시 요청만큼 늘어난다.
+
+### Q. API 프롬프트 캐싱 할인도 KV Cache인가?
+- 2026-10-27 · W1 · 복습
+- 답: 둘 다 K와 V를 저장하지만 범위가 다르다. KV Cache는 요청 하나 안에서 토큰을 생성할 때 이전 토큰의 K와 V를 다시 계산하지 않으려고 쓴다. API 할인은 요청 사이에 같은 앞부분의 KV를 재사용하는 것으로, prefix caching(W3 vLLM, W5 SGLang RadixAttention)이다.
+- 한 줄 요약: KV Cache는 요청 안의 재계산을 없애고, prefix caching은 요청 사이의 같은 prefill을 없앤다.
+
 ## 학습 (SFT · RLHF · LoRA · 증류)
 
 ## 양자화
