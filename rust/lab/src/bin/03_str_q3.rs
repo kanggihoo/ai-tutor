@@ -1,6 +1,6 @@
 fn main() {
     let mut s = String::from("hello world");
-    let w = &s[0..5];
     s.push('!');
+    let w = &s[0..5];
     println!("{w} {s}");
 }
