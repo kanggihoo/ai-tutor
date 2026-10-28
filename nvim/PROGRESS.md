@@ -19,10 +19,10 @@
 | 5 | 비주얼 + 텍스트 오브젝트: v V Ctrl-v, iw ip i" i( it, >> << J, gc | ✅ (2026-10-27) | `gcc` `V j gc` 확인(미션 08). v/V 후 d는 설명만. `>> << J` 남음 |
 | 6 | 레지스터/복붙: dd가 복사본 덮는 문제, "0p, "_d, :reg | ✅ (2026-10-27) | `yy p` `"0p` `"_dd` 퀴즈 정답. 레지스터 덮어쓰기 약점 해소 |
 | 7 | 프로젝트 검색/치환: Space / , Space sw, grug-far, :%s | ✅ (2026-10-27) | `Space /` 확인(미션 02). `:%s`(VS Code Cmd+H 대응)와 grug-far(`Space s r`, 소스 확인)는 설명만. 이름 일괄 변경은 Claude Code에 시킨다며 패스 |
-| 8 | 코드 탐색(LSP): gd gr K, Space ca/cr/cf, ]d [d | ⏸ 보류 | **블로커**: Mac에 설치된 언어 서버는 `lua-language-server`뿐이고 `lazyvim.json` extras가 비어 있어 카페 `.js`에서는 `gd` `gr` `K`가 안 됨(2026-10-27 확인). 다음 세션에 사용자의 주 언어를 묻고 ①lua 파일(`~/.config/nvim/lua/`)로 연습 ②typescript extra 설치(설정 수정이라 승인 필요) ③패스 중 선택. `gd`는 `lua vim.lsp.buf.definition()`으로 `lsp/keymaps.lua` 확인, `gr` `K`는 소스 미확인 |
-| 9 | 버퍼/윈도우/터미널 | 🔄 | 버퍼·좌우 분할·창 이동·확대 완료, 터미널 `Ctrl+/` 열기·숨기기 확인(Mac). **위아래 분할**(Mac은 `Space -`, Windows는 `Ctrl+w s`)과 `Space f t` 남음 |
-| 10 | Git: lazygit Space gg, gitsigns ]h [h, 외부 수정 반영 :e! | ⬜ | |
-| 11 | 매크로/마크/quickfix (선택) | ⬜ | |
+| 8 | 코드 탐색(LSP): gd gr K, Space ca/cr/cf, ]d [d | ✅ (2026-10-28) | `gd` `gr` `K` 확인·퀴즈. Windows에는 typescript extra+vtsls 설치함. **Mac은 미설치**(Mac에서 하려면 `:LazyExtras`에서 `lang.typescript`). `Space ca/cr/cf` `]d [d`는 안 다룸 |
+| 9 | 버퍼/윈도우/터미널 | ✅ (2026-10-28) | 버퍼·좌우 분할·창 이동·확대·터미널 `Ctrl+/` 확인. 위아래 분할은 Windows에서 `Ctrl+w`가 터미널에 먹혀 `:sp`로 확인(`Ctrl+j/k` 이동, `Space w d` 닫기). `Space f t`는 설명만 |
+| 10 | Git: lazygit Space gg, gitsigns ]h [h, 외부 수정 반영 :e! | ✅ (2026-10-28) | `Space g g` `]h` `Space g h p` 확인. 퀴즈에서 `Space g g`, `]h` 틀림/모름 → 약점. `[h` `:e!`는 설명만 |
+| 11 | 매크로/마크/quickfix (선택) | ⏭ 패스 (2026-10-28) | 매크로는 설명만, 자주 안 쓸 것 같다며 패스 |
 | 12 | 종합 | ⬜ | 미션 11(정책 변경), 12(힌트 없는 복습) |
 
 ## 약점 (Weak spots)
@@ -68,6 +68,15 @@
 - 2026-10-27 (Mac): 저장소를 `ai-tutor`로 바꾸고 nvim 자료를 `nvim/`으로 옮김(`rust/` 과목 추가). `Space Space`는 git 루트 기준이라 rust 파일도 보임 → `Space f F`(cwd) 안내.
 
 ## 다음 단계
+0. **여기서 이어서 (2026-10-28, Windows 세션 종료 시점)**: 레슨 8·9·10 완료, 11 패스. **레슨 12 미션 11 진행 중**(정책 변경: 배송비 2,500, 라테 4,800). 디스크 상태: `docs/shipping.md`는 2,500원 완료. `src/config.js`는 `shippingFee: 3000` 그대로(→2500 필요). `src/data/menu.json` 3행이 `{ 5id": "latte"...`로 깨져 있고 가격 4500(→ `u`로 `"id"` 복구 후 4800; 깨진 파일은 커밋하지 않음, 복구 안 되면 `git checkout -- src/data/menu.json`). 남은 과제: 분할 화면(`:vs`/`:sp`)으로 코드·문서 비교, 모두 저장, 버퍼 목록에서 menu.json만 닫기(`Space b d`). 끝나면 `ciw`로 값 바꾸다 `5id`가 생긴 원인(키 오입력 추정)을 한 번 짚고, 미션 12(힌트 없는 복습)로. 시작 시 복습 퀴즈: `Space g g`, `]h`, `Ctrl-o`.
+0. 2026-10-28 (Windows) 레슨 9 마무리: 위아래 분할은 `Ctrl+w`를 터미널이 먼저 가로채(창 닫힘 보고, 터미널 종류 미확인) `:sp`로 대체 → 분할, `Ctrl+j/k` 이동, `Space w d` 닫기 모두 확인. `Space f t`는 설명만(`Ctrl+w` 충돌 원인은 미확인). 레슨 9 완료. 남은 것: 레슨 12 종합(미션 11·12).
+0. 2026-10-28 (Windows) 레슨 11 패스: 매크로(`qa`…`q`, `@a`, 녹화 중 `recording @a` 표시)는 설명만, 사용자가 자주 쓸 것 같지 않다며 패스. 마크/quickfix는 다루지 않음. 남은 것: 레슨 9(위아래 분할 `Ctrl+w s`), 레슨 12 종합(미션 11·12). 다음 복습 퀴즈: `Space g g`, `]h`, `Ctrl-o`(돌아오기).
+0. 2026-10-28 (Windows) 레슨 11 시작(매크로만, 선택): `qa`…`q`, `@a` 안내, 과제 결과는 아직 못 받음. 질문 답변: `Space f t`=터미널(루트 기준)/`Space f T`=cwd 기준(소스 확인, 설명만). `Alt+j`/`Alt+k`=줄 이동(VSCode Alt+방향키 대응, 소스 확인 + Windows에서 직접 확인).
+0. 2026-10-28 (Windows) 레슨 10 퀴즈: `"0p` 정답(레지스터 약점 졸업). `Space g g`는 모르겠다고 함(과제 1에서는 열었음, 재확인 필요), `]h`는 `n/N`으로 오답(검색 키와 혼동). `:e!`=리로드 이해함. 약점 추가: `Space g g`, `]h` `[h`. 다음 세션 복습 퀴즈에 포함.
+0. 2026-10-28 (Windows) 레슨 10: `Space g g` lazygit 열기 확인. hunk 개념(=git diff의 `@@` 블록, 현재 파일만 대상, 커밋/스테이징 기준 비교) 이해함. `]h` 확인(main.js 11행, `git diff`로 대조), `Space g h p` hunk 미리보기 팝업 확인(소스 미확인, 실제로 뜸). 남은 것: `[h`, 외부 수정 반영 `:e!`, 레슨 10 퀴즈.
+0. 2026-10-28 (Windows) 레슨 9 남은 것(위아래 분할 `Ctrl+w s`, `Space f t`)은 사용자가 레슨 10을 먼저 하자고 해서 보류. 레슨 10 시작.
+0. 2026-10-28 (Windows) 레슨 8 재개: 사용자 주 언어 JS 확인 → `lazyvim.json`에 `lazyvim.plugins.extras.lang.typescript` 추가(사용자 승인, Windows `%LOCALAPPDATA%\nvim`), Mason에 `vtsls`·`js-debug-adapter` 설치, headless로 `src/main.js`에 vtsls 붙는 것 확인. **Mac에는 아직 미적용**(Mac에서도 쓰려면 `:LazyExtras`에서 `lang.typescript` 켜기). `gd` 확인(`orders.js`로 이동), `Ctrl-o`/`Ctrl-i`로 파일 넘나드는 점프 이해함. `gr`(참조 목록, 커서 위치와 무관하게 같은 결과)·`K`(시그니처는 항상, 설명은 `/** */` JSDoc일 때만) 개념 이해, `K` 팝업 확인(`gr` 결과 목록은 보고 못 받음). 레슨 8 퀴즈: `gd` `gr` 정답, "돌아오기"는 `Ctrl-i, o` 둘 다 답함(돌아오기는 `Ctrl-o`만, 약점 유지). 레슨 8 완료(표는 ✅로 갱신). 다음은 레슨 10(git).
+0. 2026-10-28 (Windows) 복습 퀴즈: `Ctrl-o` 정답, `^` 정답. 레지스터 붙여넣기는 `p0`로 순서를 뒤바꿔 답함(정답은 `"0p`, 따옴표 → 레지스터 → p. 거의 이해, 한 번 더 확인). 다음은 레슨 10(git, lazygit).
 0. 2026-10-27 (Mac) 레슨 1·6·7 완료 처리. **다음은 레슨 8 이어서**: 위 커리큘럼 표의 블로커 확인 후 사용자 주 언어부터 묻기. 이후 레슨 10(git), 레슨 9 남은 것(`Space -`, `Space f t`), 종합 미션 11·12 순서로 추천함.
 0. 2026-10-27 (Mac) 레슨 6: 복습 퀴즈 `Ctrl-o` 정답, `dd`가 `p`를 덮어쓴다는 것도 정답(`"0p`는 힌트 후 이해). 레지스터 구조 설명: `"`=레지스터 선택 접두사, `0`=y 전용 고정 칸, `1`~`9`=줄 단위 삭제 큐, `-`=작은 삭제, `a`~`z`=직접 이름 붙인 칸(설명만), `* +`=OS 클립보드, `.` `%` `/` 특수. `"_dd` 과제 3은 해봤다고 긍정 응답(붙은 결과 보고는 못 받음). 레슨 6 퀴즈: `"0p` / `"_dd`+`p`, `"3p`(큐 번호), `n`/`N` 모두 정답. 레슨 6 완료. 다음은 레슨 7(`:%s` 치환) 또는 레슨 9 남은 것(위아래 분할 `Space -`, `Space f t`).
 0. 2026-10-27 (Windows) 레슨 3: `*`+`n`/`N` 개념 이해함(본인 말로 설명). `#`는 설명만(패스, `*`만 쓰겠다고 함). 다음은 `Ctrl-o`/`Ctrl-i`.

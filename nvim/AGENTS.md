@@ -34,6 +34,9 @@
 | `Ctrl+/` 터미널 | 열림 (2026-10-26 사용자 확인) | 미확인 |
 | 사용자 커스텀 | `Space x o` 시스템 앱 열기, `Z` zoxide(telescope), `ZZ`/`ZQ` 비활성 | 미확인 |
 | git | 정상 | 계정이 다르면 dubious ownership → `git -c safe.directory=C:/Users/SSAFY/Desktop/ai-tutor ...` |
+| `Ctrl+w` | 미확인 | 터미널이 먼저 가로채 창이 닫힌다고 보고(2026-10-28, 터미널 종류 미확인). 위아래 분할은 `:sp`, 좌우는 `Space \|`나 `:vs` |
+| `Alt+j/k` 줄 이동 | 미확인 | 되는 것 확인(2026-10-28) |
+| LSP(JS) | typescript extra+vtsls 설치됨(2026-10-28) | 미설치. `:LazyExtras`에서 `lang.typescript` |
 | 붙여넣기 | 일반 모드 `Ctrl+v`는 비주얼 블록. 외부 텍스트는 입력 모드에서 붙여넣기 | 일반 모드 `Ctrl+v`로 붙였더니 첫 글자 `f` 누락·들여쓰기 변화 관찰. 원인 미확인(붙여넣은 글자가 일반 모드 키로 해석됐을 가능성) |
 
 새로 확인한 기기별 차이는 이 표에 날짜와 함께 추가한다.
