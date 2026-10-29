@@ -74,10 +74,10 @@ lazygit에는 플러그인이 없다. 대신:
 
 ## 실습 환경
 - **J1~J4는 `ai-tutor` 저장소에서 직접.** 시작 전 `git status`가 깨끗한지 확인하고, 아니면 먼저 커밋한다.
-- **J5~J13은 전용 실습 저장소.** `~/lazygit-practice/`에 bare 원격 하나 + 복제본 둘(a, b)을 만들고 J13까지 이어 쓴다.
+- **J5~J13은 전용 실습 저장소.** `~/Desktop/lazygit-practice/`에 bare 원격 하나 + 복제본 둘(a, b)을 만들고 J13까지 이어 쓴다.
   외부로 아무것도 보내지 않는다. 튜터가 Git Bash로 재생성한다(Windows CRLF 경고는 무시, 2026-10-29 스크래치에서 실행 확인):
   ```bash
-  rm -rf ~/lazygit-practice && mkdir -p ~/lazygit-practice && cd ~/lazygit-practice
+  rm -rf ~/Desktop/lazygit-practice && mkdir -p ~/Desktop/lazygit-practice && cd ~/Desktop/lazygit-practice
   git init -q --bare -b main origin.git
   git clone -q origin.git a && git clone -q origin.git b
   cd a && git checkout -q -B main \
