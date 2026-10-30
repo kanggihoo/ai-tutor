@@ -14,23 +14,23 @@
 |---|---|---|---|
 | 01 | 🛠 Cargo 시작 | `cargo new/run/check/build --release`, `Cargo.toml`의 `[package]`, `Cargo.lock`, `target/`(uv·pyproject 비교), `let`/`mut`, 함수, `println!` | ✅ |
 | 02 | 소유권 | move, `Copy`, `clone`, 스코프와 drop (`&`/`&mut`는 미리보기만) | ✅ |
-| 03 | 빌림 | `&`/`&mut`, 빌림 규칙, `String` vs `&str`, 슬라이스 | ✅ |
-| 04 | 구조체 | `struct`, `impl`, `self`/`&self`/`&mut self`, `Type::new()` 관례 | 🔄 |
-| 05 | 열거형과 패턴 | `enum`, `match`, `if let`, `Option` | ⬜ |
+| 03 | 빌림 | `&`/`&mut`, 빌림 규칙, `String` vs `&str`, 슬라이스 · 🔍 `&String`/`&Vec<T>` 매개변수 → `&str`/`&[T]`, 빌림 피하려는 `clone` | ✅ |
+| 04 | 구조체 | `struct`, `impl`, `self`/`&self`/`&mut self`, `Type::new()` 관례 · 🔍 getter는 `get_` 없이 `name(&self) -> &str`, 읽기만 하는데 `&mut self`나 `self` | 🔄 |
+| 05 | 열거형과 패턴 | `enum`, `match`, `if let`, `Option` · 🔍 `bool` 매개변수(`f(true)`) → enum, `-1`/`""` 같은 표시값 → `Option`, `is_some()` 뒤 `unwrap()` → `if let`/`let else` | ⬜ |
 | 06 | 🛠 외부 크레이트 쓰기 | `cargo add/remove/tree/update`, `[dependencies]`·버전 표기·features, `::` 경로와 `use`, docs.rs 읽는 법, `serde_json`·`rand` 실제로 써 보기 | ⬜ |
-| 07 | 🛠 실무 에러 처리 | `Result`, `?`, `unwrap`/`expect`를 쓸 때와 피할 때, `anyhow`(앱)·`thiserror`(라이브러리), `.context()`, `main`에서 에러 반환, `RUST_BACKTRACE=1` | ⬜ |
+| 07 | 🛠 실무 에러 처리 | `Result`, `?`, `unwrap`/`expect`를 쓸 때와 피할 때, `anyhow`(앱)·`thiserror`(라이브러리), `.context()`, `main`에서 에러 반환, `RUST_BACKTRACE=1` · 🔍 `Option`/`Result`/`panic!` 고르는 기준(없음이 정상/호출자가 처리/버그), `unwrap` → `expect("왜 안 터지는지")`, `map_err(\|_\| ..)`로 원인 버리기, 실패한 값·경로가 없는 에러 메시지 | ⬜ |
 | 08 | 모듈과 프로젝트 구조 | `mod`, `pub`, `use`, `crate::`/`super::`, 파일 분리, `main.rs`+`lib.rs`, 워크스페이스 | ⬜ |
-| 09 | 🛠 속성과 derive 실전 | `#[derive(Debug, Clone, PartialEq)]`, `serde`로 JSON↔구조체(`#[serde(rename)]`), `clap`의 `#[derive(Parser)]`, `#[allow]`, `#[cfg]` | ⬜ |
-| 10 | 트레이트와 제네릭 | `trait`, `impl Trait for`, `impl Trait`, `T: Trait`, `Display`/`From` | ⬜ |
-| 11 | 컬렉션과 반복자 | `Vec`, `HashMap`, `iter`/`map`/`filter`/`collect`, 클로저 | ⬜ |
-| 12 | 🛠 테스트와 품질 도구 | `#[test]`, `#[cfg(test)]`, `tests/` 폴더, `cargo test`, `cargo fmt`, `cargo clippy` 경고 읽고 고치기, `dbg!`, `cargo doc --open` | ⬜ |
+| 09 | 🛠 속성과 derive 실전 | `#[derive(Debug, Clone, PartialEq)]`, `serde`로 JSON↔구조체(`#[serde(rename)]`), `clap`의 `#[derive(Parser)]`, `#[allow]`, `#[cfg]` · 🔍 `#[allow]` → `#[expect(lint, reason = "..")]`, `new()`가 있으면 `Default`도, 손으로 짠 impl을 derive로 | ⬜ |
+| 10 | 트레이트와 제네릭 | `trait`, `impl Trait for`, `impl Trait`, `T: Trait`, `Display`/`From` · 🔍 구현이 하나뿐인 trait(코드 정리용), 직접 만든 `from_str` → `FromStr`, `Into` 대신 `From` 구현, 섞이면 안 되는 같은 타입 값 → newtype | ⬜ |
+| 11 | 컬렉션과 반복자 | `Vec`, `HashMap`, `iter`/`map`/`filter`/`collect`, 클로저 · 🔍 긴 체인·`for_each` → `for`, `+`로 이어 붙이기 → `format!`, `HashMap` 순서가 출력에 샘, `parse`/`collect`에 타입 명시, `len()`엔 `is_empty()`도 | ⬜ |
+| 12 | 🛠 테스트와 품질 도구 | `#[test]`, `#[cfg(test)]`, `tests/` 폴더, `cargo test`, `cargo fmt`, `cargo clippy` 경고 읽고 고치기, `dbg!`, `cargo doc --open` · 🔍 `Cargo.toml` `[lints]`, `cargo clippy -- -W clippy::pedantic` 한 번 돌려 보기, 소스의 `#![deny(warnings)]`, 메시지 없는 `assert!` | ⬜ |
 | 13 | 라이프타임 읽기 | `'a`가 보이면 무슨 뜻인지, 언제 필요한지(작성보다 읽기) | ⬜ |
-| 14 | 스마트 포인터와 공유 | `Box`, `Rc`, `Arc`, `Mutex` (읽기용) | ⬜ |
-| 15 | 🛠 async와 HTTP | `async`/`await`, `#[tokio::main]`, `reqwest`로 API 호출, `.env` 설정값 읽기 | ⬜ |
+| 14 | 스마트 포인터와 공유 | `Box`, `Rc`, `Arc`, `Mutex` (읽기용) · 🔍 이유 없는 `Rc`/`Arc`/`RefCell`, `clone` 대신 `std::mem::take` | ⬜ |
+| 15 | 🛠 async와 HTTP | `async`/`await`, `#[tokio::main]`, `reqwest`로 API 호출, `.env` 설정값 읽기 · 🔍 `.await` 동안 잡고 있는 `MutexGuard` | ⬜ |
 | 16 | 🛠 미니 프로젝트 ① CLI | `clap` + `serde` + `anyhow`로 CLI 도구. `cargo install --path .`로 설치해서 실제로 쓰기. 요구사항은 사용자, 구현은 AI, 설명·리뷰는 사용자 | ⬜ |
 | 17 | 🛠 미니 프로젝트 ② Tauri | React/TS + `#[tauri::command]`, 공유 상태, 프론트로 에러 전달, 빌드 | ⬜ |
 
-상태: ⬜ 안 함 · 🔄 진행 중 · ✅ 완료
+상태: ⬜ 안 함 · 🔄 진행 중 · ✅ 완료 · 🔍 = AI 코드에서 자주 보이는 냄새. 리뷰 문제에 숨긴다 (Google Rust Style Guide 기준, 2026-10-31 추가)
 
 ## 약점 (Weak spots)
 - 불변 기본(`let` vs `let mut`)을 처음엔 놓침 (Q1, 2026-10-27)
