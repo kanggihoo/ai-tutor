@@ -24,10 +24,10 @@
 | J7 | 커밋 삭제·순서 (drop·이동·revert) | ⏭ 설명만(drop vs revert vs reset --soft/--hard 비교), 실습·퀴즈는 사용자 판단으로 건너뜀 | feature f781537 | |
 | J8 | 커밋 압축 (squash·fixup) | 🔄 과제1 `f`(7f5da9c→8a6aa02), 과제2 `F`→`S`(→f2f892d, 모카 커밋에 americano 3600), 과제3 `s`(→396ddb1, 메시지 두 개가 이어 붙음) 완료·확인. 퀴즈: ① 정답 ② 결과는 맞음(`s`로 3개 합친 뒤 `f` — 돌아가지만 `f` 범위선택/`F`→`S`가 더 짧음) ③ `Esc`·`q` 정답(2회째) | feature 7f5da9c → 현재 396ddb1(3커밋: WIP 디버그 / feat: 모카 추가 / init) | 그래프 보기는 `+`로 확대(기본은 패널이 좁아 짤림). 범위 선택(`v`)은 화면 확인 필요 |
 | J9 | 원격 가져오기 옵션 (fetch·ff·pull·merge·rebase) | 🔄 fetch·`↓1↑1` 읽기·그래프 읽기·`f` 실패(갈라져서 ff 불가) 확인. `p`→`P` 실행됨(merge 커밋 6a03f26, origin/main도 6a03f26). **`p`/`P`부터 다시 하려면 아래 "J9 되돌리기"** | a: main 3777fb8(ahead 1), feature 396ddb1, origin/main 76f0728 | upstream은 fixture에 선설정. 이 환경 `pull.rebase=false`(merge 방식) 확인 |
-| J10 | rebase | ⬜ | | 미공개 개인 브랜치 조건 |
-| J11 | cherry-pick | ⬜ | | |
-| J12 | 충돌 (abort → 해결 → continue) | ⬜ | | |
-| J13 | 그래프 2: 협업 히스토리 + 그래프 확장 | ⬜ | | 설정(`allBranchesLogCmds` 등)·tig는 사용자 동의 후 직접 |
+| J10 | rebase | ✅ feature에 origin/develop 반영, 해시 변경 확인 | 396ddb1 → 00f62be | 미공개 커밋, 충돌 없음 |
+| J11 | cherry-pick | ✅ C→4→V 실습 및 원본 유지 퀴즈 통과 | 00f62be → 66f059b | 로그인 수정만 적용 |
+| J12 | 충돌 (abort → 해결 → continue) | ✅ 충돌 해결·merge 완료 및 별도 abort 실습 확인 | merge a0d075f, abort 시작·복귀 115985f | 작업 트리 깨끗함 |
+| J13 | 그래프 2: 협업 히스토리 + 그래프 확장 | 🔄 부모 관계·merge/rebase 비교·보기 5개 설정 완료 | feature 115985f, origin/develop dff7b00 | 독립 그래프 판독 확인은 남음 |
 
 **선행 없음.** lazygit 레슨은 전부 여기 있다(2026-10-29에 nvim 과목에서 옮겨옴).
 nvim 과목에는 Snacks Picker/Explorer만 남는다. → `../nvim/PROGRESS.md`
@@ -74,3 +74,26 @@ git -C a update-ref refs/remotes/origin/main 76f0728     # a가 아는 origin/ma
 git -C a branch -vv                                      # main [origin/main: ahead 1, behind 1] 여야 함
 ```
 기준 해시: `main` `3777fb8`, `origin/main` `76f0728`, `feature` `396ddb1`, `init` `edc2459`. merge 커밋 `6a03f26`은 되돌린 뒤 reflog에만 남는다.
+
+- 2026-11-02 (Windows): J9 복습 — ↑1↓1은 로컬·원격 각각 고유 커밋 1개라는 설명 정답. 갈라진 상태에서 fast-forward 불가 정답. 실습 a는 main...origin/main 동일 상태, 작업 트리 깨끗함. 되돌리기 미실행.
+- 2026-11-02 이력 재확인: a reflog에 6a03f26 pull --no-edit merge 기록, bare 원격 main도 6a03f26 확인. 이전 p→P 실습 완료가 실제 이력과 일치함. 재실습을 필수처럼 안내한 것은 정정. 다음은 merge 결과 확인 후 원격 변경을 rebase로 받는 방식 비교(미실습). 저장소 복원은 아직 하지 않음.
+- 2026-11-02 J9 rebase 비교 준비 완료: 사용자 lazygit 꺼짐 확인 후 b를 ff로 갱신, 원격 커밋 42e68a4와 a 미공개 로컬 커밋 dd323b1 생성. a main ↑1↓1, 공통 부모 6a03f26, 작업 트리 깨끗함. 과거 이력 reset 없이 새 상황 구성. rebase 전 시작 tip dd323b1. 다음: a에서 lazygit 열기 → 1,a 그래프 확인 → 원격 origin/main 대상 rebase. 진행 중 탈출은 m→a.
+- 2026-11-02 사용자 요청: b에서 develop 생성, develop-notice.txt 커밋 후 실습 bare 원격에 push, a fetch 완료. a의 checkout 및 upstream 변경 없음. 다음 실습 후보: upstream이 아닌 origin/develop을 직접 선택해 현재 브랜치에 반영.
+- 2026-11-02 J9/J10 rebase 실습 성공 확인: feature checkout → 원격 origin/develop 선택 → r → s. reflog finish 확인, 충돌 없음·작업 트리 깨끗함. origin/develop 45dec35 뒤에 feature 커밋 4843e71(모카), 00f62be(WIP)가 재작성됨(이전 58a9bb6,396ddb1). push 미실행. upstream 아닌 원격 브랜치 직접 지정, fetch+rebase와 pull rebase 관계 설명. 다음: 사용자에게 전후 해시 및 HEAD 위치 읽기 확인. J9 원래 main의 dd323b1 rebase는 실행하지 않음.
+- 2026-11-02 J10 기본 rebase 실습 완료 및 사용자 이해 확인: feature에 origin/develop 반영, before/after 그래프로 merge와 rebase 차이 설명. p는 upstream, 명시적 pull origin develop은 현재 feature에 develop 반영이며 upstream 연결 변경 없음 이해. J9 upstream 아닌 대상 지정·merge/rebase 선택 개념 확인. J9 원래 main 재실습은 미실행, J10 abort 실습은 J12에 남음. 다음 단계는 J11 cherry-pick: 다른 브랜치에서 필요한 커밋 하나만 가져오기.
+- 2026-11-02 J11 실습 준비: b develop에 fix: login timeout(login-fix.txt), feat: unrelated feature(new-feature.txt) 두 독립 커밋 생성·실습 원격 push·a fetch 완료. a feature 작업 트리 깨끗함. 목표는 origin/develop의 login timeout 커밋만 C로 복사 후 4,V로 적용. 아직 cherry-pick 미실행. 복구 경로 진행 중 m→a, 시작 feature tip 00f62be.
+- 2026-11-02 J11 cherry-pick 실습 성공 확인: feature HEAD 66f059b fix: login timeout, reflog cherry-pick 확인. 원본 develop 6cfd16f와 다른 해시의 새 커밋 생성. login-fix.txt 포함, unrelated feature의 new-feature.txt 없음. 작업 트리 깨끗함, push 미실행. C→4→V 결과 확인 완료, 복습 퀴즈는 아직.
+- 2026-11-02 J11 퀴즈 정답: cherry-pick 후 원본 develop 커밋은 그대로 남는다고 답함. J11 기본 실습·개념 확인 완료. 다음은 J12 충돌: abort로 원상복귀 → 재시도 → 해결 → continue.
+- 2026-11-02 J12 준비: a feature develop-notice.txt를 notice_mode=local로 커밋, b develop 동일 줄을 notice_mode=team으로 커밋·push, a fetch 완료. 두 작업 트리 깨끗한 상태에서 시작. 목표는 merge 충돌 → m,a abort → 재시도 → team 값만 채택 → continue. merge는 아직 미실행. 양쪽 모두 담기는 이 설정값 충돌의 정답 아님.
+- 2026-11-02 J12 실제 상태 확인: 사용자 merge 충돌 해결 및 완료, feature HEAD a0d075f Merge remote-tracking branch origin/develop into feature. develop-notice.txt는 notice_mode=team만 남음, 작업 트리 clean. 충돌 해결·merge 완료 성공. abort 연습은 미확인/미실행으로 남김. 앞으로 확인 가능한 상태는 사용자에게 재질문하지 말고 직접 조회.
+- 2026-11-02 J13 사용자 명시 요청으로 lazygit config.yml에 allBranchesLogCmds 4개 등록: 전체 oneline / simplify-by-decoration / main first-parent / 전체 medium. 기존 파일 비어 있음 확인 후 작성. 실제 화면 비교는 다음. 설정 경로 C:/Users/SSAFY/AppData/Local/lazygit/config.yml.
+- 검증 정정: lazygit --config는 기본 설정 출력이며 사용자 설정 읽기 검증이 아님. 이후 사용자 화면에서 등록한 그래프 보기 확인.
+- 2026-11-02 요청으로 a/.git/lazygit.yml 생성: 기존 그래프 4개 유지 + 5번 HEAD...origin/develop --left-right 추가. 명령 실행 검증: feature 쪽 5개, develop 쪽 고유 커밋 없음(이미 merge 완료). 전역 설정 변경 없음. 재시작 후 1,a 순환으로 화면 확인 필요.
+- 2026-11-02 abort 실습 준비: a feature는 notice_mode=local-abort, b develop은 notice_mode=team-abort로 각각 커밋. b push 및 a fetch 완료 후 사용자가 merge 충돌과 abort 실습 진행.
+- 2026-11-02 J12 abort 실습 완료: Auto-merge failed 창에서 a로 취소. 직접 검증: feature HEAD 115985f 유지, develop-notice.txt=notice_mode=local-abort 복원, MERGE_HEAD 없음, 작업 트리 clean. git merge --abort와 동일 동작 이해. J12 충돌 해결·merge 완료 및 abort 실습 모두 완료. J13 그래프 위치·부모·보기 설정 및 차이 보기 학습 완료, 독립 그래프 판독 퀴즈는 미완료. 다음은 실제 작업 적용 또는 필요시 그래프 판독 복습.
+
+## 다음 세션 기준 (2026-11-02 갱신)
+- J9 원격 대상 지정·upstream·merge/rebase 차이 이해 확인. main 재실습은 반복하지 않아도 됨.
+- J10·J11·J12 주요 실습 완료. J13은 보기 설정과 설명까지 진행, 독립 판독 확인만 남음.
+- 선택할 다음 학습: J7 삭제·순서 변경 실습(당시 건너뜀) 또는 J13 그래프 판독 확인.
+- 위의 이전 다음 단계와 되돌리기 절차는 과거 기록이며 현재 실행 지시가 아님.
