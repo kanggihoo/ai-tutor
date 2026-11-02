@@ -4,8 +4,8 @@ impl Todo {
     fn new(title: String) -> Todo {
         Todo { title: title, done: false }
     }
-    fn title(&self) -> String {
-        self.title
+    fn title(&self) -> &str {
+        &self.title
     }
     fn finish(&mut self) {
         self.done = true;

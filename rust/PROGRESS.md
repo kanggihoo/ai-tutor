@@ -15,9 +15,9 @@
 | 01 | 🛠 Cargo 시작 | `cargo new/run/check/build --release`, `Cargo.toml`의 `[package]`, `Cargo.lock`, `target/`(uv·pyproject 비교), `let`/`mut`, 함수, `println!` | ✅ |
 | 02 | 소유권 | move, `Copy`, `clone`, 스코프와 drop (`&`/`&mut`는 미리보기만) | ✅ |
 | 03 | 빌림 | `&`/`&mut`, 빌림 규칙, `String` vs `&str`, 슬라이스 · 🔍 `&String`/`&Vec<T>` 매개변수 → `&str`/`&[T]`, 빌림 피하려는 `clone` | ✅ |
-| 04 | 구조체 | `struct`, `impl`, `self`/`&self`/`&mut self`, `Type::new()` 관례 · 🔍 getter는 `get_` 없이 `name(&self) -> &str`, 읽기만 하는데 `&mut self`나 `self` | 🔄 |
-| 05 | 열거형과 패턴 | `enum`, `match`, `if let`, `Option` · 🔍 `bool` 매개변수(`f(true)`) → enum, `-1`/`""` 같은 표시값 → `Option`, `is_some()` 뒤 `unwrap()` → `if let`/`let else` | ⬜ |
-| 06 | 🛠 외부 크레이트 쓰기 | `cargo add/remove/tree/update`, `[dependencies]`·버전 표기·features, `::` 경로와 `use`, docs.rs 읽는 법, `serde_json`·`rand` 실제로 써 보기 | ⬜ |
+| 04 | 구조체 | `struct`, `impl`, `self`/`&self`/`&mut self`, `Type::new()` 관례 · 🔍 getter는 `get_` 없이 `name(&self) -> &str`, 읽기만 하는데 `&mut self`나 `self` | ✅ (지휘 생략) |
+| 05 | 열거형과 패턴 | `enum`, `match`, `if let`, `Option` · 🔍 `bool` 매개변수(`f(true)`) → enum, `-1`/`""` 같은 표시값 → `Option`, `is_some()` 뒤 `unwrap()` → `if let`/`let else` | ✅ (추가 리뷰 관점 미실습) |
+| 06 | 🛠 외부 크레이트 쓰기 | `cargo add/remove/tree/update`, `[dependencies]`·버전 표기·features, `::` 경로와 `use`, docs.rs 읽는 법, `serde_json`·`rand` 실제로 써 보기 | 🔄 |
 | 07 | 🛠 실무 에러 처리 | `Result`, `?`, `unwrap`/`expect`를 쓸 때와 피할 때, `anyhow`(앱)·`thiserror`(라이브러리), `.context()`, `main`에서 에러 반환, `RUST_BACKTRACE=1` · 🔍 `Option`/`Result`/`panic!` 고르는 기준(없음이 정상/호출자가 처리/버그), `unwrap` → `expect("왜 안 터지는지")`, `map_err(\|_\| ..)`로 원인 버리기, 실패한 값·경로가 없는 에러 메시지 | ⬜ |
 | 08 | 모듈과 프로젝트 구조 | `mod`, `pub`, `use`, `crate::`/`super::`, 파일 분리, `main.rs`+`lib.rs`, 워크스페이스 | ⬜ |
 | 09 | 🛠 속성과 derive 실전 | `#[derive(Debug, Clone, PartialEq)]`, `serde`로 JSON↔구조체(`#[serde(rename)]`), `clap`의 `#[derive(Parser)]`, `#[allow]`, `#[cfg]` · 🔍 `#[allow]` → `#[expect(lint, reason = "..")]`, `new()`가 있으면 `Default`도, 손으로 짠 impl을 derive로 | ⬜ |
@@ -33,6 +33,8 @@
 상태: ⬜ 안 함 · 🔄 진행 중 · ✅ 완료 · 🔍 = AI 코드에서 자주 보이는 냄새. 리뷰 문제에 숨긴다 (Google Rust Style Guide 기준, 2026-10-31 추가)
 
 ## 약점 (Weak spots)
+- 빌림을 "소유권을 빌린다"고 표현하는지 재질문. 소유권은 주인에게 남고 값을 빌리는 것이라고 재설명. `&self` 메서드의 반환은 반드시 참조인 것은 아님을 설명 (2026-11-02).
+- `String`(소유)과 `&str`(빌려 읽기)을 구조체 getter 반환 타입에 연결할 때 헷갈림. 짧은 예시로 재설명, 이해 확인 대기 (2026-11-02).
 - 불변 기본(`let` vs `let mut`)을 처음엔 놓침 (Q1, 2026-10-27)
 - 섀도잉(같은 이름 `let` 재선언) 낯설어함, 블록 안 섀도잉 출력 순서 처음엔 헷갈림 (Q2)
 - `;` 유무에 따른 반환값 (Q3: 처음엔 "문제 없다"고 답함)
@@ -84,6 +86,26 @@
 | 03 | 슬라이스 Q3 `03_str_q3` | 확인 (에러는 튜터가 검증; 사용자가 `push`를 빌림 전에 옮겨 직접 실행, `hello hello world!`) |
 
 ## 세션 로그
+- 2026-11-02 세션 종료: 사용자 요청으로 다음 세션은 레슨 06 크레이트 개념부터 재설명하도록 재개 지점 정리. use·경로·별칭·매크로는 설명만 했으며 이해 확인은 남아 있음. Rust 학습 파일만 커밋한다.
+- 2026-11-02: 사용자가 cargo add serde_json 성공 보고. Cargo.toml에서 버전 1.0.154 확인. cargo tree --depth 1로 직접 의존성 확인. 06_json_q1 작성 및 cargo run으로 8080/true 확인. use와 json! 설명 후 출력 예측 질문.
+- 2026-11-02: 레슨 06 시작. lab/Cargo.toml의 dependencies가 비어 있음을 확인, 로컬 cargo add --help로 명령 문법 확인. 크레이트·Cargo.toml·Cargo.lock 역할을 짧게 설명하고 사용자에게 lab에서 cargo add serde_json 실행 요청. 추가 성공 여부는 아직 미확인.
+- 2026-11-02: `05_review_p1` 사용자 수정·실행 보고. 보고 출력은 save 줄만 있었으나 튜터가 뒤쪽 match를 파일에서 확인하고 cargo run으로 두 줄 모두 확인. clone/unwrap 제거와 원본 재사용 검증 완료. 레슨 05 핵심 실습 완료, 노트 작성. 리뷰 분류는 생략, 잘한 점 답변은 미확인.
+- 2026-11-02: 실전 리뷰에서 사용자가 `if let Some(filename) = &output`을 정확히 제안함. 튜터가 별도 검증 코드로 컴파일·실행 확인(`save to: report.pdf`/`setting: report.pdf`), filename이 &String임도 타입 검사. 원본 실습 파일 수정·사용자 실행 여부는 파일 확인 결과에 따라 구분하며, 다음은 해당 if 블록을 직접 수정·실행하도록 안내.
+- 2026-11-02: if let의 문법과 Copy/이동/빌림을 설명한 뒤 사용자 요청으로 실전 리뷰 `05_review_p1` 진행. 튜터 cargo run으로 정상 출력 확인. 불필요한 clone과 is_some 뒤 unwrap을 빌림 if let으로 개선하는 리뷰이며, 사용자에게 먼저 문제 위치·이유·방향·분류 및 잘한 점을 묻는다. if let 출력 예측은 사용자 답변 미확인.
+- 2026-11-02: 사용자 요청으로 Option 설명을 여기서 마치고 if let 진행. 기존 Option Q1의 출력 예측은 답변 미확인으로 남김. `05_if_let_q1`을 준비하여 튜터 cargo run으로 `port: 8080`/`done` 확인. 사용자에게 if let 설명 후 Some과 None일 때 출력 예측 질문.
+- 2026-11-02: 사용자가 Java Optional과 비교하며 Option 상세 설명 요청. Some/None, Option<T>와 T 구분, 반환형 사용, match와 기본값, 소유권을 설명. 설정 함수·match·unwrap_or 예제 rustc 컴파일 확인. Option Q1 출력 예측은 답변 대기.
+- 2026-11-02: Q3 사용자가 `match &state`로 고쳐 직접 실행 성공(`report.pdf`). 튜터가 파일 확인. `saved` 미사용과 `Waiting` 미생성 경고 설명. enum/match Q1~Q3 완료. 다음은 Option과 if let.
+- 2026-11-02: Q3 사용자가 `Done(name)`의 소유권 이동을 짚고, 힌트 후 `let saved = state`가 오류 줄임을 정확히 판단. String 필드 이동으로 state가 부분 이동 상태여서 전체를 넘길 수 없다고 설명. 튜터 cargo check E0382 확인, 사용자 실행은 아직 미확인. 다음은 match 대상을 빌리도록 1줄 수정.
+- 2026-11-02: Q2 사용자가 `Download::Waiting => println!("waiting")` 갈래를 추가하고 직접 실행 성공(`42 MB`). 튜터가 수정 파일 확인. `Waiting` never constructed 경고는 해당 값을 생성한 곳이 없다는 뜻이며, 갈래 누락 오류와 다름을 설명. 다음은 Q3.
+- 2026-11-02: 사용자가 `cargo run --bin 05_enum_q2` 직접 실행 후 E0004를 "Download::Waiting 경우에 대한 처리 로직이 없다"고 정확히 요약함. 다음은 Waiting 갈래 1줄 추가 후 재실행.
+- 2026-11-02: 레슨 05 Q2는 질문을 짧게 다시 제시한 뒤 사용자가 "안 될 것"이라고 컴파일 실패를 정확히 예측함. 튜터 cargo check로 E0004 확인. 사용자 직접 실행·에러 한 줄 요약은 대기.
+- 2026-11-02: 레슨 05 Q1 답변 `42`, u32라 복사된다고 정답. 실제 출력은 `42 MB`로 문구 누락을 보완. 튜터 cargo run 확인 완료. 다음 Q2는 match의 경우 누락 컴파일 예측.
+- 2026-11-02: match의 variant 구분과 소유권 처리 질문. u32 패턴 바인딩 후 원본 사용 성공, String 바인딩 후 부분 이동 E0382, `match &state`로 String 참조 바인딩 후 원본 사용 성공을 rustc로 검증·설명. Q1 출력 예측은 계속 대기.
+- 2026-11-02: 레슨 05 Q1에서 "컴파일될 것"이라고 예측했으나 출력 답변 전 `match` 패턴 의미를 질문함. 생성 표현식 `Done(42)`와 분해 패턴 `Done(size)`, 변수 바인딩과 `_`를 설명. Q1 출력 예측은 아직 대기.
+- 2026-11-02: 사용자 요청으로 레슨 04 지휘 문제 생략. `notes/04-struct.md` 작성. 레슨 05 enum/match 이론과 Q1부터 진행.
+- 2026-11-02: 사용자가 `title()` 반복 호출 가능 이유를 "소유권이 이동하지 않았기 때문"이라고 정확히 설명함. `&self`의 비소비 의미 이해 확인(설명). 다음은 레슨 04 지휘 문제: 사용자가 요구사항을 말로 정하고 튜터가 구현, 사용자가 메서드 수신자를 설명·수정 지시.
+- 2026-11-02: `04_review_p1`의 `title`을 사용자가 `&self -> &str`, `&self.title`로 수정하고 직접 cargo run 성공(`true`/`rust`). 튜터가 최종 파일 확인. `&String` → `&str` 자동 변환을 사용자가 설명하며 재확인. 다음은 소비/빌림 차이 한 줄 설명과 리뷰 마무리 후 지휘 문제.
+- 2026-11-02: 시작 복습 ① `&mut self` + `let mut` 컴파일 가능 예측 정답(동일 코드의 기존 파일 cargo check 확인, 출력은 설명만). ② `into_name(self)` 뒤 `u.age` 사용 불가 예측 정답(기존 파일 cargo check로 E0382 확인). 이동 대상은 `u.age`만이 아니라 수신자 `u` 전체임을 설명. `04_review_p1` 재개 예정.
 - 2026-10-26~27 (Mac): 과목 구조 생성, 저장소를 `ai-tutor`로 이름 변경(nvim/ · rust/ 분리), 프로필 확인. 학습 방식(이론 → 예측 퀴즈 → 실전)과 기록 방식(PROGRESS·QNA·notes) 확정. 레슨 진행은 아직 안 함.
 
 - 2026-10-27 (Windows): 레슨 01 이론·퀴즈 완료. Windows 툴체인 확인(cargo/rustc 1.97.1, clippy 0.1.97, rust-analyzer 없음). 질문 6개 QNA 기록.
@@ -96,16 +118,26 @@
 
 - 2026-10-30: 레슨 04 퀴즈 Q2, Q3과 실전 고치기 `04_fix_p1` 완료. `::`와 `.`의 기준(`self` 유무), `let mut`의 의미(필드까지 불변)를 질문으로 확인. 리뷰 문제 `04_review_p1` 제시.
 
-## 다음 단계 (최신, 2026-10-30)
-레슨 04 구조체 🔄: 이론, 퀴즈 Q1~Q3, 실전 고치기 `04_fix_p1`까지 완료. **다음은 실전 리뷰 `04_review_p1`부터.**
+## 다음 단계 (최신, 2026-11-02)
+**레슨 06 외부 크레이트의 개념 설명부터 다시 시작한다. 퀴즈부터 바로 이어가지 않는다.**
 
-1. 실전 리뷰 `lab/src/bin/04_review_p1.rs` **진행 중. 여기서 재개.** 원래 문제는 정상 실행되는 `Todo` 코드(`true`/`rust`)였고, 숨긴 문제는 `title(self)`가 소비+`clone`, `is_done(&mut self)`는 읽기라 `&self`여야 함, `title: title`은 줄일 수 있음. 사용자는 `is_done`을 `&self`로 고쳤고, `title`은 `&self -> String`으로 바꾸고 `self.title`을 그대로 반환해 **E0507**(`cannot move out of self.title which is behind a shared reference`)이 난 상태(파일이 그 상태로 남아 있음). 튜터가 컴파일로 확인함. 사용자가 반환 타입을 `&str`, 본문을 `&self.title`로 바꾸게 한다(정답은 먼저 주지 않고 힌트부터). 튜터가 정답을 먼저 말해 버린 적이 있어 사용자가 지적함. 앞으로 리뷰 문제는 사용자가 찾고 고치게 한다. 고친 뒤 `todo.title()`을 두 번 불러서 `self` 버전(소비)과 `&self` 버전의 차이를 한 줄로 설명하게 한다.
-2. 이어서 지휘 문제 1개(사용자가 요구사항을 말로 → 튜터가 구현 → 사용자가 설명·수정 지시) 후 `notes/04-struct.md` 작성.
-3. 용어 주의: move(소유권 넘김)와 borrow(접근 빌림)를 구분해서 말하게 한다. 사용자가 짜증을 낼 때는 추상 질문 대신 코드 전체를 보여 주고 짧게 묻는다(함수 정의 생략 금지).
+1. 시작 안내: "지난번엔 enum·Option·if let 실습까지 마쳤고, 다음은 외부 크레이트예요. serde_json은 이미 추가했으니 크레이트와 use의 관계부터 다시 볼게요."
+2. 1분 복습 2문제는 이미 배운 Some/None과 `if let ... = &output`에서 고른다. 문제는 제시 전 컴파일로 확인하고 한 문제씩 묻는다.
+3. 크레이트 = 외부 Rust 코드 묶음, `cargo add` = 프로젝트 의존성 등록, `use` = 코드에서 경로의 이름을 짧게 쓰도록 연결이라는 차이를 실제 코드로 설명한다.
+4. `use serde_json::json;`의 각 이름을 설명한다. 전체 경로 `serde_json::json!(...)`와 가져온 이름 `json!(...)`을 나란히 보여준다. 함수·구조체·매크로를 use로 가져올 수 있고, `as`로 별칭을 붙일 수 있다.
+5. 매크로는 컴파일 시 입력을 Rust 코드로 펼치는 도구임을 먼저 설명한다. `!`는 이번 예제에서 매크로를 사용하는 표시다. 직접 만드는 문법은 가르치지 않는다. `use` 자체가 실행이나 JSON 생성은 아니다.
+6. 개념을 이해했는지 확인한 다음 `lab/src/bin/06_json_q1.rs` 출력 예측으로 이어간다. 튜터 cargo run 검증 완료(`8080`/`true`), 사용자 답변·직접 실행은 미확인이다.
+7. 이후 Cargo 버전 조건·features·tree와 docs.rs 읽기, JSON 다루기·rand 실습으로 진행한다. `cargo remove/update`, rand, features 변경은 아직 하지 않았다.
 
-## (아래는 2026-10-29 이전 레슨 03 기록)
-레슨 02 ✅ (`notes/02-ownership.md`). 레슨 03 🔄: 빌림 규칙, `String`/`&str`, 슬라이스 이론과 Q3 수정·실행까지 진행.
+### 현재 파일·검증 상태
+- 레슨 04: `04_review_p1` 수정·사용자 실행·비소비 이유 설명 완료. 지휘는 사용자 요청으로 생략. `notes/04-struct.md` 작성.
+- 레슨 05: enum/match Q1~Q3 및 `05_review_p1` 수정·실행 완료. Option/if let 추가 출력 예측은 미확인. `notes/05-enum.md` 작성.
+- 레슨 06: 사용자가 `cargo add serde_json` 실행 완료. `lab/Cargo.toml`과 `Cargo.lock`에 1.0.154 반영. 다시 추가할 필요 없다. 튜터가 cargo tree와 JSON 예제를 확인했다.
+- 컴파일 에러가 의도된 옛 문제도 있으므로 전체 빌드 대신 항상 `--bin`을 지정한다.
 
-1. 실전 리뷰 `lab/src/bin/03_review_p1.rs`: 코드가 정상 실행됨을 튜터가 확인했고, 불필요한 복사를 찾아 어떻게 바꿀지 질문한 상태. 사용자 답변을 기다린다. 이어서 함수 매개변수 개선도 리뷰한다.
-2. 레슨 03 종료 후 `notes/03-borrow.md` 작성.
-3. 복습 확인 거리: `02_review_p2`의 마지막 `clone` 제거는 사용자 보고만 있음(튜터 미확인). `03_str_q1`은 사용자가 직접 실행하지 않음.
+### 설명 방식과 복습할 약점
+- 용어를 설명하기 전에 그 용어로 다시 설명하지 않는다. 사용자가 "뭔 말이야"라고 하면 같은 추상 설명을 반복하지 말고 실제 코드 한 줄을 나눠 설명한다.
+- `Some(number)`의 number는 기존 값과 비교하는 이름이 아니라 새 변수다. `if let`의 =는 일반 대입이 아니라 패턴 매칭 문법이다.
+- Copy 타입은 복사, String은 이동, &로 검사하면 빌림이다. 소유권은 빌리는 것이 아니라 주인에게 남고 값을 빌린다.
+- 리뷰의 꼭/권장/취향 분류는 설명 없이 요구하지 않는다. 이번에는 사용자 불편으로 생략했다. 잘한 점 답변도 미확인이다.
+- 레슨 05 추가 관점(bool 인자→enum, 표시값→Option, let else)은 미실습이다.
