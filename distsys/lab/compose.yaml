@@ -1,0 +1,29 @@
+name: distsys
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports: ["5432:5432"]
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:  # TCP로 확인해야 첫 부팅 init 중(소켓만 열림)을 ready로 오판하지 않는다
+      test: pg_isready -h 127.0.0.1 -d orders
+      interval: 1s
+      retries: 30
+
+  redpanda:
+    image: redpandadata/redpanda:v24.2.7
+    command:
+      - redpanda
+      - start
+      - --mode=dev-container
+      - --smp=1
+      - --kafka-addr=internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr=internal://redpanda:9092,external://localhost:19092
+    ports: ["19092:19092"]
+    healthcheck:
+      test: rpk cluster health | grep -q 'Healthy:.*true'
+      interval: 1s
+      retries: 30

@@ -9,3 +9,7 @@ Thumbs.db
 
 # Rust build output
 target/
+
+# Python (distsys/lab)
+.venv/
+__pycache__/
