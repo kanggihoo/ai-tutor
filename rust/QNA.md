@@ -242,6 +242,24 @@
 
 ## 모듈·Cargo·크레이트
 
+### Q. cargo로 추가했으면 use를 어디서든 쓸 수 있나?
+- 2026-11-02 · 레슨 06 · 복습
+- 답: cargo add는 해당 프로젝트의 Cargo.toml에 외부 패키지 의존성을 등록한다. 모듈은 코드 안을 나누는 단위이며 cargo로 따로 설치하는 대상이 아니다.
+  등록된 의존성에서 공개된 이름을 use로 가져올 수 있다. 다른 프로젝트에는 별도로 의존성을 등록해야 한다.
+  use는 보통 파일 위쪽(모듈 범위)에 쓰며 함수 안 블록에도 쓸 수 있다. 함수 안에서 가져온 짧은 이름은 그 블록 안에서만 쓴다.
+  함수 안 use 예제는 rustc 컴파일·실행 확인. Rust Reference의 use 선언 위치와 범위 설명 확인.
+- 한 줄 요약: cargo add는 프로젝트에 의존성 등록, use는 현재 범위에서 쓸 이름 연결이다.
+- 참고: https://doc.rust-lang.org/reference/items/use-declarations.html
+
+### Q. use로 가져오는 이름이 매크로·함수·구조체·enum인지 어떻게 아나?
+- 2026-11-02 · 레슨 06 · 복습
+- 답: use 한 줄만으로 종류가 드러나지는 않으므로 API 문서의 분류나 정의를 확인한다.
+  docs.rs의 serde_json 문서는 json을 Macros, from_str을 Functions, Map을 Structs, Value를 Enums로 분류한다.
+  대문자로 시작하면 보통 타입이지만 구조체와 enum 구분은 이름만으로 할 수 없다. json!(...)의 !는 매크로 호출 표시다.
+  메서드는 보통 타입 문서의 Methods에서 확인하고 값.method(...)로 호출한다. 일반 메서드를 독립 함수처럼 use로 가져오지는 않는다.
+- 한 줄 요약: 이름은 힌트이고, 정확한 종류는 문서의 분류와 정의로 확인한다.
+- 참고: https://docs.rs/serde_json/latest/serde_json/
+
 ### Q. 매크로를 가져온다는 게 무슨 뜻인가?
 - 2026-11-02 · 레슨 06 · 복습
 - 답: 매크로는 입력으로 적은 코드를 받아 Rust 코드로 펼쳐 주는 도구다. json!은 serde_json 제작자가 제공한 매크로다.

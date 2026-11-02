@@ -86,6 +86,11 @@
 | 03 | 슬라이스 Q3 `03_str_q3` | 확인 (에러는 튜터가 검증; 사용자가 `push`를 빌림 전에 옮겨 직접 실행, `hello hello world!`) |
 
 ## 세션 로그
+- 2026-11-02: cargo tree/--depth 1 설명 후 사용자가 이해했다고 응답(이번 재개에서 재실행 미확인). features를 기본 기능에 추가 기능을 켜는 설정으로 이해 확인. serde derive는 설명만, 의존성·features 변경 없음. 다음은 cargo remove/update 역할, docs.rs 읽기와 rand 실습.
+- 2026-11-02: Cargo.toml 버전 범위와 Cargo.lock 차이를 설명. 사용자가 다음으로 진행 요청하여 버전 퀴즈는 생략(이해 확인 미실시). 다음은 cargo tree --depth 1로 직접 의존성 확인, 이후 features.
+- 2026-11-02: 사용자가 `06_json_q1` 실행 확인 보고. 출력 전문은 공유하지 않음(기존 튜터 검증값 8080/true). JSON 생성·필드 읽기 실습 사용자 실행 확인으로 기록. 다음은 Cargo.toml의 serde_json 버전 조건 설명.
+- 2026-11-02 재개 학습: 사용자가 json!으로 만든 config의 port 출력값을 8080으로 정확히 예측. 해당 축약 예제는 설명만(이번 세션 직접 실행 미확인). cargo add 이후 같은 프로젝트의 Rust 파일에서 use로 사용할 수 있다는 개념 설명. 다음은 기존 06_json_q1의 enabled 값 출력 예측 및 실행 확인.
+- 2026-11-02 재개: Some/if let 복습에 사용자가 `8080`/`done`으로 답함. `port:` 문구 누락을 보완. 튜터 rustc 직접 컴파일·실행으로 검증(cargo --offline은 로컬 serde_json 버전 캐시 불일치로 실패). 사용자 요청으로 두 번째 복습은 생략하고 크레이트 개념부터 재설명. 개념 이해 확인 후 use로 진행한다.
 - 2026-11-02 세션 종료: 사용자 요청으로 다음 세션은 레슨 06 크레이트 개념부터 재설명하도록 재개 지점 정리. use·경로·별칭·매크로는 설명만 했으며 이해 확인은 남아 있음. Rust 학습 파일만 커밋한다.
 - 2026-11-02: 사용자가 cargo add serde_json 성공 보고. Cargo.toml에서 버전 1.0.154 확인. cargo tree --depth 1로 직접 의존성 확인. 06_json_q1 작성 및 cargo run으로 8080/true 확인. use와 json! 설명 후 출력 예측 질문.
 - 2026-11-02: 레슨 06 시작. lab/Cargo.toml의 dependencies가 비어 있음을 확인, 로컬 cargo add --help로 명령 문법 확인. 크레이트·Cargo.toml·Cargo.lock 역할을 짧게 설명하고 사용자에게 lab에서 cargo add serde_json 실행 요청. 추가 성공 여부는 아직 미확인.
