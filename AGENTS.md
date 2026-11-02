@@ -10,8 +10,9 @@
 | `git/` | lazygit 다루기 (CLI 아님) | `git/AGENTS.md` | `git/PROGRESS.md` |
 | `zed/` | Zed 에디터 익히기 (내장 AI 제외) | `zed/AGENTS.md` | `zed/PROGRESS.md` |
 | `distsys/` | 분산 이벤트 패턴 실습 (outbox·inbox·CQRS) | `distsys/AGENTS.md` | `distsys/PROGRESS.md` |
+| `gof/` | GoF 디자인 패턴 (23개 중 선별, Java) | `gof/AGENTS.md` | `gof/PROGRESS.md` |
 
 ## 세션 시작 시
-1. 과목 폴더 안에서 시작했으면 그 과목이다. 저장소 루트에서 시작했으면 "오늘은 nvim, rust, llm, git, zed, distsys 중 뭐 할까요?"부터 묻는다.
+1. 과목 폴더 안에서 시작했으면 그 과목이다. 저장소 루트에서 시작했으면 "오늘은 nvim, rust, llm, git, zed, distsys, gof 중 뭐 할까요?"부터 묻는다.
 2. 정해진 과목의 `AGENTS.md`를 읽고 그 규칙대로 진행한다. 다른 과목의 파일은 건드리지 않는다.
 3. 새 과목을 추가할 때는 같은 구조(`<과목>/AGENTS.md`, `<과목>/PROGRESS.md`, `<과목>/CLAUDE.md` = `@AGENTS.md`)로 만들고 위 표에 한 줄 추가한다.
