@@ -112,13 +112,17 @@ LazyVim의 `g r`은 바로 실행되는 매핑이라 Zed의 `g r n`·`g r r`을 
 
 ### Windows에 등록됨 — 동작 확인 대기
 
-`VimControl && !menu` 문맥으로 등록했다. **Mac 적용 여부는 확인되지 않았다.**
+`VimControl && !menu` 문맥으로 등록했다. 2026-11-03에 Mac 기록과 맞췄으며 Windows 동작 확인은 대기 중이다.
 
 | 사용자 키 | 용도 | LazyVim 대응 |
 |---|---|---|
 | `Space Space` | 파일 찾기 | 같음 |
 | `Space e` | 프로젝트 패널 | 같은 용도로 맞춤 |
 | `Space /` | 프로젝트 전체 검색 | 같음 |
+| `Ctrl+h/j/k/l` | pane 이동 | 같음 |
+| `Space \|` / `Space -` | 좌우 / 위아래 분할 | 같음 |
+
+단독 `Space` 이동을 해제해 리더 조합을 기다리도록 설정했다.
 
 which-key는 Mac·Windows 모두 설정한 기록이 있으며, 팝업 표시 확인은 대기 중이다.
 
