@@ -3,6 +3,8 @@
 튜터 규칙과 기기별 환경 차이는 [AGENTS.md](AGENTS.md)를 보세요.
 
 ## 프로필 (2026-10-23 평가)
+- Windows 2026-11-03: Markdown extra와 marksman 설치. Markdown 파일에서 LSP 연결 및 제목 심볼 응답 확인. `Space s s` 화면 확인 대기. 시작 시 treesitter 사용자 컴파일러 설정 지원 중단 경고 확인.
+- Windows 2026-11-03: Python·Rust·Java extras 추가, 기존 TypeScript 유지. Mason에 pyright·jdtls 설치, rustup에 rust-analyzer 설치. 서버 파일과 rust-analyzer 실행 확인, 실제 파일 연결은 미검증. 설치 중 Lazy sync로 기존 플러그인도 업데이트됨.
 - 수준: 기본 입문. 방향키 병행, 레지스터/윈도우/버퍼는 개념만 앎.
 - 용도: Claude Code와 CLI 작업 → 파일 탐색, 값 수정, 코드 읽기/리뷰 위주. 직접 코딩은 적음.
 - 이미 아는 것: 탐색기 `a d r m c H I y . <BS>`, `Space f f`, `Space f r`, `Space ,`, `G` `gg` `$`, `dd`, `u`. 모르는 것(필요할 때 끼워 넣기): 탐색기 `P`(미리보기) `Z`(전부 접기) `]g`/`[g`(git 변경 이동).
