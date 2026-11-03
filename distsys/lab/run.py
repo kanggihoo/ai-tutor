@@ -35,6 +35,24 @@ SCENARIOS = {
         ("m2_relay.py", {}),
         ("m1_payment_service.py", {}),
     ], {**OK, "dup": 1}),
+    "3-inbox-crash": ("③ inbox 기록 후 결제 전 장애: 재전달돼도 결제 1건", [
+        ("m2_order_service.py", {}),
+        ("m2_relay.py", {}),
+        ("m3_payment_service.py", {"CRASH_AT": "after_inbox"}),
+        ("m3_payment_service.py", {}),
+    ], OK),
+    "3-inbox-dup": ("③ outbox 중복 발행도 inbox가 막는다", [
+        ("m2_order_service.py", {}),
+        ("m2_relay.py", {"CRASH_AT": "after_publish"}),
+        ("m2_relay.py", {}),
+        ("m3_payment_service.py", {}),
+    ], OK),
+    "3-offset-auto": ("③-b 처리가 6초 걸리다 죽음: 자동 오프셋 커밋이 먼저 나가면 누락", [
+        ("m2_order_service.py", {}),
+        ("m2_relay.py", {}),
+        ("m3b_payment_service.py", {"CRASH_AT": "after_inbox", "SLOW": "6"}),
+        ("m3b_payment_service.py", {}),
+    ], OK),
     "1-ok": ("① 장애 없음", [
         ("m1_order_service.py 3", {}),
         ("m1_payment_service.py", {}),

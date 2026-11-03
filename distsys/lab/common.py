@@ -49,7 +49,9 @@ def publish(p: Producer, key: str, event: dict) -> None:
 
 def consumer(group: str, **overrides) -> Consumer:
     conf = {"bootstrap.servers": BROKER, "group.id": group,
-            "auto.offset.reset": "earliest"}
+            "auto.offset.reset": "earliest",
+            # 죽은 컨슈머가 그룹에 남는 시간을 줄인다(기본 45초). 장애 실습의 재시작이 안 기다리게.
+            "session.timeout.ms": 6000}
     conf.update(overrides)
     c = Consumer(conf)
     c.subscribe([TOPIC])
