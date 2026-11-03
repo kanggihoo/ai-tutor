@@ -19,6 +19,22 @@ OK = {"missing": 0, "dup": 0, "ghost": 0}
 
 # 이름: (설명, [(스크립트와 인자, 환경변수)], 기대값)
 SCENARIOS = {
+    "2-atomic": ("② 두 INSERT 사이 장애: 원자성 확인", [
+        ("m2_order_service.py", {"CRASH_AT": "between_inserts"}),
+        ("m2_relay.py", {}),
+        ("m1_payment_service.py", {}),
+    ], OK),
+    "2-after-db": ("② DB 저장 후 죽어도 릴레이가 발행", [
+        ("m2_order_service.py", {"CRASH_AT": "after_db"}),
+        ("m2_relay.py", {}),
+        ("m1_payment_service.py", {}),
+    ], OK),
+    "2-duplicate": ("② 발행 후 표시 전 장애: 재발행 관찰", [
+        ("m2_order_service.py", {}),
+        ("m2_relay.py", {"CRASH_AT": "after_publish"}),
+        ("m2_relay.py", {}),
+        ("m1_payment_service.py", {}),
+    ], {**OK, "dup": 1}),
     "1-ok": ("① 장애 없음", [
         ("m1_order_service.py 3", {}),
         ("m1_payment_service.py", {}),

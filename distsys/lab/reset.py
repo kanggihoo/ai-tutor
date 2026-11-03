@@ -11,6 +11,12 @@ from confluent_kafka.admin import AdminClient, NewTopic
 from common import BROKER, ORDERS_DB, PAYMENTS_DB, TOPIC, connect
 
 ORDERS_SCHEMA = """
+DROP TABLE IF EXISTS outbox;
+CREATE TABLE outbox (
+    event_id uuid PRIMARY KEY,
+    payload jsonb NOT NULL,
+    sent boolean NOT NULL DEFAULT false
+);
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
     id         uuid PRIMARY KEY,
