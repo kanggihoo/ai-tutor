@@ -1,6 +1,7 @@
 # Rust 진행 현황 (튜터가 매 퀴즈/실전 후 갱신 · Mac/Windows 공통)
 
 튜터 규칙은 [AGENTS.md](AGENTS.md), 질문 기록은 [QNA.md](QNA.md), 레슨별 복습 노트는 [notes/](notes/)에 있습니다.
+레슨별 선택 소재 후보는 [REFERENCES.md](REFERENCES.md)에 있습니다. 기존 다음 단계를 우선하며, 후보 추가는 진도 변경을 뜻하지 않습니다.
 
 ## 프로필
 - 목표: AI가 짠 Rust 코드를 읽고 판단하고 지휘하기. 손으로 많이 짜는 것은 목표가 아님.
