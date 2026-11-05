@@ -1,0 +1,22 @@
+name: redis-lab
+
+services:
+  redis:
+    image: redis:8.10.3
+    ports: ["6379:6379"]
+    healthcheck:
+      test: redis-cli ping | grep -q PONG
+      interval: 1s
+      retries: 30
+
+  postgres:
+    image: postgres:17.11
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports: ["5433:5432"]  # distsys가 5432를 쓴다
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:  # TCP로 확인해야 첫 부팅 init 중(소켓만 열림)을 ready로 오판하지 않는다
+      test: pg_isready -h 127.0.0.1 -d shop
+      interval: 1s
+      retries: 30
