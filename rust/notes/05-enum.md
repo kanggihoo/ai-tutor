@@ -43,3 +43,23 @@ if output.is_some() {
 - bool 인자→enum, 표시값→Option, let else는 미실습.
 
 다음: 레슨 06 외부 크레이트 쓰기.
+
+
+## 2026-11-07 시작 복습 (자체 제작)
+
+### Some(0)과 Copy
+파일: `lab/src/bin/06_review_option_q1.rs`
+
+`let port: Option<u16> = Some(0)`을 `if let Some(number) = port`로 검사한다. 사용자: 컴파일 가능, u16이 Copy라 number에 복사되며 `port: 0` / `done` 출력이라고 정답. 튜터 `cargo run --offline --bin 06_review_option_q1` 확인(edition 2024). Some(0)은 None이 아니므로 블록에 들어간다.
+
+### String을 빌린 뒤 원본 사용
+파일: `lab/src/bin/06_review_option_q2.rs`
+
+`Some(String::from("report.pdf"))`를 `if let Some(filename) = &output`으로 읽은 뒤 `match output`으로 검사한다. 사용자: 컴파일 가능, `save: report.pdf` / `setting: report.pdf` 예측 정답. 튜터 `cargo run --offline --bin 06_review_option_q2` 확인(edition 2024).
+
+교정한 표현:
+- "소유권을 빌린다" 대신 "값을 빌려 읽고 소유권은 output에 남는다". filename의 타입은 &String이다.
+- Some(filename)/Some(name)은 호출이 아니라 패턴이다. Some인지 확인하고 내부 값에 새 이름을 붙인다.
+- 뒤의 match output에서는 String이 name으로 이동한다. 그 이후 output 전체를 다시 사용할 수 없다.
+
+두 문제 모두 사용자 직접 실행은 미확인. 이어서 레슨 06의 use와 전체 경로 관계를 설명했고 이해 확인 질문은 답변 대기다. 회고 결론은 아직 기록하지 않았다.

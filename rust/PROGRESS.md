@@ -87,6 +87,8 @@
 | 03 | 슬라이스 Q3 `03_str_q3` | 확인 (에러는 튜터가 검증; 사용자가 `push`를 빌림 전에 옮겨 직접 실행, `hello hello world!`) |
 
 ## 세션 로그
+- 2026-11-07: 시작 복습 2 `06_review_option_q2` 컴파일·출력 예측 정답. if let에서 빌리므로 이후 output 사용 가능하다고 이해. 다만 "소유권을 빌렸다"는 표현이 재등장하여 "값을 빌리고 소유권은 output에 남는다"로 교정. 튜터 cargo run --offline으로 save: report.pdf / setting: report.pdf 확인. 다음은 크레이트·use 관계 짧게 복습 후 cargo remove/update.
+- 2026-11-07: 시작 복습 1 `06_review_option_q1` 정답. Some(0)의 내부 u16이 number에 복사된다고 설명하고 `port: 0`/`done` 출력 예측 성공(콜론 앞 공백만 보완). 튜터 cargo run --offline으로 확인. 다음은 &Option<String> if let 빌림 복습, 이후 레슨 06 재개.
 - 2026-11-02: cargo tree/--depth 1 설명 후 사용자가 이해했다고 응답(이번 재개에서 재실행 미확인). features를 기본 기능에 추가 기능을 켜는 설정으로 이해 확인. serde derive는 설명만, 의존성·features 변경 없음. 다음은 cargo remove/update 역할, docs.rs 읽기와 rand 실습.
 - 2026-11-02: Cargo.toml 버전 범위와 Cargo.lock 차이를 설명. 사용자가 다음으로 진행 요청하여 버전 퀴즈는 생략(이해 확인 미실시). 다음은 cargo tree --depth 1로 직접 의존성 확인, 이후 features.
 - 2026-11-02: 사용자가 `06_json_q1` 실행 확인 보고. 출력 전문은 공유하지 않음(기존 튜터 검증값 8080/true). JSON 생성·필드 읽기 실습 사용자 실행 확인으로 기록. 다음은 Cargo.toml의 serde_json 버전 조건 설명.
@@ -124,16 +126,16 @@
 
 - 2026-10-30: 레슨 04 퀴즈 Q2, Q3과 실전 고치기 `04_fix_p1` 완료. `::`와 `.`의 기준(`self` 유무), `let mut`의 의미(필드까지 불변)를 질문으로 확인. 리뷰 문제 `04_review_p1` 제시.
 
-## 다음 단계 (최신, 2026-11-02)
-**레슨 06 외부 크레이트의 개념 설명부터 다시 시작한다. 퀴즈부터 바로 이어가지 않는다.**
+## 다음 단계 (최신, 2026-11-07)
+**시작 복습 2문제는 완료했다. 다음 세션은 레슨 06의 아래 대기 질문부터 이어간다.**
 
-1. 시작 안내: "지난번엔 enum·Option·if let 실습까지 마쳤고, 다음은 외부 크레이트예요. serde_json은 이미 추가했으니 크레이트와 use의 관계부터 다시 볼게요."
-2. 1분 복습 2문제는 이미 배운 Some/None과 `if let ... = &output`에서 고른다. 문제는 제시 전 컴파일로 확인하고 한 문제씩 묻는다.
-3. 크레이트 = 외부 Rust 코드 묶음, `cargo add` = 프로젝트 의존성 등록, `use` = 코드에서 경로의 이름을 짧게 쓰도록 연결이라는 차이를 실제 코드로 설명한다.
-4. `use serde_json::json;`의 각 이름을 설명한다. 전체 경로 `serde_json::json!(...)`와 가져온 이름 `json!(...)`을 나란히 보여준다. 함수·구조체·매크로를 use로 가져올 수 있고, `as`로 별칭을 붙일 수 있다.
-5. 매크로는 컴파일 시 입력을 Rust 코드로 펼치는 도구임을 먼저 설명한다. `!`는 이번 예제에서 매크로를 사용하는 표시다. 직접 만드는 문법은 가르치지 않는다. `use` 자체가 실행이나 JSON 생성은 아니다.
-6. 개념을 이해했는지 확인한 다음 `lab/src/bin/06_json_q1.rs` 출력 예측으로 이어간다. 튜터 cargo run 검증 완료(`8080`/`true`), 사용자 답변·직접 실행은 미확인이다.
-7. 이후 Cargo 버전 조건·features·tree와 docs.rs 읽기, JSON 다루기·rand 실습으로 진행한다. `cargo remove/update`, rand, features 변경은 아직 하지 않았다.
+1. 시작 안내: "지난번엔 Option·if let 복습을 마쳤고, 크레이트와 use를 다시 짚었어요. 전체 경로로 매크로를 쓰는 질문부터 이어갈게요."
+2. 답변 대기 질문: 기존 `06_json_q1.rs`에서 `use serde_json::json;`을 지우고 `json!(...)`을 `serde_json::json!(...)`으로 바꾸면 사용할 수 있는가? 이유 한 줄도 받는다. 이 변형은 제시 전 별도 컴파일 검증이 필요하다. 파일은 아직 수정하지 않았다.
+3. 이번에 설명한 내용: 크레이트는 외부 Rust 코드 묶음, cargo add는 의존성 등록, use는 짧은 이름 연결. use 자체는 JSON 생성이나 실행이 아니다. Python의 uv add / from ... import와 비교했다. 사용자의 이해 확인은 위 질문으로 받는다.
+4. 이미 완료한 JSON 출력 예측·사용자 실행, 버전 조건·tree·features 설명을 처음부터 반복하지 않는다. features는 설명만 했고 실제 변경은 하지 않았다.
+5. 이후 `cargo remove/update` 역할 → docs.rs에서 API 종류·사용 예시 읽기 → rand 추가·실습 순으로 진행한다. 명령·API는 로컬 help와 공식 문서로 확인하고, 새 퀴즈는 lab(edition 2024)에서 먼저 검증한다.
+6. 이번 시작 복습은 `06_review_option_q1`·`06_review_option_q2`. 둘 다 사용자 예측 정답, 튜터 cargo run --offline 확인. 사용자 직접 실행은 미확인이다. 세부 내용은 세션 로그와 `notes/05-enum.md`에 기록했다.
+7. 세션 회고는 요청 대기. 사용자 회고 통과 전에는 결론을 기록하지 않고, pass하면 "회고 pass"만 기록한다.
 
 ### 현재 파일·검증 상태
 - 레슨 04: `04_review_p1` 수정·사용자 실행·비소비 이유 설명 완료. 지휘는 사용자 요청으로 생략. `notes/04-struct.md` 작성.
