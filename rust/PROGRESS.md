@@ -87,6 +87,7 @@
 | 03 | 슬라이스 Q3 `03_str_q3` | 확인 (에러는 튜터가 검증; 사용자가 `push`를 빌림 전에 옮겨 직접 실행, `hello hello world!`) |
 
 ## 세션 로그
+- 2026-11-07 (2차): `06_json_q2`(use 없이 `serde_json::json!` 전체 경로) 컴파일·`8080`/`true` 예측 정답, use를 별칭(짧은 이름 연결)으로 이해. `cargo update`는 Cargo.lock만 바꾼다는 점은 처음엔 "둘 다"로 오답 → `--help`로 교정. `cargo remove`는 Cargo.toml·Cargo.lock 둘 다 바꾼다고 scratchpad 복사본에서 튜터가 확인(처음엔 "둘 다 아니야?"라고 의문 제기). PR diff가 Cargo.lock만 변하면 `update`라고 정답. 사용자 직접 실행은 미확인. 다음은 docs.rs 읽기 → rand 실습.
 - 2026-11-07: 시작 복습 2 `06_review_option_q2` 컴파일·출력 예측 정답. if let에서 빌리므로 이후 output 사용 가능하다고 이해. 다만 "소유권을 빌렸다"는 표현이 재등장하여 "값을 빌리고 소유권은 output에 남는다"로 교정. 튜터 cargo run --offline으로 save: report.pdf / setting: report.pdf 확인. 다음은 크레이트·use 관계 짧게 복습 후 cargo remove/update.
 - 2026-11-07: 시작 복습 1 `06_review_option_q1` 정답. Some(0)의 내부 u16이 number에 복사된다고 설명하고 `port: 0`/`done` 출력 예측 성공(콜론 앞 공백만 보완). 튜터 cargo run --offline으로 확인. 다음은 &Option<String> if let 빌림 복습, 이후 레슨 06 재개.
 - 2026-11-02: cargo tree/--depth 1 설명 후 사용자가 이해했다고 응답(이번 재개에서 재실행 미확인). features를 기본 기능에 추가 기능을 켜는 설정으로 이해 확인. serde derive는 설명만, 의존성·features 변경 없음. 다음은 cargo remove/update 역할, docs.rs 읽기와 rand 실습.
