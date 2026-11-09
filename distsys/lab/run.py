@@ -19,6 +19,43 @@ OK = {"missing": 0, "dup": 0, "ghost": 0}
 
 # 이름: (설명, [(스크립트와 인자, 환경변수)], 기대값)
 SCENARIOS = {
+    "6-reordered": ("⑥ v2 취소를 먼저 받고 v1 생성은 나중에 받음", [
+        ("m6_seed.py", {}),
+        ("m6_relay.py", {}),
+        ("m6_payment_service.py", {}),
+    ], {"state_errors": 0, "payments": 0}),
+    "5-cancel-crash": ("⑤ 실패 이벤트 기록 후 주문 취소 전 장애", [
+        ("m2_order_service.py", {}),
+        ("m2_relay.py", {}),
+        ("m5_payment_service.py", {}),
+        ("m5_relay.py", {}),
+        ("m5_order_consumer.py", {"CRASH_AT": "before_cancel"}),
+        ("m5_order_consumer.py", {}),
+    ], {"compensation_errors": 0, "payments": 0}),
+    "5-failure-dup": ("⑤ 실패 이벤트를 중복 발행해도 주문 취소", [
+        ("m2_order_service.py", {}),
+        ("m2_relay.py", {}),
+        ("m5_payment_service.py", {"CRASH_AT": "after_failure_db"}),
+        ("m5_payment_service.py", {}),
+        ("m5_relay.py", {"CRASH_AT": "after_failure_publish"}),
+        ("m5_relay.py", {}),
+        ("m5_order_consumer.py", {}),
+    ], {"compensation_errors": 0, "payments": 0}),
+    "4-projection-dup": ("④ 중복 주문 이벤트: 목록 1건·합계 10000원이어야 함", [
+        ("m2_order_service.py", {}),
+        ("m2_relay.py", {"CRASH_AT": "after_publish"}),
+        ("m2_relay.py", {}),
+        ("m3b_payment_service.py", {}),
+        ("m4_projection.py", {}),
+    ], {**OK, "projection_errors": 0}),
+    "4-replay": ("④ 조회 모델만 비우고 새 그룹으로 재생: 결제는 그대로", [
+        ("m2_order_service.py", {}),
+        ("m2_order_service.py", {}),
+        ("m2_relay.py", {}),
+        ("m3b_payment_service.py", {}),
+        ("m4_projection.py", {}),
+        ("m4_rebuild.py", {}),
+    ], {**OK, "projection_errors": 0}),
     "2-atomic": ("② 두 INSERT 사이 장애: 원자성 확인", [
         ("m2_order_service.py", {"CRASH_AT": "between_inserts"}),
         ("m2_relay.py", {}),
@@ -78,7 +115,17 @@ def run(name: str) -> bool:
         print(f"$ {shown} {cmd}".replace("$  ", "$ "))
         # 장애 주입 단계는 exit 1로 끝나는 게 정상이라 종료 코드는 보지 않는다
         subprocess.run([sys.executable, script, *args], env={**os.environ, "PYTHONUNBUFFERED": "1", **env})
-    got = check.report(check.inspect())
+    if name.startswith("6-"):
+        from m6_check import inspect as inspect_ordering
+        got = inspect_ordering()
+    elif name.startswith("5-"):
+        from m5_check import inspect as inspect_compensation
+        got = inspect_compensation()
+    else:
+        got = check.report(check.inspect())
+    if name.startswith("4-"):
+        from m4_check import inspect
+        got["projection_errors"] = inspect()
     ok = got == expect
     print("🎯 기대와 일치" if ok else f"⚠️ 기대와 다름: 기대 {expect}, 실제 {got}")
     return ok

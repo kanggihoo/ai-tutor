@@ -37,22 +37,22 @@ def producer() -> Producer:
     return Producer({"bootstrap.servers": BROKER})
 
 
-def publish(p: Producer, key: str, event: dict) -> None:
+def publish(p: Producer, key: str, event: dict, topic: str = TOPIC) -> None:
     """발행하고 브로커 응답(delivery 결과)까지 기다린다. 실패하면 예외."""
     err: list = []
-    p.produce(TOPIC, key=key, value=json.dumps(event),
+    p.produce(topic, key=key, value=json.dumps(event),
               on_delivery=lambda e, _msg: err.append(e))
     p.flush(10)
     if not err or err[0] is not None:
         raise RuntimeError(f"publish failed: {err}")
 
 
-def consumer(group: str, **overrides) -> Consumer:
+def consumer(group: str, topic: str = TOPIC, **overrides) -> Consumer:
     conf = {"bootstrap.servers": BROKER, "group.id": group,
             "auto.offset.reset": "earliest",
             # 죽은 컨슈머가 그룹에 남는 시간을 줄인다(기본 45초). 장애 실습의 재시작이 안 기다리게.
             "session.timeout.ms": 6000}
     conf.update(overrides)
     c = Consumer(conf)
-    c.subscribe([TOPIC])
+    c.subscribe([topic])
     return c
