@@ -19,6 +19,9 @@ OK = {"missing": 0, "dup": 0, "ghost": 0}
 
 # 이름: (설명, [(스크립트와 인자, 환경변수)], 기대값)
 SCENARIOS = {
+    "7-rebalance": ("⑦ 파티션 2개·소비자 2개: A가 DB 커밋 직후 죽어도 B 재처리가 inbox에 막힘", [
+        ("m7_group.py", {}),
+    ], OK),
     "6-reordered": ("⑥ v2 취소를 먼저 받고 v1 생성은 나중에 받음", [
         ("m6_seed.py", {}),
         ("m6_relay.py", {}),

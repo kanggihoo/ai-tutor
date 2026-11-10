@@ -27,8 +27,9 @@ def main() -> None:
                     latest = conn.execute(
                         "SELECT version FROM payment_order_state WHERE order_id = %s FOR UPDATE",
                         (ev["order_id"],)).fetchone()[0]
-                    # 결정 지점: 처음 받은 event_id라면 무조건 적용해도 될까?
-                    if n:
+                    # 처음 본 event_id(n)이면서, 이미 반영한 version(latest)보다 새것일 때만 적용한다.
+                    # 취소(v2)를 먼저 반영했다면 늦게 온 생성(v1)은 건너뛴다(inbox 기록은 남고 업무 SQL만 생략).
+                    if n and ev["version"] > latest:
                         status = "cancelled"
                         if ev["type"] == "OrderCreated":
                             conn.execute("INSERT INTO payments (order_id, amount) VALUES (%s, %s)",
