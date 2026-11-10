@@ -18,8 +18,8 @@
 | 03 | 빌림 | `&`/`&mut`, 빌림 규칙, `String` vs `&str`, 슬라이스 · 🔍 `&String`/`&Vec<T>` 매개변수 → `&str`/`&[T]`, 빌림 피하려는 `clone` | ✅ |
 | 04 | 구조체 | `struct`, `impl`, `self`/`&self`/`&mut self`, `Type::new()` 관례 · 🔍 getter는 `get_` 없이 `name(&self) -> &str`, 읽기만 하는데 `&mut self`나 `self` | ✅ (지휘 생략) |
 | 05 | 열거형과 패턴 | `enum`, `match`, `if let`, `Option` · 🔍 `bool` 매개변수(`f(true)`) → enum, `-1`/`""` 같은 표시값 → `Option`, `is_some()` 뒤 `unwrap()` → `if let`/`let else` | ✅ (추가 리뷰 관점 미실습) |
-| 06 | 🛠 외부 크레이트 쓰기 | `cargo add/remove/tree/update`, `[dependencies]`·버전 표기·features, `::` 경로와 `use`, docs.rs 읽는 법, `serde_json`·`rand` 실제로 써 보기 | 🔄 |
-| 07 | 🛠 실무 에러 처리 | `Result`, `?`, `unwrap`/`expect`를 쓸 때와 피할 때, `anyhow`(앱)·`thiserror`(라이브러리), `.context()`, `main`에서 에러 반환, `RUST_BACKTRACE=1` · 🔍 `Option`/`Result`/`panic!` 고르는 기준(없음이 정상/호출자가 처리/버그), `unwrap` → `expect("왜 안 터지는지")`, `map_err(\|_\| ..)`로 원인 버리기, 실패한 값·경로가 없는 에러 메시지 | ⬜ |
+| 06 | 🛠 외부 크레이트 쓰기 | `cargo add/remove/tree/update`, `[dependencies]`·버전 표기·features, `::` 경로와 `use`, docs.rs 읽는 법, `serde_json`·`rand` 실제로 써 보기 | ✅ (rand 고치기 생략) |
+| 07 | 🛠 실무 에러 처리 | `Result`, `?`, `unwrap`/`expect`를 쓸 때와 피할 때, `anyhow`(앱)·`thiserror`(라이브러리), `.context()`, `main`에서 에러 반환, `RUST_BACKTRACE=1` · 🔍 `Option`/`Result`/`panic!` 고르는 기준(없음이 정상/호출자가 처리/버그), `unwrap` → `expect("왜 안 터지는지")`, `map_err(\|_\| ..)`로 원인 버리기, 실패한 값·경로가 없는 에러 메시지 | 🔄 |
 | 08 | 모듈과 프로젝트 구조 | `mod`, `pub`, `use`, `crate::`/`super::`, 파일 분리, `main.rs`+`lib.rs`, 워크스페이스 | ⬜ |
 | 09 | 🛠 속성과 derive 실전 | `#[derive(Debug, Clone, PartialEq)]`, `serde`로 JSON↔구조체(`#[serde(rename)]`), `clap`의 `#[derive(Parser)]`, `#[allow]`, `#[cfg]` · 🔍 `#[allow]` → `#[expect(lint, reason = "..")]`, `new()`가 있으면 `Default`도, 손으로 짠 impl을 derive로 | ⬜ |
 | 10 | 트레이트와 제네릭 | `trait`, `impl Trait for`, `impl Trait`, `T: Trait`, `Display`/`From` · 🔍 구현이 하나뿐인 trait(코드 정리용), 직접 만든 `from_str` → `FromStr`, `Into` 대신 `From` 구현, 섞이면 안 되는 같은 타입 값 → newtype | ⬜ |
@@ -49,6 +49,8 @@
 - "소유권을 넘긴다(move)"와 "빌린다(borrow)" 용어를 섞어 씀. 개념은 이해함(소유자는 `s`). 슬라이싱에 소유권이 필요하다고 답함(2026-10-29).
 
 - 구조체 메서드에서 `&self`/`&mut self`/`self`를 구분하는 예측이 처음엔 계속 틀림. Q1~Q3 모두 오답. 호출 변수의 `mut`와 메서드의 `&mut self`가 서로 다른 약속이라는 점(2026-10-29~30).
+
+- `?` 앞에 올 수 있는 것, `Result`는 `parse()`의 결과이고 글자 자체가 아니라는 점, JS `?.`와의 차이를 헷갈림(2026-11-11). `Guard`/`Drop`처럼 설명 없이 끼운 요소가 혼란을 키움.
 
 ## 확인한 진도
 "확인"은 cargo로 결과를 본 것, "설명만"은 안내만 하고 확인하지 못한 것.
@@ -87,6 +89,8 @@
 | 03 | 슬라이스 Q3 `03_str_q3` | 확인 (에러는 튜터가 검증; 사용자가 `push`를 빌림 전에 옮겨 직접 실행, `hello hello world!`) |
 
 ## 세션 로그
+- 2026-11-10: 복습 2개 모두 오답(`let c` + `&mut self` E0596, `&a[..]`→`&String` E0308). 슬라이싱 `[..]`·`String` vs `&str`·불변 여부 재질문(QNA 기록). docs.rs 읽기(serde_json `json!` 예제)와 소스 `grep` 읽기를 설명, `cargo add rand`(0.10.3) 사용자 실행. `06_rand_q1` true, `06_rand_q2`는 `thread_rng` 없음 E0425(튜터 확인). 사용자가 "뭔 말이야" 표현에 격하게 반응해 최상위 규칙 추가됨. 레슨 06 종료, `notes/06-crates.md` 작성. 다음은 레슨 07.
+- 2026-11-11: 레슨 07 시작. `Result`(Ok/Err 상자, `T`/`E` 제네릭), try-catch-finally 대응(`Err` 반환/`?`/`match`/`map_err`/`Drop`), `?`(앞에 올 수 있는 식, `Result`·`Option`, 함수 반환 타입 조건, 이동과 `.as_ref()?`), `Option`, panic 읽기를 설명. 모두 튜터가 lab에서 컴파일·실행 확인(`07_err_demo*`, 사용자 직접 실행 없음). Q1(`"abc".parse().unwrap()`)은 사용자가 흐름(Err가 들어 있어 unwrap에서 패닉, 아래 println 미실행)을 스스로 정확히 요약. 설명이 한 번에 너무 많아 사용자가 반복해서 이해 못 했다고 함 → `rust/AGENTS.md`에 "설명 규칙" 추가.
 - 2026-11-07 (2차): `06_json_q2`(use 없이 `serde_json::json!` 전체 경로) 컴파일·`8080`/`true` 예측 정답, use를 별칭(짧은 이름 연결)으로 이해. `cargo update`는 Cargo.lock만 바꾼다는 점은 처음엔 "둘 다"로 오답 → `--help`로 교정. `cargo remove`는 Cargo.toml·Cargo.lock 둘 다 바꾼다고 scratchpad 복사본에서 튜터가 확인(처음엔 "둘 다 아니야?"라고 의문 제기). PR diff가 Cargo.lock만 변하면 `update`라고 정답. 사용자 직접 실행은 미확인. 다음은 docs.rs 읽기 → rand 실습.
 - 2026-11-07: 시작 복습 2 `06_review_option_q2` 컴파일·출력 예측 정답. if let에서 빌리므로 이후 output 사용 가능하다고 이해. 다만 "소유권을 빌렸다"는 표현이 재등장하여 "값을 빌리고 소유권은 output에 남는다"로 교정. 튜터 cargo run --offline으로 save: report.pdf / setting: report.pdf 확인. 다음은 크레이트·use 관계 짧게 복습 후 cargo remove/update.
 - 2026-11-07: 시작 복습 1 `06_review_option_q1` 정답. Some(0)의 내부 u16이 number에 복사된다고 설명하고 `port: 0`/`done` 출력 예측 성공(콜론 앞 공백만 보완). 튜터 cargo run --offline으로 확인. 다음은 &Option<String> if let 빌림 복습, 이후 레슨 06 재개.
@@ -127,16 +131,15 @@
 
 - 2026-10-30: 레슨 04 퀴즈 Q2, Q3과 실전 고치기 `04_fix_p1` 완료. `::`와 `.`의 기준(`self` 유무), `let mut`의 의미(필드까지 불변)를 질문으로 확인. 리뷰 문제 `04_review_p1` 제시.
 
-## 다음 단계 (최신, 2026-11-07)
-**시작 복습 2문제는 완료했다. 다음 세션은 레슨 06의 아래 대기 질문부터 이어간다.**
+## 다음 단계 (최신, 2026-11-11)
+**레슨 07 진행 중.** 이론 일부와 Q1은 끝냈다. 퀴즈 Q2~Q3과 실전은 아직이다.
 
-1. 시작 안내: "지난번엔 Option·if let 복습을 마쳤고, 크레이트와 use를 다시 짚었어요. 전체 경로로 매크로를 쓰는 질문부터 이어갈게요."
-2. 답변 대기 질문: 기존 `06_json_q1.rs`에서 `use serde_json::json;`을 지우고 `json!(...)`을 `serde_json::json!(...)`으로 바꾸면 사용할 수 있는가? 이유 한 줄도 받는다. 이 변형은 제시 전 별도 컴파일 검증이 필요하다. 파일은 아직 수정하지 않았다.
-3. 이번에 설명한 내용: 크레이트는 외부 Rust 코드 묶음, cargo add는 의존성 등록, use는 짧은 이름 연결. use 자체는 JSON 생성이나 실행이 아니다. Python의 uv add / from ... import와 비교했다. 사용자의 이해 확인은 위 질문으로 받는다.
-4. 이미 완료한 JSON 출력 예측·사용자 실행, 버전 조건·tree·features 설명을 처음부터 반복하지 않는다. features는 설명만 했고 실제 변경은 하지 않았다.
-5. 이후 `cargo remove/update` 역할 → docs.rs에서 API 종류·사용 예시 읽기 → rand 추가·실습 순으로 진행한다. 명령·API는 로컬 help와 공식 문서로 확인하고, 새 퀴즈는 lab(edition 2024)에서 먼저 검증한다.
-6. 이번 시작 복습은 `06_review_option_q1`·`06_review_option_q2`. 둘 다 사용자 예측 정답, 튜터 cargo run --offline 확인. 사용자 직접 실행은 미확인이다. 세부 내용은 세션 로그와 `notes/05-enum.md`에 기록했다.
-7. 세션 회고는 요청 대기. 사용자 회고 통과 전에는 결론을 기록하지 않고, pass하면 "회고 pass"만 기록한다.
+1. 시작 안내: "지난번엔 `Result`, `?`, `Option`, panic까지 했어요. 이번엔 `unwrap`/`expect`를 쓸 때와 피할 때부터 가요."
+2. **설명 규칙 준수** (`rust/AGENTS.md`, 루트 AGENTS.md 최우선 규칙): 한 번에 새 개념 1개, 처음 나오는 이름은 코드 전에 풀기, 예시 10줄 이하. 사용자가 이해 못 했다고 하면 질문·미션을 멈추고 값을 시간순으로 쪼개 설명한다.
+3. 남은 것: `unwrap` vs `expect("왜 안 터지는지")`, 기본값 `unwrap_or`, `Option`/`Result`/`panic!` 고르는 기준(없음이 정상 / 호출자가 처리 / 버그), `anyhow` + `.context()`, `main`에서 에러 반환, `RUST_BACKTRACE=1`, 실전 리뷰(🔍 `map_err(|_| ..)`로 원인 버리기, 값·경로 없는 에러 메시지).
+4. 시작 복습은 `let mut`+`&mut self`(E0596), `&str`→`&String`(E0308)(둘 다 11-10에 오답), `?`가 `Result`/`Option` 상자를 여는 것.
+5. `06_rand_q2`는 깨진 채 남아 있다(고치기 생략). 전체 빌드 금지, `--bin` 사용.
+6. 세션 회고는 요청 대기. 통과 전엔 결론을 기록하지 않고, pass하면 "회고 pass"만 기록한다.
 
 ### 현재 파일·검증 상태
 - 레슨 04: `04_review_p1` 수정·사용자 실행·비소비 이유 설명 완료. 지휘는 사용자 요청으로 생략. `notes/04-struct.md` 작성.
