@@ -14,7 +14,7 @@
 | C1 | gate (PR 입구) | 진행 중 | 검사 결과와 병합 규칙, 건너뜀, CI 설정 변조와 관리자 탈취의 한계 설명. D-4, D-5 |
 | C2 | 게시 경계 | 진행 중 | 태그·digest, manifest·layer, GHCR 조회와 배포 기록 설명. 실습 미실시. D-8, D-9 |
 | C3 | 출처 증명 | 실습 확인 보류 | 생성·저장·검증 흐름 설명. 인증서와 제작 정보의 서명은 실제 파일로 확인 예정. D-10 |
-| C4 | 배포 열쇠 | 진행 중 | forced command·입력 검증·파일 소유권·Docker 권한·고정 Compose 보호 설명. sudoers 구체 설정부터 재개. D-20, ADR 0001 |
+| C4 | 배포 열쇠 | 진행 중 | forced command·입력 검증·파일 소유권·Docker 권한·`sudoers`·Compose와 `.env` 보호·`restrict` 설명. Tailscale SSH부터 재개. D-20, ADR 0001 |
 | C5 | dev는 정말 비공개인가 | 대기 | D-19, D-21, ADR 0002 |
 | C6 | 로그 위생 | 대기 | D-13 |
 | C7 | 총정리 | 대기 | D-14, D-16 |
@@ -58,10 +58,23 @@
 - 설명 피드백: 사용자는 전제 생략과 모호한 질문에 강하게 불만을 표시함. 계정 권한 → Docker daemon 권한 → 컨테이너 프로세스 권한 → 서버 파일 접근을 생략하지 말 것. 질문은 공격자가 이미 가진 권한과 가능한 행동을 명시하고 한 번에 하나만 묻기.
 - 회고 pass
 
+## 이번 수업 기록 (2026-11-11)
+- 정본 `decisions.md`(D-20)와 ADR 0001을 `~/Desktop/vps/` 아래(`vps-info`, `vps-infra`, `ssafy-workspace`)에서 찾지 못함. 지난 기록의 "원래 경로"가 현재 보이지 않음. 이번 세션은 `lessons/C4-deploy-key.md` 기준으로 진행했고 정본 일치 여부는 확인 못 함.
+- 복습: 배포 계정이 `sudo deploy.sh`만 실행할 수 있지만 `compose.yml`은 수정할 수 있을 때 서버 파일에 접근하는 방법. 사용자는 "몰라" → 힌트(`-v /:/host`와 `volumes:`의 관계) 후 `volumes`의 bind mount와 `command:`로 공격 명령을 넣는다고 스스로 정리함. 힌트를 받은 뒤의 답이므로 힌트 없는 정답으로 집계하지 않음.
+- 설명: `/:/host`는 서버 `/`를 컨테이너 `/host`에 연결(통로), `command:`는 그 통로로 root 행동을 실행(방아쇠). `sudo deploy.sh` → root로 `docker compose up` → root Docker 데몬이 컨테이너 생성. 예시는 `/host/etc/sudoers`에 한 줄 추가. `deploy.sh`를 root 소유로 잠가도 읽는 `compose.yml`을 쓸 수 있으면 의미 없음.
+- 질문 답: 배포 계정에 `sudo`가 필수는 아님. (1) `sudo`로 고정 스크립트만, (2) `docker` 그룹(금지), (3) root `authorized_keys`에 `command=` 세 방식 비교. 이 프로젝트가 1번을 택했는지는 정본을 못 찾아 확인 못 함.
+- `sudoers` 개념 설명: `sudo`는 일반 계정이 명령 하나를 root로 실행, `/etc/sudoers`는 허용 목록 파일. 한 줄 형식(`계정 ALL=(실행자) NOPASSWD: 명령`)과 `%`=그룹, 마지막 `ALL`(전체 허용) vs 경로 하나(고정 스크립트)의 차이. `/etc/sudoers.d/`는 `@includedir`로 같이 읽히는 규칙 파일 디렉터리.
+- 사용자 실제 VPS 출력으로 확인(사용자가 직접 실행·붙여넣음): `/etc/sudoers`는 `-r--r----- root root`, `/etc/sudoers.d/`는 일반 계정 목록 조회 불가, 안에 `90-cloud-init-users`(root 규칙 한 줄)와 `README`. `%sudo ALL=(ALL:ALL) ALL` 줄이 있고, 첫 `sudo`에서 비밀번호를 물음. `kkh`가 `sudo` 그룹인지(`id kkh`)는 미확인. `cd su` + Tab에 `sudoers.d/`만 보인 건 디렉터리만 완성되기 때문(파일 없음의 근거 아님).
+- 사용자 이해: sudo 비밀번호(본인 계정 비밀번호)만 알면 전부 가능한 구조라고 스스로 정리. 조건(계정 접속 + 비밀번호, `sudo` 그룹 소속 가정) 보충. 배포 계정은 `NOPASSWD:`라 비밀번호 관문이 없으므로 허용 명령을 한 개로 좁히는 것이 중요.
+- 설치 vs 배포 구분: 관리자 계정이 `sudo install -o root -g root -m 755`로 `deploy.sh` 설치(비밀번호 입력), 배포 계정(`sudo` 그룹 아님)은 `sudoers.d` 규칙 한 줄로 그 스크립트만 실행. `install`은 `cp`+`chown`+`chmod`. 앱 배포는 digest 인자만 보내는 자동 흐름, `deploy.sh`·`compose.yml` 같은 배포 틀 변경은 드물어서 관리자가 수동 설치(또는 `git pull` 후 한 줄 설치 명령). CD가 틀을 덮어쓰게 하는 방식은 파이프라인 침해 시 root 코드를 정하게 되어 피함. 프로젝트의 실제 선택은 정본 미확인.
+- Compose 참조 파일 보호(C4): `compose.yml`을 잠가도 같은 디렉터리의 `.env`(`${APP_IMAGE}`, `${APP_DATA}` 치환)나 `compose.override.yml`을 배포 계정이 쓸 수 있으면 `APP_DATA=/`로 서버 `/`를 mount시키거나 이미지를 바꿔 root 실행 내용을 정할 수 있음. 방어: 디렉터리·파일 전체 root 소유, 바뀌는 값은 `deploy.sh`가 검증한 digest뿐. Compose의 `.env` 자동 읽기는 알고 있던 동작이며 이번 세션에 공식 문서로 재확인하지 않음. 사용자는 바꿀 변수(`APP_DATA`)를 먼저 지목하고 값 `/`를 답함. 두 번째 질문에 앞선 `-v /:/host` 예시 힌트가 들어 있었으므로 힌트 없는 정답으로 집계하지 않음.
+- `restrict` 설명(C4): `command=`만 있으면 명령 실행만 제한되고 포트 포워딩은 남음. 예: 유출된 키로 `ssh -N -L 5432:127.0.0.1:5432 deploy@서버`를 열면 서버 loopback(127.0.0.1)에서만 열린 DB에 닿음. `-N`은 명령 없이 연결만 하므로 `command=`가 실행될 기회가 없음. Tailscale ACL의 22번 허용도 터널이 22번 연결 안으로 지나가므로 못 막음. `restrict`(포트·agent·X11 포워딩, pty, `~/.ssh/rc`를 한꺼번에 끔)를 키 줄 앞에 붙임. 남는 구멍: 키 유출 자체, `deploy.sh` 입력 검증. OpenSSH 옵션은 이전 세션에 공식 문서로 확인, 이번엔 재확인 안 함. 사용자 독립 확인 문제는 아직 미실시(확인 질문: `command=`만 붙인 열쇠로 127.0.0.1 서비스에 어떻게 닿고 `restrict`가 어떻게 막나).
+- 설명만 진행, 사용자 서버 명령은 사용자가 직접 실행. 이쪽에서 명령 실행·외부 전송 없음. C4 완료·약점 졸업 처리 안 함. 회고는 미실시.
+
 ## 다음 단계
-1. **Docker 권한과 sudo·Compose 보호에서 바로 이어가기.** 시작 문구: "지난번엔 배포 계정에 Docker 직접 권한을 주지 않고, 고정 배포 스크립트만 sudo로 실행하게 하는 구조까지 봤어요. 다음은 그 허용 범위를 실제로 어떻게 제한하는지입니다."
-2. 짧은 복습 하나: "배포 계정은 deploy.sh만 sudo로 실행할 수 있고 sudo docker는 거부됩니다. 그런데 deploy.sh가 읽는 compose.yml은 배포 계정이 수정할 수 있습니다. 이때 어떤 설정을 넣어 서버 파일에 접근할 수 있을까요?" 이미 설명한 mount 예를 전제로 질문하고 모르면 힌트부터. 횟수는 힌트 없는 정답만 기록.
-3. D-20·ADR 0001 및 실제 코드 존재 여부를 확인한 뒤 sudoers의 고정 실행 경로·인자 제한과 스크립트 내부 검증을 구분해 설명. 앞선 sudo 예시는 개념 설명이며 실제 정책이 확인된 것으로 취급하지 않기. 사용자 임의 Docker 옵션·Compose 경로를 받지 않는 이유부터 한 개념씩.
-4. Compose 자체뿐 아니라 참조하는 .env·추가 Compose 파일·실행 파일과 경로의 수정 권한이 왜 중요한지 구체적인 한 사례로 설명. Docker rootful/rootless·UID 매핑은 질문이 있을 때 필요한 범위로만.
-5. 이후 C4 나머지: 환경·digest 검사 실습, restrict의 포워딩 차단, Tailscale SSH, 상태 기록 보호·롤백. Tailscale 동작은 공식 문서 확인 후 설명.
+1. **C4의 Tailscale SSH부터 이어가기.** 시작 문구: "지난번엔 `sudoers`로 배포 스크립트 하나만 허용하는 방법, `compose.yml`이 읽는 `.env` 보호, `restrict`로 포트 포워딩을 막는 것까지 봤어요. 다음은 Tailscale SSH가 `authorized_keys`의 `command=`를 우회하는 문제입니다." Tailscale 동작은 공식 문서를 확인한 뒤 설명.
+2. 짧은 복습 하나(약점 우선): "`.env`는 쓸 수 있고 `compose.yml`은 못 쓰는 공격자가 `APP_DATA`에 무엇을 넣으면 서버 전체에 닿나요?" 힌트 없이 맞으면 1회로 기록. 또는 `restrict` 확인 질문(위 로그 참고). 한 번에 하나만.
+3. 정본 D-20·ADR 0001이 `~/Desktop/vps/` 아래에서 안 보임(2026-11-11). 사용자에게 현재 경로를 물어 확인하고, 확인되면 sudoers 방식(고정 스크립트 하나 허용)과 `.env`·digest 정책이 레슨과 맞는지 비교. 확인 전에는 프로젝트 실제 선택을 단정하지 않기.
+4. `sudo`의 `env_reset`이 `SSH_ORIGINAL_COMMAND` 같은 환경변수를 어떻게 다루는지(`deploy.sh`가 인자를 받는 방식과 연결)는 공식 문서 확인 후 설명. 아직 설명 안 함.
+5. 이후 C4 나머지: 환경·digest 검사 실습(로컬 bash), 상태 기록 파일 보호와 롤백 허용 범위. Docker rootful/rootless·UID 매핑은 질문이 있을 때 필요한 범위로만.
 6. 실습은 사용자와 시점이 맞을 때 `~/Desktop/cicd-practice/`에서. Docker 설치 여부 먼저 확인. 실제 GitHub·서버 작업과 외부 전송은 하지 않음. C3는 실제 파일 비교 실습으로 보류 유지. C0부터 다시 시작하지 않음.
