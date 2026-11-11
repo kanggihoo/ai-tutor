@@ -265,6 +265,36 @@
 - 답: `o?`는 상자 안의 `String`을 변수로 **이동**시킨다(`Copy`가 아니라서 이후 `o` 사용 시 E0382). `&Option<String>`에는 `?`를 못 쓴다(`Try` 아님). 빌려 꺼내려면 `o.as_ref()?`로 `Option<&String>`을 만든다.
 - 한 줄 요약: `o?`는 이동, `o.as_ref()?`는 빌려서 꺼냄.
 
+### Q. `println!("{:?}", ..)`의 `{:?}`는 무슨 뜻인가?
+- 2026-11-11 · 레슨 07 · 복습
+- 답: `{}`는 `Display`(사람에게 보여 줄 모양), `{:?}`는 `Debug`(개발자가 값의 구조를 확인하는 모양)로 출력하라는 뜻이다. `"hi"`는 `{}`면 `hi`, `{:?}`면 `"hi"`(따옴표 포함), `Ok(42)`는 `{:?}`로만 찍힌다. `Result`는 `Display`가 없어서 `{}`로 찍으면 E0277(`doesn't implement Display`). rustc로 확인.
+- 한 줄 요약: `Result`·`Option`·구조체를 찍어 볼 땐 `{:?}`.
+
+### Q. Rust에서 `Display`가 뭔가?
+- 2026-11-11 · 레슨 07
+- 답: 타입이 "사람이 읽는 글자로 바꾸는 방법"을 갖고 있다는 표시(trait, 레슨 10)다. `println!("{}", ..)`는 이걸 쓰므로 정수·문자열은 되고, 직접 만든 구조체·`Result`·`Option`은 자동으로 없어서 E0277이 난다(rustc 확인). 그럴 땐 `{:?}`(`Debug`, 레슨 09의 `#[derive(Debug)]`).
+- 한 줄 요약: `{}`는 `Display` 있는 타입만, 없으면 `{:?}`.
+
+### Q. panic은 그냥 에러 발생인가? `expect`가 있고 없고의 차이는?
+- 2026-11-11 · 레슨 07 · 복습
+- 답: `Err`는 값으로 돌아와 `match`/`?`로 처리할 수 있지만, panic은 처리 기회 없이 그 줄에서 프로그램이 멈춘다(아래 줄 미실행). `unwrap`/`expect`는 `Err`/`None`을 panic으로 바꾼다. `expect("메시지")`는 panic 화면에 내 메시지가 붙는다. `lab/src/bin/07_expect_demo.rs`(`use_expect`를 `true`/`false`로 바꿔 실행)로 확인: `PORT는 숫자여야 함: ParseIntError { kind: InvalidDigit }` vs ``called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }``.
+- 한 줄 요약: `unwrap`은 이유 없는 panic, `expect`는 "왜 안 터져야 하는지"가 화면에 남는 panic.
+
+### Q. Rust에서 에러 로깅은 어떻게 하나?
+- 2026-11-11 · 레슨 07
+- 답: 기본은 `eprintln!`이다. 쓰는 법은 `println!`과 같고, stdout 대신 stderr로 나간다. `mycli > result.txt`로 실행하면 `println!`만 파일에 들어가고 `eprintln!`은 화면에 남는다(rustc로 `2>/dev/null`, `1>/dev/null` 확인). 시간·레벨·파일 저장이 필요한 앱은 `log`/`tracing` 크레이트를 쓴다(레슨 15 무렵 필요해지면 다룸).
+- 한 줄 요약: 에러 메시지는 `eprintln!`, 본격 로깅은 `log`/`tracing`.
+
+### Q. `anyhow`는 뭐고 왜 필요한가? (약속만 바꾸면 되지 않나? try-catch 언어와 뭐가 다른가?)
+- 2026-11-11 · 레슨 07 · 복습 · 재질문 (같은 날 "뭔말이야"로 설명 실패, 값 순서로 다시 설명함. **다음 세션은 여기부터 다시**)
+- 답: `anyhow`는 외부 크레이트로 `anyhow::Error`(어떤 에러든 담는 상자)와 `anyhow::Result<T>`(= `Result<T, anyhow::Error>`)를 준다. 파일 읽기(`io::Error`)와 숫자 변환(`ParseIntError`)처럼 에러 종류가 둘인 함수는 반환 타입의 `E` 자리에 한 종류만 적을 수 있어서 `?`가 E0277을 낸다(어느 쪽으로 바꿔도 다른 쪽이 걸림, rustc 확인). `anyhow::Result<u16>`로 한 줄만 바꾸면 본문 변경 없이 컴파일된다(별도 프로젝트에서 `port.txt`→`Ok(8080)`, `bad.txt`→`Err(invalid digit found in string)`, `nope.txt`→`Err(지정된 파일을 찾을 수 없습니다. (os error 2))` 확인). Java는 `throws A, B`나 부모 `Exception`으로 받지만 Rust는 `E`가 한 칸이고 상속이 없어 공통 부모가 없다. `anyhow::Error`가 그 자리를 만들어 준다. 안에 든 종류를 `match`로 갈라 볼 수 없는 것이 단점이다.
+- 한 줄 요약: 에러 종류가 여럿이면 반환 타입을 `anyhow::Result<T>`로 적으면 `?`가 다 받는다(앱용).
+
+### Q. `anyhow`와 직접 만든 에러 `enum`(`thiserror`)은 언제 나눠 쓰나?
+- 2026-11-11 · 레슨 07 · 복습
+- 답: 호출자가 에러 종류를 보고 다르게 행동해야 하면 `enum`(예: `LoginError::WrongPassword`→재입력 안내, `UserNotFound`→가입 화면, rustc 확인), 에러 메시지를 찍고 끝내면 `anyhow`. 라이브러리는 전자, 앱은 대체로 후자.
+- 한 줄 요약: 종류별로 다르게 처리하면 `enum`, 보고하고 끝이면 `anyhow`.
+
 ## 모듈·Cargo·크레이트
 
 ### Q. cargo로 추가했으면 use를 어디서든 쓸 수 있나?

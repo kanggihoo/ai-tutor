@@ -52,6 +52,8 @@
 
 - `?` 앞에 올 수 있는 것, `Result`는 `parse()`의 결과이고 글자 자체가 아니라는 점, JS `?.`와의 차이를 헷갈림(2026-11-11). `Guard`/`Drop`처럼 설명 없이 끼운 요소가 혼란을 키움.
 
+- `anyhow`: 반환 타입의 `E` 한 칸에 에러 종류를 여럿 못 쓰는 문제와 `anyhow::Error` 상자의 역할을 헷갈림. 한 번 "뭔말이야" 발생(2026-11-11). 이후 질문(약속을 바꾸면 되지 않나, try-catch 언어와 차이, 포괄적 에러의 단점)은 이해하려는 방향이었음.
+
 ## 확인한 진도
 "확인"은 cargo로 결과를 본 것, "설명만"은 안내만 하고 확인하지 못한 것.
 
@@ -90,6 +92,7 @@
 
 ## 세션 로그
 - 2026-11-10: 복습 2개 모두 오답(`let c` + `&mut self` E0596, `&a[..]`→`&String` E0308). 슬라이싱 `[..]`·`String` vs `&str`·불변 여부 재질문(QNA 기록). docs.rs 읽기(serde_json `json!` 예제)와 소스 `grep` 읽기를 설명, `cargo add rand`(0.10.3) 사용자 실행. `06_rand_q1` true, `06_rand_q2`는 `thread_rng` 없음 E0425(튜터 확인). 사용자가 "뭔 말이야" 표현에 격하게 반응해 최상위 규칙 추가됨. 레슨 06 종료, `notes/06-crates.md` 작성. 다음은 레슨 07.
+- 2026-11-11 (2차): 시작 복습 3개(`07_review_q1~q3`: E0596, E0308, `?`/`Ok(42)`/`true`) 모두 정답, 튜터가 rustc로 확인. `{:?}`(`Debug`)·`Display`·panic과 `Err` 차이·`eprintln!`을 질문받아 QNA 기록. `expect` vs `unwrap` 설명(`07_expect_demo`, 튜터 확인, 사용자 직접 실행 미확인). Q2(`unwrap_or`+`expect`, `07_err_q2`): 멈추는 줄은 정답, 첫 줄 `port: 8080` 출력은 빠뜨림. Q3(Option/Result/panic 고르기, `07_choose_demo`로 설명): (가) Result (나) Option (다) panic 모두 정답, 이유도 맞음(튜터 설명만, 확인 대상 없음). 이후 `anyhow` 설명(`port_from_file`, 튜터가 별도 프로젝트에서 확인)을 두 번 했고 "뭔말이야"가 나옴. 질문 3개는 QNA 기록. 사용자가 다음 세션은 `anyhow`부터 다시 설명하도록 요청함. 남은 것: `anyhow` 재설명, `.context()`, `main`에서 에러 반환, `RUST_BACKTRACE=1`, 실전 리뷰.
 - 2026-11-11: 레슨 07 시작. `Result`(Ok/Err 상자, `T`/`E` 제네릭), try-catch-finally 대응(`Err` 반환/`?`/`match`/`map_err`/`Drop`), `?`(앞에 올 수 있는 식, `Result`·`Option`, 함수 반환 타입 조건, 이동과 `.as_ref()?`), `Option`, panic 읽기를 설명. 모두 튜터가 lab에서 컴파일·실행 확인(`07_err_demo*`, 사용자 직접 실행 없음). Q1(`"abc".parse().unwrap()`)은 사용자가 흐름(Err가 들어 있어 unwrap에서 패닉, 아래 println 미실행)을 스스로 정확히 요약. 설명이 한 번에 너무 많아 사용자가 반복해서 이해 못 했다고 함 → `rust/AGENTS.md`에 "설명 규칙" 추가.
 - 2026-11-07 (2차): `06_json_q2`(use 없이 `serde_json::json!` 전체 경로) 컴파일·`8080`/`true` 예측 정답, use를 별칭(짧은 이름 연결)으로 이해. `cargo update`는 Cargo.lock만 바꾼다는 점은 처음엔 "둘 다"로 오답 → `--help`로 교정. `cargo remove`는 Cargo.toml·Cargo.lock 둘 다 바꾼다고 scratchpad 복사본에서 튜터가 확인(처음엔 "둘 다 아니야?"라고 의문 제기). PR diff가 Cargo.lock만 변하면 `update`라고 정답. 사용자 직접 실행은 미확인. 다음은 docs.rs 읽기 → rand 실습.
 - 2026-11-07: 시작 복습 2 `06_review_option_q2` 컴파일·출력 예측 정답. if let에서 빌리므로 이후 output 사용 가능하다고 이해. 다만 "소유권을 빌렸다"는 표현이 재등장하여 "값을 빌리고 소유권은 output에 남는다"로 교정. 튜터 cargo run --offline으로 save: report.pdf / setting: report.pdf 확인. 다음은 크레이트·use 관계 짧게 복습 후 cargo remove/update.
@@ -132,9 +135,10 @@
 - 2026-10-30: 레슨 04 퀴즈 Q2, Q3과 실전 고치기 `04_fix_p1` 완료. `::`와 `.`의 기준(`self` 유무), `let mut`의 의미(필드까지 불변)를 질문으로 확인. 리뷰 문제 `04_review_p1` 제시.
 
 ## 다음 단계 (최신, 2026-11-11)
-**레슨 07 진행 중.** 이론 일부와 Q1은 끝냈다. 퀴즈 Q2~Q3과 실전은 아직이다.
+**레슨 07 진행 중.** 퀴즈 Q1~Q3은 끝냈다(`unwrap`/`expect`/`unwrap_or`, Option·Result·panic 고르기). **`anyhow`는 설명을 두 번 했는데 사용자가 "뭔말이야" 후 여러 질문을 해서 이해가 불안정하다. 다음 세션은 `anyhow`부터 다시 설명한다.** 그다음 `.context()`, `main`에서 에러 반환, `RUST_BACKTRACE=1`, 실전 리뷰다.
 
-1. 시작 안내: "지난번엔 `Result`, `?`, `Option`, panic까지 했어요. 이번엔 `unwrap`/`expect`를 쓸 때와 피할 때부터 가요."
+1. 시작 안내: "지난번엔 `unwrap`/`expect`/`unwrap_or`와 Option·Result·panic 고르는 기준까지 했고, `anyhow`는 다시 설명할게요."
+1-1. **`anyhow` 재설명 방법**: `QNA.md`의 "`anyhow`는 뭐고 왜 필요한가?" 항목을 참고한다. 한 번에 개념 하나만(`anyhow::Result`가 `?`의 에러 종류 문제를 푼다는 것). `port_from_file`에서 `nope.txt`를 넣었을 때 `?`가 에러를 `anyhow::Error` 상자에 담아 반환하는 장면을 값 순서대로 보여 준다. `enum` 에러·`thiserror` 비교, `.context()`는 끼우지 않는다. 사용자가 이미 던진 질문(약속을 바꾸면 되지 않나, try-catch와 차이, `anyhow` vs `enum`)은 QNA에 답이 있다. `lab`에 `cargo add anyhow`는 아직 안 했다(사용자 실행 미확인).
 2. **설명 규칙 준수** (`rust/AGENTS.md`, 루트 AGENTS.md 최우선 규칙): 한 번에 새 개념 1개, 처음 나오는 이름은 코드 전에 풀기, 예시 10줄 이하. 사용자가 이해 못 했다고 하면 질문·미션을 멈추고 값을 시간순으로 쪼개 설명한다.
 3. 남은 것: `unwrap` vs `expect("왜 안 터지는지")`, 기본값 `unwrap_or`, `Option`/`Result`/`panic!` 고르는 기준(없음이 정상 / 호출자가 처리 / 버그), `anyhow` + `.context()`, `main`에서 에러 반환, `RUST_BACKTRACE=1`, 실전 리뷰(🔍 `map_err(|_| ..)`로 원인 버리기, 값·경로 없는 에러 메시지).
 4. 시작 복습은 `let mut`+`&mut self`(E0596), `&str`→`&String`(E0308)(둘 다 11-10에 오답), `?`가 `Result`/`Option` 상자를 여는 것.
