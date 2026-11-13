@@ -1,0 +1,21 @@
+# case=t03-s3auth script=t03_resource_policy.py env=[LAB_IAM=false LAB_S3AUTH=true] round=r2 date=2026-11-12T15:01:40+09:00
+# floci: 2026-11-12 06:01:40,786 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+ Container awslab-floci Running 
+ Container awslab-client-run-763b2ffbe775 Creating 
+ Container awslab-client-run-763b2ffbe775 Created 
+=== t03 MODE=t03-s3auth
+CHECK t03[t03-s3auth] E1.dave(named in bucket policy, no identity) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-s3auth] E1.erin(account-root only, no identity) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-s3auth] E1.frank(identity allow + bucket deny) expected=AccessDenied actual=AccessDenied OK
+INFO  bee caller = arn:aws:iam::111111111111:user/bee
+CHECK t03[t03-s3auth] E2.B.beeall(sqs:*)->A.queue(no queue policy) expected=ALLOW actual=ALLOW OK | doc: cross-account needs queue policy too -> AWS: AccessDenied
+CHECK t03[t03-s3auth] E2.B.bee(A-queue-ARN)->A.queue(no queue policy) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-s3auth] E2.B.bee(A-queue-ARN)->A.queue(queue policy names bee) expected=ALLOW actual=ALLOW OK | doc: identity + queue policy both allow -> AWS: ALLOW
+CHECK t03[t03-s3auth] E2.messages-landed-in-A-queue expected=3 actual=3 OK
+CHECK t03[t03-s3auth] E2.queues-in-B(count) expected=0 actual=0 OK
+CHECK t03[t03-s3auth] E3.anonymous-GET(private bucket) expected=403 actual=403 OK | doc: iam.md: REST requests are not checked (IAM filter). s3.md: ENFORCE_AUTH decides anonymous
+CHECK t03[t03-s3auth] E3.anonymous-GET(public-read policy) expected=200 actual=200 OK
+CHECK t03[t03-s3auth] E3.fresh-bucket.GetPublicAccessBlock(all four true) expected=True actual=True OK
+CHECK t03[t03-s3auth] E3.fresh-bucket.public-policy(default BPA) expected=ALLOW actual=ALLOW OK DOC-DIFF | doc: s3.md: a bucket nobody configured enforces the default ... all four settings on -> AccessDenied
+CHECK t03[t03-s3auth] E3.explicit-PutPublicAccessBlock.public-policy expected=AccessDenied actual=AccessDenied OK
+RESULT t03[t03-s3auth] PASS mismatches=0

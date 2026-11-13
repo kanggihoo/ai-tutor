@@ -1,0 +1,35 @@
+# case=t01-off script=t01_iam_eval.py env=[LAB_IAM=false LAB_SIG=false] round=r2 date=2026-11-12T15:00:47+09:00
+# floci: 2026-11-12 06:00:47,164 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+ Container awslab-floci Running 
+ Container awslab-client-run-be8d60fe356b Creating 
+ Container awslab-client-run-be8d60fe356b Created 
+=== t01 MODE=t01-off
+CHECK t01[t01-off] E1.alice.s3:ListAllMyBuckets(allowed by identity) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E1.alice.sqs:ListQueues(no allow -> implicit deny) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E1.test-key.sqs:ListQueues(bypass) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E1.unknown-AKIA.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.explicit-deny-beats-allow.s3:CreateBucket expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.same-user-other-action.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.boundary-caps.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.boundary-allows.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.session-policy-allows.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.session-policy-caps.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.no-session-policy.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.sns:ListTopics expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.dynamodb:ListTables expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.lambda:ListFunctions expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.kms:ListKeys expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.secretsmanager:ListSecrets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.ssm:DescribeParameters expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.ec2:DescribeVpcs expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.iam:ListUsers expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.events:ListRules expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.logs:DescribeLogGroups expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.cloudformation:ListStacks expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.states:ListStateMachines expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.sts:GetCallerIdentity(no policy needed) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.forged-secret.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK AWS-DIFF | doc: validate-signatures 꺼져 있으면 AKID만 본다(multi-account.md)
+CHECK t01[t01-off] E3.forged-secret.sqs:ListQueues(alice has no sqs allow) expected=ALLOW actual=ALLOW OK
+RESULT t01[t01-off] PASS mismatches=0

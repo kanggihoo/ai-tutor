@@ -1,0 +1,35 @@
+# case=t01-iam script=t01_iam_eval.py env=[LAB_IAM=true LAB_SIG=false] round=r1 date=2026-11-12T14:56:39+09:00
+# floci: 2026-11-12 05:56:39,147 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+ Container awslab-floci Running 
+ Container awslab-client-run-cf731dea7f82 Creating 
+ Container awslab-client-run-cf731dea7f82 Created 
+=== t01 MODE=t01-iam
+CHECK t01[t01-iam] E1.alice.s3:ListAllMyBuckets(allowed by identity) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E1.alice.sqs:ListQueues(no allow -> implicit deny) expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E1.test-key.sqs:ListQueues(bypass) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E1.unknown-AKIA.sqs:ListQueues expected=('InvalidClientTokenId', 'UnrecognizedClientException') actual=UnrecognizedClientException OK
+CHECK t01[t01-iam] E2.explicit-deny-beats-allow.s3:CreateBucket expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E2.same-user-other-action.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E2.boundary-caps.s3:ListAllMyBuckets expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E2.boundary-allows.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E2.session-policy-allows.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E2.session-policy-caps.sqs:ListQueues expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E2.no-session-policy.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E3.coverage.s3:ListAllMyBuckets expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E3.coverage.sqs:ListQueues expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.sns:ListTopics expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AuthorizationError OK
+CHECK t01[t01-iam] E3.coverage.dynamodb:ListTables expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.lambda:ListFunctions expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.kms:ListKeys expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.secretsmanager:ListSecrets expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.ssm:DescribeParameters expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.ec2:DescribeVpcs expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E3.coverage.iam:ListUsers expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E3.coverage.events:ListRules expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.logs:DescribeLogGroups expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.cloudformation:ListStacks expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E3.coverage.states:ListStateMachines expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.sts:GetCallerIdentity(no policy needed) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E3.forged-secret.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK AWS-DIFF | doc: validate-signatures 꺼져 있으면 AKID만 본다(multi-account.md)
+CHECK t01[t01-iam] E3.forged-secret.sqs:ListQueues(alice has no sqs allow) expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+RESULT t01[t01-iam] PASS mismatches=0

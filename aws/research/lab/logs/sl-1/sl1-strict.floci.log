@@ -1,0 +1,102 @@
+ _____  _      ___   ____   __
+|  ___|| |    / _ \ / ___| | |
+| |_   | |   | | | || |    | |
+|  _|  | |___| |_| || |__  | |
+|_|    |_____|\___/ \____| |_|
+
+   AWS Local Emulator  ·  Always Free
+
+            Powered by Quarkus 3.40.1
+2026-11-13 08:10:03,029 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-13 08:10:03,057 INFO  [io.git.hec.flo.ser.clo.CloudTrailLogWriter] CloudTrail log writer started (flushIntervalSeconds=60)
+2026-11-13 08:10:03,058 INFO  [io.git.hec.flo.ser.fir.FirehoseService] Firehose buffer flusher started (tick every 1s)
+2026-11-13 08:10:03,058 INFO  [io.git.hec.flo.ser.iot.IotMqttBrokerService] IoT MQTT broker auto-start disabled by configuration
+2026-11-13 08:10:03,058 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-13 08:10:03,059 INFO  [io.git.hec.flo.cor.com.dns.EmbeddedDnsServer] Embedded DNS server started on 172.30.0.2:53, resolving [localhost.floci.io, localhost.localstack.cloud, floci] → 172.30.0.2
+2026-11-13 08:10:03,063 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator 2.4.0 Starting ===
+2026-11-13 08:10:03,063 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Endpoint:  http://0.0.0.0:4566
+2026-11-13 08:10:03,063 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Region:    us-east-1  Account: 000000000000
+2026-11-13 08:10:03,063 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Storage:   memory  Path: /app/data
+2026-11-13 08:10:03,063 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] TLS:       disabled (HTTP only)
+2026-11-13 08:10:03,063 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+2026-11-13 08:10:03,063 INFO  [io.git.hec.flo.cor.sto.PersistentPathValidator] Storage mode: persistent (state for resourceexplorer2=hybrid is written to /app/data)
+2026-11-13 08:10:03,063 INFO  [io.git.hec.flo.cor.com.ServiceRegistry] Enabled services: [ssm, sqs, s3, dynamodb, sns, lambda, apigateway, iam, msk, amazonmq, elasticache, memorydb, rds, rds-data, dsql, neptune, docdb, redshift, redshift-data, redshift-serverless, eventbridge, cloudmap, emr, emrserverless, wafv2, scheduler, cloudwatchlogs, cloudwatchmetrics, secretsmanager, apigatewayv2, kinesis, kinesisanalytics, kms, cognito, stepfunctions, swf, cloudformation, acm, athena, glue, firehose, ses, opensearch, ec2, ecs, appconfig, appconfigdata, ecr, resource-groups, tagging, bedrock, bedrock-runtime, eks, mwaa, pipes, bedrock-agentcore-control, bedrock-agentcore, elbv2, elb, codebuild, batch, sagemaker, codedeploy, codepipeline, servicequotas, ram, configservice, cloudtrail, lightsail, cloudcontrol, ssoadmin, ssooidc, macie2, account, accessanalyzer, identitystore, budgets, detective, inspector2, securityhub, autoscaling, applicationautoscaling, elasticbeanstalk, backup, resourceexplorer2, fis, transfer, route53, textract, comprehend, rekognition, pricing, transcribe, translate, ce, cur, bcmpricingcalculator, timestreaminfluxdb, bcmdataexports, oam, cloudfront, appsync, s3vectors, s3tables, iot, iotdata, cloudhsmv2, organizations, rum, guardduty, route53resolver, connect, appintegrations, dlm, cognitoidentity, globalaccelerator, datasync, networkfirewall, servicecatalog, controlcatalog, controltower, aps, lakeformation, efs, codegurureviewer, codeartifact, verifiedpermissions, marketplace, dms]
+2026-11-13 08:10:03,063 INFO  [io.git.hec.flo.ser.app.gra.SchemaCreationWorker] SchemaCreationWorker started with 4 threads
+2026-11-13 08:10:03,064 INFO  [io.git.hec.flo.ser.dyn.DynamoDbTtlService] DynamoDB TTL sweeper scheduled (60s interval)
+2026-11-13 08:10:03,064 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] SqsEventSourcePoller initialized, 0 ESM(s) active
+2026-11-13 08:10:03,064 INFO  [io.git.hec.flo.ser.lam.DynamoDbStreamsEventSourcePoller] DynamoDbStreamsEventSourcePoller initialized
+2026-11-13 08:10:03,066 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Creating control-plane DockerClient pool (maxConnections=1,024) for host: unix:///var/run/docker.sock
+2026-11-13 08:10:03,071 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Wrapping control-plane docker transport in transient-I/O retry
+2026-11-13 08:10:03,093 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator Ready ===
+2026-11-13 08:10:03,093 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Ready.
+2026-11-13 08:10:03,093 INFO  [io.git.hec.flo.ser.ec2.Ec2MetadataServer] EC2 IMDS server listening on port 9169
+2026-11-13 08:10:03,093 INFO  [io.git.hec.flo.ser.sch.ScheduleDispatcher] Scheduler dispatcher started (tick every 10s)
+2026-11-13 08:10:03,094 INFO  [io.git.hec.flo.ser.sqs.SqsRetentionSweeper] SQS retention sweeper scheduled (60s interval)
+2026-11-13 08:10:03,094 INFO  [io.git.hec.flo.ser.sec.SecretRotationScheduler] Secrets Manager rotation scheduler started (tick every 60s)
+2026-11-13 08:10:03,096 INFO  [io.git.hec.flo.ser.ec2.FlowLogService] FlowLog generator scheduled (every 60s)
+2026-11-13 08:10:03,096 INFO  [io.git.hec.flo.con.PartitionStartupValidator] Partition: aws (default-region us-east-1, dns suffix amazonaws.com)
+2026-11-13 08:10:03,096 INFO  [io.git.hec.flo.ser.lam.WarmPool] Warm pool idle eviction enabled: timeout=300s, check interval=30s
+2026-11-13 08:10:03,113 INFO  [io.quarkus] floci 2.4.0 native (powered by Quarkus 3.40.1) started in 0.089s. Listening on: http://0.0.0.0:4566
+2026-11-13 08:10:03,113 INFO  [io.quarkus] Profile prod activated. 
+2026-11-13 08:10:03,113 INFO  [io.quarkus] Installed features: [cdi, config-yaml, rest, rest-jackson, security, smallrye-context-propagation, vertx]
+2026-11-13 08:10:04,344 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM role: fn-role
+2026-11-13 08:10:04,355 INFO  [io.git.hec.flo.ser.s3.S3Service] Created bucket: awslambda-us-east-1-tasks in region: us-east-1
+2026-11-13 08:10:04,355 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: fn in region us-east-1
+2026-11-13 08:10:04,372 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: dev
+2026-11-13 08:10:04,381 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: dev
+2026-11-13 08:10:04,390 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: devstar
+2026-11-13 08:10:04,398 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: devstar
+2026-11-13 08:10:04,405 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: nodev
+2026-11-13 08:10:04,409 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: nodev
+2026-11-13 08:10:04,418 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: fn
+2026-11-13 08:10:04,418 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12000
+2026-11-13 08:10:04,439 INFO  [io.git.hec.flo.cor.com.doc.CurrentContainerNetworkResolver] Detected current Docker network for spawned containers: awslab_default (172.30.0.2)
+2026-11-13 08:10:04,439 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:10:04,486 INFO  [io.git.hec.flo.ser.lam.lau.ImageCacheService] Image already present locally, skipping pull: public.ecr.aws/lambda/python:3.12
+2026-11-13 08:10:04,546 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container b818d76d40734b72b08fe530affbe31893354c2fd9699412f96688550e24cae4 (name=floci-aws-awslab-fn-3ce86c8e, not yet started)
+2026-11-13 08:10:04,546 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container b818d76d40734b72b08fe530affbe31893354c2fd9699412f96688550e24cae4 for function fn
+2026-11-13 08:10:04,799 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container b818d76d40734b72b08fe530affbe31893354c2fd9699412f96688550e24cae4
+2026-11-13 08:10:04,800 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/fn in region us-east-1
+2026-11-13 08:10:04,800 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/fn/2026/11/13/[$LATEST]3ce86c8e
+2026-11-13 08:10:04,808 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Creating streaming DockerClient pool (maxConnections=512) for host: unix:///var/run/docker.sock
+2026-11-13 08:10:04,839 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:fn] MARK-e2b32c6d init=7b15d004
+2026-11-13 08:10:04,847 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:fn] MARK-4c40098e init=7b15d004
+2026-11-13 08:10:04,847 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:fn] [ERROR] ValueError: boom-4c40098eTraceback (most recent call last):  File "/var/task/app.py", line 8, in handler    raise ValueError("boom-" + event.get("mark", ""))
+2026-11-13 08:10:04,857 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:fn] MARK-efb87513 init=7b15d004
+2026-11-13 08:10:06,855 WARN  [io.git.hec.flo.ser.lam.LambdaExecutorService] Function fn timed out after 2s
+2026-11-13 08:10:06,855 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Stopping container b818d76d40734b72b08fe530affbe31893354c2fd9699412f96688550e24cae4
+2026-11-13 08:10:06,855 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Stopping container b818d76d40734b72b08fe530affbe31893354c2fd9699412f96688550e24cae4
+2026-11-13 08:10:08,077 INFO  [io.git.hec.flo.cor.com.IamEnforcementFilter] IAM enforcement DENY: akid=AKIABV3S63KQWITODA33 action=lambda:InvokeFunction resource=arn:aws:lambda:us-east-1:000000000000:function:fn
+2026-11-13 08:10:08,086 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:08,090 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:10,094 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:12,097 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:14,101 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:16,104 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:18,107 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:20,111 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:22,114 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:24,115 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:24,118 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:26,121 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:28,125 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:30,129 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:32,133 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:34,136 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:36,139 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:38,143 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:40,151 INFO  [io.git.hec.flo.cor.com.IamEnforcementFilter] IAM enforcement DENY: akid=AKIAPNYDO3967Q6HIVX5 action=logs:FilterLogEvents resource=*
+2026-11-13 08:10:40,157 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:10:40,161 INFO  [io.git.hec.flo.cor.com.IamEnforcementFilter] IAM enforcement DENY: akid=AKIABV3S63KQWITODA33 action=logs:FilterLogEvents resource=*
+2026-11-13 08:10:40,164 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM role: nolog-role
+2026-11-13 08:10:40,178 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: fn-nolog in region us-east-1
+2026-11-13 08:10:40,186 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: fn-nolog
+2026-11-13 08:10:40,187 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12000
+2026-11-13 08:10:40,187 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:10:40,248 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 98929d801438053c03bba233db71b9f165ae73ed457ec2d0779fd72b5d5340b3 (name=floci-aws-awslab-fn-nolog-109cdfda, not yet started)
+2026-11-13 08:10:40,248 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 98929d801438053c03bba233db71b9f165ae73ed457ec2d0779fd72b5d5340b3 for function fn-nolog
+2026-11-13 08:10:40,430 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 98929d801438053c03bba233db71b9f165ae73ed457ec2d0779fd72b5d5340b3
+2026-11-13 08:10:40,431 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/fn-nolog in region us-east-1
+2026-11-13 08:10:40,432 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/fn-nolog/2026/11/13/[$LATEST]109cdfda
+2026-11-13 08:10:40,475 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:fn-nolog] MARK-e65c1765 init=2f5fa160
+2026-11-13 08:10:40,478 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents

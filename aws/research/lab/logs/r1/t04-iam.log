@@ -1,0 +1,16 @@
+# case=t04-iam script=t04_scp.py env=[LAB_IAM=true LAB_SCP=false] round=r1 date=2026-11-12T14:57:30+09:00
+# floci: 2026-11-12 05:57:29,893 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+ Container awslab-floci Running 
+ Container awslab-client-run-34a7eddbc0b7 Creating 
+ Container awslab-client-run-34a7eddbc0b7 Created 
+=== t04 MODE=t04-iam
+INFO  member account = 287670605677 state=SUCCEEDED
+INFO  OrganizationAccountAccessRole exists in member: ALLOW
+CHECK t04[t04-iam] E1.assume-OrganizationAccountAccessRole expected=ALLOW actual=ALLOW OK
+INFO  session = arn:aws:sts::287670605677:assumed-role/OrganizationAccountAccessRole/lab-org
+CHECK t04[t04-iam] E1.member-session.s3:ListAllMyBuckets(SCP deny s3:*) expected=ALLOW actual=ALLOW OK
+CHECK t04[t04-iam] E1.member-session.sqs:ListQueues(not in SCP deny) expected=ALLOW actual=ALLOW OK
+CHECK t04[t04-iam] E2.member-bare-key(account root).s3 expected=ALLOW actual=ALLOW OK | doc: iam.md: account-root principal is subject to SCPs
+CHECK t04[t04-iam] E2.management-account-user.s3(exempt) expected=ALLOW actual=ALLOW OK
+CHECK t04[t04-iam] E2.test-key.s3(never SCP-denied) expected=ALLOW actual=ALLOW OK
+RESULT t04[t04-iam] PASS mismatches=0

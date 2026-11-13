@@ -1,0 +1,17 @@
+# case=t07-iam script=t07_kms.py env=[LAB_IAM=true] round=r1 date=2026-11-12T15:00:02+09:00
+# floci: 2026-11-12 06:00:02,651 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+ Container awslab-floci Running 
+ Container awslab-client-run-5234230781e8 Creating 
+ Container awslab-client-run-5234230781e8 Created 
+=== t07 MODE=t07-iam
+CHECK t07[t07-iam] E1.key-policy-explicit-deny(AWS: AccessDenied) expected=ALLOW actual=ALLOW OK AWS-DIFF | doc: iam.md Resource-based policies 목록(S3,SQS,SNS,Lambda,EventBridge,DSQL)에 KMS 없음 -> key policy 미평가로 읽힘
+CHECK t07[t07-iam] E1.key-policy-without-root(AWS: AccessDenied) expected=ALLOW actual=ALLOW OK AWS-DIFF
+CHECK t07[t07-iam] E1.no-identity-policy(gus) expected=AccessDeniedException actual=AccessDeniedException OK | doc: identity policy는 KMS key ARN으로 평가(kms.md IAM Enforcement)
+INFO  grants on k3 = 1
+CHECK t07[t07-iam] E2.grant-to-gus.Encrypt(AWS: ALLOW) expected=AccessDeniedException actual=AccessDeniedException OK AWS-DIFF | doc: kms.md Grant Support Scope: grants are not evaluated during crypto operations
+CHECK t07[t07-iam] E3.data-key.plaintext-32-bytes expected=32 actual=32 OK
+CHECK t07[t07-iam] E3.decrypt-with-same-context expected=True actual=True OK
+CHECK t07[t07-iam] E3.decrypt-with-other-context expected=InvalidCiphertextException actual=InvalidCiphertextException OK
+CHECK t07[t07-iam] E3.decrypt-without-context expected=InvalidCiphertextException actual=InvalidCiphertextException OK
+CHECK t07[t07-iam] E3.decrypt-after-DisableKey expected=DisabledException actual=DisabledException OK
+RESULT t07[t07-iam] PASS mismatches=0

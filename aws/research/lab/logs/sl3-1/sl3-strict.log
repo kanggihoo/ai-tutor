@@ -1,0 +1,25 @@
+# case=sl3-strict script=s03_apigw.py env=[LAB_IAM=true LAB_SIG=true LAB_S3AUTH=true LAB_NS=awslab] round=sl3-1 date=2026-11-13T17:24:58+09:00
+# floci: 2026-11-13 08:24:58,475 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+ Container awslab-floci Running 
+ Container awslab-client-run-ec87269f2daf Creating 
+ Container awslab-client-run-ec87269f2daf Created 
+=== s03 MODE=sl3-strict
+INFO  no-permission: status=201 body={"path": "/orders/o-17", "id": "o-17", "q": {"src": "web"}, "body": "{\"qty\": 2}", "method": "POST", "mark": "9f5f8aef" handler-calls=1
+CHECK s03[sl3-strict] W1.no-function-policy.status(AWS: 500) expected=201 actual=201 OK AWS-DIFF | doc: api-gateway.md: Lambda 호출 권한(AddPermission) 검사 언급 없음
+CHECK s03[sl3-strict] W1.no-function-policy.handler-called(AWS: 0) expected=1 actual=1 OK AWS-DIFF
+CHECK s03[sl3-strict] W1.wrong-SourceArn.status(AWS: 500) expected=201 actual=201 OK AWS-DIFF
+CHECK s03[sl3-strict] W1.right-SourceArn.status expected=201 actual=201 OK
+CHECK s03[sl3-strict] W1.data.pathParameters.id expected=o-17 actual=o-17 OK
+CHECK s03[sl3-strict] W1.data.path expected=/orders/o-17 actual=/orders/o-17 OK
+CHECK s03[sl3-strict] W1.data.query expected=web actual=web OK
+CHECK s03[sl3-strict] W1.data.header(sent X-Mark echoed) expected=True actual=True OK
+CHECK s03[sl3-strict] W1.data.body(string) expected={"qty": 2} actual={"qty": 2} OK
+CHECK s03[sl3-strict] W1.data.method expected=POST actual=POST OK
+CHECK s03[sl3-strict] W1.resp.status-from-lambda(201) expected=201 actual=201 OK
+CHECK s03[sl3-strict] W1.resp.header-from-lambda expected=lambda actual=lambda OK
+CHECK s03[sl3-strict] W1.handler-raise.status expected=502 actual=502 OK
+CHECK s03[sl3-strict] W1.handler-raise.handler-calls(no retry) expected=1 actual=1 OK
+INFO  raise body=
+CHECK s03[sl3-strict] W1.bad-proxy-response.status(AWS·doc: 502) expected=200 actual=200 OK DOC-DIFF | doc: api-gateway.md:393 'Lambda proxy function error, malformed proxy payload, or missing function | INTEGRATION_FAILURE'
+INFO  bad body=
+RESULT s03[sl3-strict] PASS mismatches=0

@@ -1,0 +1,30 @@
+# case=t05-sg script=t05_sg.sh env=[LAB_SG=true] round=t05ns-2 date=2026-11-13T17:23:39+09:00
+# floci: 2026-11-13 08:23:39,333 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+=== t05 MODE=t05-sg
+INFO  setup {"vpc": "vpc-4aec10ca", "sub": "subnet-461304b5", "sga": "sg-dd87925daa18b981f", "sgb": "sg-7a0c3616d545d9d8b", "a": "i-899df067ebf773c62", "b": "i-6ab532800a6652996", "a_ip": "10.50.1.10", "b_ip": "10.50.1.11"}
+INFO  B reported PrivateIpAddress=10.50.1.11, B container addrs=[172.17.0.2 172.30.0.4 ]
+INFO  A privileged=false netmode=container:365e651c38
+INFO  probe target=172.30.0.4 (reported IP held by container: no)
+CHECK t05[t05-sg] E0.reported-private-ip-held-by-container expected=no actual=no OK DOC-DIFF | doc: ec2.md VPC Docker networks: reported private IP is an address its container actually holds
+CHECK t05[t05-sg] E0.reported-private-ip-reachable expected=BLOCKED actual=BLOCKED OK
+CHECK t05[t05-sg] E1.no-ingress-rule.A->B:8080 expected=BLOCKED actual=BLOCKED OK
+CHECK t05[t05-sg] E1.ingress-from-sg-client.A->B:8080 expected=OPEN actual=OPEN OK
+CHECK t05[t05-sg] E2.A-egress-revoked.A->B:8080 expected=BLOCKED actual=BLOCKED OK
+CHECK t05[t05-sg] E2.A-egress-8080-to-sg-server.A->B:8080 expected=OPEN actual=OPEN OK
+INFO  nacl {"acl": "acl-2e086429bceda0cc3", "associated": ["acl-2e086429bceda0cc3"]}
+CHECK t05[t05-sg] E3.deny-all-NACL-on-subnet.A->B:8080(AWS would block) expected=OPEN actual=OPEN OK AWS-DIFF | doc: ec2.md: does not emulate VPC routing, NACLs, NAT gateways, or peering
+INFO  nft(B): table inet floci_sg {
+INFO  nft(B): 	chain ingress {
+INFO  nft(B): 		type filter hook input priority filter - 10; policy drop;
+INFO  nft(B): 		iifname "lo" accept
+INFO  nft(B): 		ct state established,related accept
+INFO  nft(B): 		udp sport 67 udp dport 68 accept
+INFO  nft(B): 		ip saddr 169.254.169.254 accept
+INFO  nft(B): 		ip saddr 172.30.0.5 tcp dport 8080 accept
+INFO  nft(B): 		ip saddr 172.30.0.5 drop
+INFO  nft(B): 	}
+INFO  nft(B): 
+INFO  nft(B): 	chain egress {
+INFO  nft(B): 		type filter hook output priority filter - 10; policy drop;
+INFO  nft(B): 		oifname "lo" accept
+RESULT t05[t05-sg] PASS mismatches=0

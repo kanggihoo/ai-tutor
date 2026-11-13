@@ -1,0 +1,21 @@
+# case=t06-lambda script=t06_lambda.py env=[LAB_IAM=false] round=r2 date=2026-11-12T15:03:35+09:00
+# floci: 2026-11-12 06:03:34,849 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+ Container awslab-floci Running 
+ Container awslab-client-run-883df3c7d30b Creating 
+ Container awslab-client-run-883df3c7d30b Created 
+=== t06 MODE=t06-lambda
+CHECK t06[t06-lambda] E1.warmup-invoke expected=ALLOW actual=ALLOW OK
+CHECK t06[t06-lambda] E1.reserved=1,burst=3 -> ALLOW count expected=1 actual=1 OK
+CHECK t06[t06-lambda] E1.reserved=1,burst=3 -> TooManyRequestsException count expected=2 actual=2 OK
+CHECK t06[t06-lambda] E1.no-reservation,burst=3 -> ALLOW count expected=3 actual=3 OK
+CHECK t06[t06-lambda] E1.reserved=0 -> invoke expected=TooManyRequestsException actual=TooManyRequestsException OK
+CHECK t06[t06-lambda] E1.reserve 950 of 1000 (must leave 100 unreserved) expected=('InvalidParameterValueException', 'LimitExceededException') actual=LimitExceededException OK
+CHECK t06[t06-lambda] E2.retries=2 -> OnFailure.condition expected=RetriesExhausted actual=RetriesExhausted OK
+CHECK t06[t06-lambda] E2.retries=2 -> approximateInvokeCount expected=3 actual=3 OK
+CHECK t06[t06-lambda] E2.retries=0 -> approximateInvokeCount expected=1 actual=1 OK
+CHECK t06[t06-lambda] E2.DLQ.body=original-payload expected=x1 actual=x1 OK
+CHECK t06[t06-lambda] E2.DLQ.ErrorMessage-attr expected=True actual=True OK
+CHECK t06[t06-lambda] E3.success-fn -> main/dlq counts expected=0/0 actual=0/0 OK
+INFO  failing fn: message reached DLQ after ~9s (VisibilityTimeout=3, maxReceiveCount=2)
+CHECK t06[t06-lambda] E3.failing-fn -> main/dlq counts expected=0/1 actual=0/1 OK
+RESULT t06[t06-lambda] PASS mismatches=0

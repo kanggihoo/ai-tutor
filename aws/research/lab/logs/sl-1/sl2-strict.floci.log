@@ -1,0 +1,139 @@
+ _____  _      ___   ____   __
+|  ___|| |    / _ \ / ___| | |
+| |_   | |   | | | || |    | |
+|  _|  | |___| |_| || |__  | |
+|_|    |_____|\___/ \____| |_|
+
+   AWS Local Emulator  ·  Always Free
+
+            Powered by Quarkus 3.40.1
+2026-11-13 08:11:28,426 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-13 08:11:28,455 INFO  [io.git.hec.flo.ser.clo.CloudTrailLogWriter] CloudTrail log writer started (flushIntervalSeconds=60)
+2026-11-13 08:11:28,455 INFO  [io.git.hec.flo.ser.fir.FirehoseService] Firehose buffer flusher started (tick every 1s)
+2026-11-13 08:11:28,455 INFO  [io.git.hec.flo.ser.iot.IotMqttBrokerService] IoT MQTT broker auto-start disabled by configuration
+2026-11-13 08:11:28,455 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-13 08:11:28,456 INFO  [io.git.hec.flo.cor.com.dns.EmbeddedDnsServer] Embedded DNS server started on 172.30.0.2:53, resolving [localhost.floci.io, localhost.localstack.cloud, floci] → 172.30.0.2
+2026-11-13 08:11:28,460 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator 2.4.0 Starting ===
+2026-11-13 08:11:28,460 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Endpoint:  http://0.0.0.0:4566
+2026-11-13 08:11:28,460 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Region:    us-east-1  Account: 000000000000
+2026-11-13 08:11:28,460 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Storage:   memory  Path: /app/data
+2026-11-13 08:11:28,460 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] TLS:       disabled (HTTP only)
+2026-11-13 08:11:28,460 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+2026-11-13 08:11:28,460 INFO  [io.git.hec.flo.cor.sto.PersistentPathValidator] Storage mode: persistent (state for resourceexplorer2=hybrid is written to /app/data)
+2026-11-13 08:11:28,460 INFO  [io.git.hec.flo.cor.com.ServiceRegistry] Enabled services: [ssm, sqs, s3, dynamodb, sns, lambda, apigateway, iam, msk, amazonmq, elasticache, memorydb, rds, rds-data, dsql, neptune, docdb, redshift, redshift-data, redshift-serverless, eventbridge, cloudmap, emr, emrserverless, wafv2, scheduler, cloudwatchlogs, cloudwatchmetrics, secretsmanager, apigatewayv2, kinesis, kinesisanalytics, kms, cognito, stepfunctions, swf, cloudformation, acm, athena, glue, firehose, ses, opensearch, ec2, ecs, appconfig, appconfigdata, ecr, resource-groups, tagging, bedrock, bedrock-runtime, eks, mwaa, pipes, bedrock-agentcore-control, bedrock-agentcore, elbv2, elb, codebuild, batch, sagemaker, codedeploy, codepipeline, servicequotas, ram, configservice, cloudtrail, lightsail, cloudcontrol, ssoadmin, ssooidc, macie2, account, accessanalyzer, identitystore, budgets, detective, inspector2, securityhub, autoscaling, applicationautoscaling, elasticbeanstalk, backup, resourceexplorer2, fis, transfer, route53, textract, comprehend, rekognition, pricing, transcribe, translate, ce, cur, bcmpricingcalculator, timestreaminfluxdb, bcmdataexports, oam, cloudfront, appsync, s3vectors, s3tables, iot, iotdata, cloudhsmv2, organizations, rum, guardduty, route53resolver, connect, appintegrations, dlm, cognitoidentity, globalaccelerator, datasync, networkfirewall, servicecatalog, controlcatalog, controltower, aps, lakeformation, efs, codegurureviewer, codeartifact, verifiedpermissions, marketplace, dms]
+2026-11-13 08:11:28,461 INFO  [io.git.hec.flo.ser.app.gra.SchemaCreationWorker] SchemaCreationWorker started with 4 threads
+2026-11-13 08:11:28,461 INFO  [io.git.hec.flo.ser.dyn.DynamoDbTtlService] DynamoDB TTL sweeper scheduled (60s interval)
+2026-11-13 08:11:28,461 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] SqsEventSourcePoller initialized, 0 ESM(s) active
+2026-11-13 08:11:28,461 INFO  [io.git.hec.flo.ser.lam.DynamoDbStreamsEventSourcePoller] DynamoDbStreamsEventSourcePoller initialized
+2026-11-13 08:11:28,463 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Creating control-plane DockerClient pool (maxConnections=1,024) for host: unix:///var/run/docker.sock
+2026-11-13 08:11:28,467 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Wrapping control-plane docker transport in transient-I/O retry
+2026-11-13 08:11:28,489 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator Ready ===
+2026-11-13 08:11:28,489 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Ready.
+2026-11-13 08:11:28,489 INFO  [io.git.hec.flo.ser.ec2.Ec2MetadataServer] EC2 IMDS server listening on port 9169
+2026-11-13 08:11:28,490 INFO  [io.git.hec.flo.ser.sch.ScheduleDispatcher] Scheduler dispatcher started (tick every 10s)
+2026-11-13 08:11:28,490 INFO  [io.git.hec.flo.ser.sqs.SqsRetentionSweeper] SQS retention sweeper scheduled (60s interval)
+2026-11-13 08:11:28,490 INFO  [io.git.hec.flo.ser.sec.SecretRotationScheduler] Secrets Manager rotation scheduler started (tick every 60s)
+2026-11-13 08:11:28,492 INFO  [io.git.hec.flo.ser.ec2.FlowLogService] FlowLog generator scheduled (every 60s)
+2026-11-13 08:11:28,492 INFO  [io.git.hec.flo.con.PartitionStartupValidator] Partition: aws (default-region us-east-1, dns suffix amazonaws.com)
+2026-11-13 08:11:28,492 INFO  [io.git.hec.flo.ser.lam.WarmPool] Warm pool idle eviction enabled: timeout=20s, check interval=11s
+2026-11-13 08:11:28,506 INFO  [io.quarkus] floci 2.4.0 native (powered by Quarkus 3.40.1) started in 0.082s. Listening on: http://0.0.0.0:4566
+2026-11-13 08:11:28,506 INFO  [io.quarkus] Profile prod activated. 
+2026-11-13 08:11:28,506 INFO  [io.quarkus] Installed features: [cdi, config-yaml, rest, rest-jackson, security, smallrye-context-propagation, vertx]
+2026-11-13 08:11:30,012 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM role: life-role
+2026-11-13 08:11:30,021 INFO  [io.git.hec.flo.ser.s3.S3Service] Created bucket: awslambda-us-east-1-tasks in region: us-east-1
+2026-11-13 08:11:30,021 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: life in region us-east-1
+2026-11-13 08:11:30,029 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: life
+2026-11-13 08:11:30,030 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12000
+2026-11-13 08:11:30,047 INFO  [io.git.hec.flo.cor.com.doc.CurrentContainerNetworkResolver] Detected current Docker network for spawned containers: awslab_default (172.30.0.2)
+2026-11-13 08:11:30,047 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:11:30,087 INFO  [io.git.hec.flo.ser.lam.lau.ImageCacheService] Image already present locally, skipping pull: public.ecr.aws/lambda/python:3.12
+2026-11-13 08:11:30,135 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 9021f6dd21806704592d691816b55554006a93838c7acb9d74abdebbcf785d1b (name=floci-aws-awslab-life-172c0c49, not yet started)
+2026-11-13 08:11:30,136 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 9021f6dd21806704592d691816b55554006a93838c7acb9d74abdebbcf785d1b for function life
+2026-11-13 08:11:30,310 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 9021f6dd21806704592d691816b55554006a93838c7acb9d74abdebbcf785d1b
+2026-11-13 08:11:30,311 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/life in region us-east-1
+2026-11-13 08:11:30,311 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/life/2026/11/13/[$LATEST]172c0c49
+2026-11-13 08:11:30,317 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Creating streaming DockerClient pool (maxConnections=512) for host: unix:///var/run/docker.sock
+2026-11-13 08:11:30,341 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INIT 6a516ecc type=
+2026-11-13 08:11:30,342 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INVOKE 6a516ecc count=1
+2026-11-13 08:11:30,351 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INVOKE 6a516ecc count=2
+2026-11-13 08:11:30,359 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INVOKE 6a516ecc count=3
+2026-11-13 08:11:30,398 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: life
+2026-11-13 08:11:30,398 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: life
+2026-11-13 08:11:30,398 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12001
+2026-11-13 08:11:30,398 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12002
+2026-11-13 08:11:30,399 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:11:30,399 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:11:30,399 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INVOKE 6a516ecc count=4
+2026-11-13 08:11:30,465 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container e52c97ee3858d2ef4bba7c40611e138528c662853f5a77ada468e45951090e01 (name=floci-aws-awslab-life-2c6abbc6, not yet started)
+2026-11-13 08:11:30,465 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container e52c97ee3858d2ef4bba7c40611e138528c662853f5a77ada468e45951090e01 for function life
+2026-11-13 08:11:30,469 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container f3684c115f2a020774481c75967f550a396c8934cffaadc33ab45795de9280af (name=floci-aws-awslab-life-e5c9e662, not yet started)
+2026-11-13 08:11:30,469 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container f3684c115f2a020774481c75967f550a396c8934cffaadc33ab45795de9280af for function life
+2026-11-13 08:11:30,648 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container f3684c115f2a020774481c75967f550a396c8934cffaadc33ab45795de9280af
+2026-11-13 08:11:30,648 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/life/2026/11/13/[$LATEST]e5c9e662
+2026-11-13 08:11:30,663 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container e52c97ee3858d2ef4bba7c40611e138528c662853f5a77ada468e45951090e01
+2026-11-13 08:11:30,664 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/life/2026/11/13/[$LATEST]2c6abbc6
+2026-11-13 08:11:30,684 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INIT 6b5dcd8f type=
+2026-11-13 08:11:30,685 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INVOKE 6b5dcd8f count=1
+2026-11-13 08:11:30,694 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INIT fe474e9f type=
+2026-11-13 08:11:30,695 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INVOKE fe474e9f count=1
+2026-11-13 08:12:01,491 INFO  [io.git.hec.flo.ser.lam.WarmPool] Evicting 3 idle container(s) for function: life
+2026-11-13 08:12:01,491 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Stopping container e52c97ee3858d2ef4bba7c40611e138528c662853f5a77ada468e45951090e01
+2026-11-13 08:12:01,491 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Stopping container e52c97ee3858d2ef4bba7c40611e138528c662853f5a77ada468e45951090e01
+2026-11-13 08:12:02,725 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Stopping container f3684c115f2a020774481c75967f550a396c8934cffaadc33ab45795de9280af
+2026-11-13 08:12:02,726 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Stopping container f3684c115f2a020774481c75967f550a396c8934cffaadc33ab45795de9280af
+2026-11-13 08:12:04,018 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Stopping container 9021f6dd21806704592d691816b55554006a93838c7acb9d74abdebbcf785d1b
+2026-11-13 08:12:04,019 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Stopping container 9021f6dd21806704592d691816b55554006a93838c7acb9d74abdebbcf785d1b
+2026-11-13 08:12:44,696 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: life
+2026-11-13 08:12:44,701 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12000
+2026-11-13 08:12:44,701 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:12:44,767 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 4182743495ab55843cc9654e5e2baf98960f7aef62b90bdbdd24bd8e5afbb321 (name=floci-aws-awslab-life-711d5d53, not yet started)
+2026-11-13 08:12:44,767 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 4182743495ab55843cc9654e5e2baf98960f7aef62b90bdbdd24bd8e5afbb321 for function life
+2026-11-13 08:12:44,940 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 4182743495ab55843cc9654e5e2baf98960f7aef62b90bdbdd24bd8e5afbb321
+2026-11-13 08:12:44,940 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/life/2026/11/13/[$LATEST]711d5d53
+2026-11-13 08:12:44,969 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INIT ba5e1883 type=
+2026-11-13 08:12:44,970 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:life] INVOKE ba5e1883 count=1
+2026-11-13 08:12:44,974 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: heavy in region us-east-1
+2026-11-13 08:12:44,980 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: heavy
+2026-11-13 08:12:44,980 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12001
+2026-11-13 08:12:44,980 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:12:45,052 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 5dfb9099416bbd77465cc27fd458bdb244d712d481bc8b26e45b68e18b4a6fa0 (name=floci-aws-awslab-heavy-aaaa6c84, not yet started)
+2026-11-13 08:12:45,052 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 5dfb9099416bbd77465cc27fd458bdb244d712d481bc8b26e45b68e18b4a6fa0 for function heavy
+2026-11-13 08:12:45,236 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 5dfb9099416bbd77465cc27fd458bdb244d712d481bc8b26e45b68e18b4a6fa0
+2026-11-13 08:12:45,236 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/heavy in region us-east-1
+2026-11-13 08:12:45,236 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/heavy/2026/11/13/[$LATEST]aaaa6c84
+2026-11-13 08:12:47,267 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:heavy] INIT a6f44820 type=
+2026-11-13 08:12:47,268 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:heavy] INVOKE a6f44820 count=1
+2026-11-13 08:12:47,276 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:heavy] INVOKE a6f44820 count=2
+2026-11-13 08:12:47,280 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: pc in region us-east-1
+2026-11-13 08:12:47,287 INFO  [io.git.hec.flo.ser.lam.LambdaService] Published version 1 for function pc
+2026-11-13 08:12:47,289 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created alias live for function pc in us-east-1
+2026-11-13 08:12:47,292 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: pc
+2026-11-13 08:12:47,292 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12002
+2026-11-13 08:12:47,292 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:12:47,360 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 44e6a726e8ffac2a628392201f3921930789d10c7675f91c46485685fa457112 (name=floci-aws-awslab-pc-dcbde1eb, not yet started)
+2026-11-13 08:12:47,360 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 44e6a726e8ffac2a628392201f3921930789d10c7675f91c46485685fa457112 for function pc
+2026-11-13 08:12:47,516 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 44e6a726e8ffac2a628392201f3921930789d10c7675f91c46485685fa457112
+2026-11-13 08:12:47,517 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/pc in region us-east-1
+2026-11-13 08:12:47,517 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/pc/2026/11/13/[$LATEST]dcbde1eb
+2026-11-13 08:12:49,544 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pc] INIT 820d7c28 type=provisioned-concurrency
+2026-11-13 08:12:54,307 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pc] INVOKE 820d7c28 count=1
+2026-11-13 08:12:54,310 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pc] INVOKE 820d7c28 count=2
+2026-11-13 08:12:55,811 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: pc
+2026-11-13 08:12:55,811 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12003
+2026-11-13 08:12:55,811 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:12:55,875 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 3e935024120d23d41640dde0629f5a71623c577f42f8d3faf5b48b2c00a85ba5 (name=floci-aws-awslab-pc-0ec8516f, not yet started)
+2026-11-13 08:12:55,875 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 3e935024120d23d41640dde0629f5a71623c577f42f8d3faf5b48b2c00a85ba5 for function pc
+2026-11-13 08:12:56,070 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 3e935024120d23d41640dde0629f5a71623c577f42f8d3faf5b48b2c00a85ba5
+2026-11-13 08:12:56,070 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/pc/2026/11/13/[$LATEST]0ec8516f
+2026-11-13 08:12:58,101 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pc] INIT 415dcd88 type=
+2026-11-13 08:12:58,102 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pc] INVOKE 415dcd88 count=1
+2026-11-13 08:12:59,313 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: pc
+2026-11-13 08:12:59,314 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12004
+2026-11-13 08:12:59,314 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:12:59,416 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 198cfb1bf0957194ebd3f55721bf616e4521dfaab84f0bbf5f2813836c8f2afc (name=floci-aws-awslab-pc-3d6c0665, not yet started)
+2026-11-13 08:12:59,416 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 198cfb1bf0957194ebd3f55721bf616e4521dfaab84f0bbf5f2813836c8f2afc for function pc
+2026-11-13 08:12:59,601 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 198cfb1bf0957194ebd3f55721bf616e4521dfaab84f0bbf5f2813836c8f2afc
+2026-11-13 08:12:59,602 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/pc/2026/11/13/[$LATEST]3d6c0665
+2026-11-13 08:13:01,635 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pc] INIT 3ccf7ed0 type=
+2026-11-13 08:13:01,636 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pc] INVOKE 3ccf7ed0 count=1
+2026-11-13 08:13:01,640 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents

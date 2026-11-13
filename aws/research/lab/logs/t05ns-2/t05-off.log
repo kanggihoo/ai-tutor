@@ -1,0 +1,16 @@
+# case=t05-off script=t05_sg.sh env=[LAB_SG=false] round=t05ns-2 date=2026-11-13T17:23:01+09:00
+# floci: 2026-11-13 08:23:01,247 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+=== t05 MODE=t05-off
+INFO  setup {"vpc": "vpc-65eed3e8", "sub": "subnet-73c3ed91", "sga": "sg-1755084503941adbb", "sgb": "sg-bc696b782a7a75cd3", "a": "i-4fa6a943b16f634df", "b": "i-9eac1ad0e52063abf", "a_ip": "10.50.1.10", "b_ip": "10.50.1.11"}
+INFO  B reported PrivateIpAddress=10.50.1.11, B container addrs=[172.17.0.2 10.50.1.11 172.30.0.4 ]
+INFO  A privileged=true netmode=bridge
+INFO  probe target=10.50.1.11 (reported IP held by container: yes)
+CHECK t05[t05-off] E0.reported-private-ip-held-by-container expected=yes actual=yes OK | doc: ec2.md VPC Docker networks: reported private IP is an address its container actually holds
+CHECK t05[t05-off] E0.reported-private-ip-reachable expected=OPEN actual=OPEN OK
+CHECK t05[t05-off] E1.no-ingress-rule.A->B:8080 expected=OPEN actual=OPEN OK AWS-DIFF
+CHECK t05[t05-off] E1.ingress-from-sg-client.A->B:8080 expected=OPEN actual=OPEN OK
+CHECK t05[t05-off] E2.A-egress-revoked.A->B:8080 expected=OPEN actual=OPEN OK AWS-DIFF
+CHECK t05[t05-off] E2.A-egress-8080-to-sg-server.A->B:8080 expected=OPEN actual=OPEN OK
+INFO  nacl {"acl": "acl-576f58458e6350c85", "associated": ["acl-576f58458e6350c85"]}
+CHECK t05[t05-off] E3.deny-all-NACL-on-subnet.A->B:8080(AWS would block) expected=OPEN actual=OPEN OK AWS-DIFF | doc: ec2.md: does not emulate VPC routing, NACLs, NAT gateways, or peering
+RESULT t05[t05-off] PASS mismatches=0

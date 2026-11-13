@@ -1,3 +1,5 @@
+> 문서 기반 가설본, 실험결과는 `research/capability-matrix.md`
+
 # floci로 어디까지 가능한가 (services 문서 기준)
 
 출처는 `aws/floci-docs/`의 GitHub 원본 markdown이다. 문서에 적힌 내용만 정리했고, 실제로 floci를 띄워 확인한 것은 하나도 없다. 아래 표의 "확인"은 "문서에 그렇게 적혀 있다"는 뜻이다. 문서를 읽지 않은 부분은 "미확인"으로 따로 적었다.

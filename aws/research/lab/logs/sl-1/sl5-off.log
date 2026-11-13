@@ -1,0 +1,24 @@
+# case=sl5-off script=s05_async.py env=[LAB_IAM=false LAB_NS=awslab] round=sl-1 date=2026-11-13T17:14:40+09:00
+# floci: 2026-11-13 08:14:40,043 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+ Container awslab-floci Running 
+ Container awslab-client-run-7affefb636f1 Creating 
+ Container awslab-client-run-7affefb636f1 Created 
+=== s05 MODE=sl5-off
+CHECK s05[sl5-off] W8a.reserved1.ALLOW expected=1 actual=1 OK
+CHECK s05[sl5-off] W8a.reserved1.throttled expected=2 actual=2 OK
+CHECK s05[sl5-off] W8a.no-reservation.ALLOW expected=3 actual=3 OK
+CHECK s05[sl5-off] W8b.role-with-SendMessage.retries2.approximateInvokeCount expected=3 actual=3 OK
+CHECK s05[sl5-off] W8b.role-without-SendMessage.record-delivered(AWS: no) expected=True actual=True OK | doc: lambda.md: destination 전달 시 실행 role 권한 검사 언급 없음
+CHECK s05[sl5-off] W8b.retries0.approximateInvokeCount expected=1 actual=1 OK
+INFO  ESM without queue permission: ALLOW 
+CHECK s05[sl5-off] W8c.role-without-queue-perms.ESM-created(AWS: rejected) expected=ALLOW actual=ALLOW OK | doc: lambda.md: ESM 생성 시 실행 role 권한 검사 언급 없음
+CHECK s05[sl5-off] W8c.role-without-queue-perms.message-consumed(AWS: no) expected=True actual=True OK
+CHECK s05[sl5-off] W8c.success.main/dlq expected=0/0 actual=0/0 OK
+CHECK s05[sl5-off] W8c.failure.main/dlq expected=0/1 actual=0/1 OK
+CHECK s05[sl5-off] W8c.failure.handler-calls(=maxReceiveCount 3) expected=3 actual=3 OK
+CHECK s05[sl5-off] D.crash-after-write.item(status/applied) expected=PAID/1 actual=PAID/1 OK
+CHECK s05[sl5-off] D.crash-after-write.handler-calls expected=2 actual=2 OK
+CHECK s05[sl5-off] D.duplicate-message.item(status/applied) expected=PAID/1 actual=PAID/1 OK
+CHECK s05[sl5-off] D.duplicate-message.handler-calls expected=2 actual=2 OK
+CHECK s05[sl5-off] D.main/dlq expected=0/0 actual=0/0 OK
+RESULT s05[sl5-off] PASS mismatches=0

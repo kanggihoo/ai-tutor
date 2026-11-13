@@ -1,0 +1,172 @@
+CHECK s01[sl1-off] W0.ok.invoke expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-off] W0.ok.FunctionError expected=None actual=None OK
+CHECK s01[sl1-off] W0.ok.remainingMs<=2000 expected=True actual=True OK
+CHECK s01[sl1-off] W0.raise.invoke(HTTP 200) expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-off] W0.raise.FunctionError expected=Unhandled actual=Unhandled OK
+CHECK s01[sl1-off] W0.raise.errorType expected=ValueError actual=ValueError OK
+CHECK s01[sl1-off] W0.timeout.FunctionError expected=Unhandled actual=Unhandled OK
+CHECK s01[sl1-off] W0.timeout.errorMessage has 'Task timed out' expected=True actual=True OK
+CHECK s01[sl1-off] W0.caller-without-InvokeFunction expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-off] W9.print-line-in-/aws/lambda/fn expected=True actual=True OK
+CHECK s01[sl1-off] W9.REPORT-line-present expected=False actual=False OK DOC-DIFF | doc: lambda.md:1010 'write their logs, START, END and REPORT included, to the LogGroup'
+CHECK s01[sl1-off] W9.exception-logged expected=True actual=True OK
+CHECK s01[sl1-off] W9.timeout-logged(AWS: yes) expected=False actual=False OK AWS-DIFF
+CHECK s01[sl1-off] W9.reader-with-FilterLogEvents(log-group scoped) expected=ALLOW actual=ALLOW OK | doc: iam.md:1820 CloudWatch Logs는 floci가 ARN을 직접 만든다 -> 실제 resource=*로 평가
+CHECK s01[sl1-off] W9.reader-with-FilterLogEvents(Resource *) expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-off] W9.reader-without-FilterLogEvents expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-off] W9.nolog-role.invoke expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-off] W9.nolog-role.log-delivered(AWS: no) expected=True actual=True OK AWS-DIFF | doc: lambda.md: 문서는 실행 role의 logs 권한을 언급하지 않음
+RESULT s01[sl1-off] PASS mismatches=0
+CHECK s01[sl1-strict] W0.ok.invoke expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-strict] W0.ok.FunctionError expected=None actual=None OK
+CHECK s01[sl1-strict] W0.ok.remainingMs<=2000 expected=True actual=True OK
+CHECK s01[sl1-strict] W0.raise.invoke(HTTP 200) expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-strict] W0.raise.FunctionError expected=Unhandled actual=Unhandled OK
+CHECK s01[sl1-strict] W0.raise.errorType expected=ValueError actual=ValueError OK
+CHECK s01[sl1-strict] W0.timeout.FunctionError expected=Unhandled actual=Unhandled OK
+CHECK s01[sl1-strict] W0.timeout.errorMessage has 'Task timed out' expected=True actual=True OK
+CHECK s01[sl1-strict] W0.caller-without-InvokeFunction expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK
+CHECK s01[sl1-strict] W9.print-line-in-/aws/lambda/fn expected=True actual=True OK
+CHECK s01[sl1-strict] W9.REPORT-line-present expected=False actual=False OK DOC-DIFF | doc: lambda.md:1010 'write their logs, START, END and REPORT included, to the LogGroup'
+CHECK s01[sl1-strict] W9.exception-logged expected=True actual=True OK
+CHECK s01[sl1-strict] W9.timeout-logged(AWS: yes) expected=False actual=False OK AWS-DIFF
+CHECK s01[sl1-strict] W9.reader-with-FilterLogEvents(log-group scoped) expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK DOC-DIFF | doc: iam.md:1820 CloudWatch Logs는 floci가 ARN을 직접 만든다 -> 실제 resource=*로 평가
+CHECK s01[sl1-strict] W9.reader-with-FilterLogEvents(Resource *) expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-strict] W9.reader-without-FilterLogEvents expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK
+CHECK s01[sl1-strict] W9.nolog-role.invoke expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-strict] W9.nolog-role.log-delivered(AWS: no) expected=True actual=True OK AWS-DIFF | doc: lambda.md: 문서는 실행 role의 logs 권한을 언급하지 않음
+RESULT s01[sl1-strict] PASS mismatches=0
+CHECK s02[sl2-strict] W10a.sequential.same-initId expected=1 actual=1 OK
+CHECK s02[sl2-strict] W10a.sequential.count expected=1,2,3 actual=1,2,3 OK
+CHECK s02[sl2-strict] W10b.burst3.distinct-initIds expected=3 actual=3 OK
+CHECK s02[sl2-strict] W10b.burst3.new-inits>=2 expected=True actual=True OK
+CHECK s02[sl2-strict] W10c.after-idle.new-initId expected=True actual=True OK
+CHECK s02[sl2-strict] W10c.after-idle.count expected=1 actual=1 OK
+CHECK s02[sl2-strict] W10d.cold-slower-than-warm-by>=1.5s expected=True actual=True OK
+CHECK s02[sl2-strict] W10d.same-env expected=True actual=True OK
+CHECK s02[sl2-strict] W11.put-provisioned expected=ALLOW actual=ALLOW OK
+CHECK s02[sl2-strict] W11.status expected=READY actual=READY OK
+CHECK s02[sl2-strict] W11.first.initType expected=provisioned-concurrency actual=provisioned-concurrency OK
+CHECK s02[sl2-strict] W11.first.count(handler not run during provisioning) expected=1 actual=1 OK
+CHECK s02[sl2-strict] W11.first.init-done-before-invoke(>=2s earlier) expected=True actual=True OK
+CHECK s02[sl2-strict] W11.first.no-cold-wait(<1.5s, INIT_SLEEP=2) expected=True actual=True OK
+CHECK s02[sl2-strict] W11.spillover.second-initType(AWS: on-demand) expected= actual= OK AWS-DIFF | doc: lambda.md Provisioned concurrency: provisioned runtimes receive AWS_LAMBDA_INITIALIZATION_TYPE=provisioned-concurrency (on-demand 언급 없음)
+CHECK s02[sl2-strict] W11.spillover.second-new-env expected=True actual=True OK
+CHECK s02[sl2-strict] W11.spillover.second-paid-cold-start(>=1.5s) expected=True actual=True OK
+CHECK s02[sl2-strict] W11.$LATEST-not-provisioned(initType empty) expected= actual= OK AWS-DIFF
+CHECK s02[sl2-strict] W12.init-lines-match-distinct-envs(>=4) expected=True actual=True OK
+RESULT s02[sl2-strict] PASS mismatches=0
+CHECK s03[sl3-off] W1.no-function-policy.status(AWS: 500) expected=201 actual=201 OK AWS-DIFF | doc: api-gateway.md: Lambda 호출 권한(AddPermission) 검사 언급 없음
+CHECK s03[sl3-off] W1.no-function-policy.handler-called(AWS: 0) expected=1 actual=1 OK AWS-DIFF
+CHECK s03[sl3-off] W1.wrong-SourceArn.status(AWS: 500) expected=201 actual=201 OK AWS-DIFF
+CHECK s03[sl3-off] W1.right-SourceArn.status expected=201 actual=201 OK
+CHECK s03[sl3-off] W1.data.pathParameters.id expected=o-17 actual=o-17 OK
+CHECK s03[sl3-off] W1.data.path expected=/orders/o-17 actual=/orders/o-17 OK
+CHECK s03[sl3-off] W1.data.query expected=web actual=web OK
+CHECK s03[sl3-off] W1.data.header expected=6093d89a actual=6093d89a OK
+CHECK s03[sl3-off] W1.data.body(string) expected={"qty": 2} actual={"qty": 2} OK
+CHECK s03[sl3-off] W1.data.method expected=POST actual=POST OK
+CHECK s03[sl3-off] W1.resp.status-from-lambda(201) expected=201 actual=201 OK
+CHECK s03[sl3-off] W1.resp.header-from-lambda expected=lambda actual=lambda OK
+CHECK s03[sl3-off] W1.handler-raise.status expected=502 actual=502 OK
+CHECK s03[sl3-off] W1.handler-raise.handler-calls(no retry) expected=1 actual=1 OK
+CHECK s03[sl3-off] W1.bad-proxy-response.status(AWS·doc: 502) expected=200 actual=200 OK DOC-DIFF | doc: api-gateway.md:393 'Lambda proxy function error, malformed proxy payload, or missing function | INTEGRATION_FAILURE'
+RESULT s03[sl3-off] PASS mismatches=0
+CHECK s03[sl3-strict] W1.no-function-policy.status(AWS: 500) expected=201 actual=201 OK AWS-DIFF | doc: api-gateway.md: Lambda 호출 권한(AddPermission) 검사 언급 없음
+CHECK s03[sl3-strict] W1.no-function-policy.handler-called(AWS: 0) expected=1 actual=1 OK AWS-DIFF
+CHECK s03[sl3-strict] W1.wrong-SourceArn.status(AWS: 500) expected=201 actual=201 OK AWS-DIFF
+CHECK s03[sl3-strict] W1.right-SourceArn.status expected=201 actual=201 OK
+CHECK s03[sl3-strict] W1.data.pathParameters.id expected=o-17 actual=o-17 OK
+CHECK s03[sl3-strict] W1.data.path expected=/orders/o-17 actual=/orders/o-17 OK
+CHECK s03[sl3-strict] W1.data.query expected=web actual=web OK
+CHECK s03[sl3-strict] W1.data.header expected=6dcf17fc actual=6dcf17fc OK
+CHECK s03[sl3-strict] W1.data.body(string) expected={"qty": 2} actual={"qty": 2} OK
+CHECK s03[sl3-strict] W1.data.method expected=POST actual=POST OK
+CHECK s03[sl3-strict] W1.resp.status-from-lambda(201) expected=201 actual=201 OK
+CHECK s03[sl3-strict] W1.resp.header-from-lambda expected=lambda actual=lambda OK
+CHECK s03[sl3-strict] W1.handler-raise.status expected=502 actual=502 OK
+CHECK s03[sl3-strict] W1.handler-raise.handler-calls(no retry) expected=1 actual=1 OK
+CHECK s03[sl3-strict] W1.bad-proxy-response.status(AWS·doc: 502) expected=200 actual=200 OK DOC-DIFF | doc: api-gateway.md:393 'Lambda proxy function error, malformed proxy payload, or missing function | INTEGRATION_FAILURE'
+RESULT s03[sl3-strict] PASS mismatches=0
+CHECK s04[sl4-off] W2.none.invoke expected=ALLOW actual=ALLOW OK
+CHECK s04[sl4-off] W2.none.handler-PutItem expected=OK actual=OK OK
+CHECK s04[sl4-off] W2.none.handler-identity expected=True actual=True OK
+CHECK s04[sl4-off] W2.none.item-exists expected=True actual=True OK
+CHECK s04[sl4-off] W2.allow.invoke expected=ALLOW actual=ALLOW OK
+CHECK s04[sl4-off] W2.allow.handler-PutItem expected=OK actual=OK OK
+CHECK s04[sl4-off] W2.allow.handler-identity expected=True actual=True OK
+CHECK s04[sl4-off] W2.allow.item-exists expected=True actual=True OK
+CHECK s04[sl4-off] W2.deny.invoke expected=ALLOW actual=ALLOW OK
+CHECK s04[sl4-off] W2.deny.handler-PutItem expected=OK actual=OK OK
+CHECK s04[sl4-off] W2.deny.handler-identity expected=True actual=True OK
+CHECK s04[sl4-off] W2.deny.item-exists expected=True actual=True OK
+CHECK s04[sl4-off] W3a.plain.first expected=OK actual=OK OK
+CHECK s04[sl4-off] W3a.plain.second(overwrites) expected=OK actual=OK OK
+CHECK s04[sl4-off] W3a.plain.final-amount expected=999 actual=999 OK
+CHECK s04[sl4-off] W3a.cond.first expected=OK actual=OK OK
+CHECK s04[sl4-off] W3a.cond.second expected=ConditionalCheckFailedException actual=ConditionalCheckFailedException OK
+CHECK s04[sl4-off] W3a.cond.final-amount expected=100 actual=100 OK
+CHECK s04[sl4-off] W3a.concurrent5.OK-count expected=1 actual=1 OK
+CHECK s04[sl4-off] W3a.concurrent5.failed-count expected=4 actual=4 OK
+CHECK s04[sl4-off] W3a.transition.first expected=OK actual=OK OK
+CHECK s04[sl4-off] W3a.transition.second expected=ConditionalCheckFailedException actual=ConditionalCheckFailedException OK
+CHECK s04[sl4-off] W3a.transition.final expected=PAID/1 actual=PAID/1 OK
+RESULT s04[sl4-off] PASS mismatches=0
+CHECK s04[sl4-strict] W2.none.invoke expected=ALLOW actual=ALLOW OK
+CHECK s04[sl4-strict] W2.none.handler-PutItem expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK
+CHECK s04[sl4-strict] W2.none.handler-identity expected=True actual=True OK
+CHECK s04[sl4-strict] W2.none.item-exists expected=False actual=False OK
+CHECK s04[sl4-strict] W2.allow.invoke expected=ALLOW actual=ALLOW OK
+CHECK s04[sl4-strict] W2.allow.handler-PutItem expected=OK actual=OK OK
+CHECK s04[sl4-strict] W2.allow.handler-identity expected=True actual=True OK
+CHECK s04[sl4-strict] W2.allow.item-exists expected=True actual=True OK
+CHECK s04[sl4-strict] W2.deny.invoke expected=ALLOW actual=ALLOW OK
+CHECK s04[sl4-strict] W2.deny.handler-PutItem expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK
+CHECK s04[sl4-strict] W2.deny.handler-identity expected=True actual=True OK
+CHECK s04[sl4-strict] W2.deny.item-exists expected=False actual=False OK
+CHECK s04[sl4-strict] W3a.plain.first expected=OK actual=OK OK
+CHECK s04[sl4-strict] W3a.plain.second(overwrites) expected=OK actual=OK OK
+CHECK s04[sl4-strict] W3a.plain.final-amount expected=999 actual=999 OK
+CHECK s04[sl4-strict] W3a.cond.first expected=OK actual=OK OK
+CHECK s04[sl4-strict] W3a.cond.second expected=ConditionalCheckFailedException actual=ConditionalCheckFailedException OK
+CHECK s04[sl4-strict] W3a.cond.final-amount expected=100 actual=100 OK
+CHECK s04[sl4-strict] W3a.concurrent5.OK-count expected=1 actual=1 OK
+CHECK s04[sl4-strict] W3a.concurrent5.failed-count expected=4 actual=4 OK
+CHECK s04[sl4-strict] W3a.transition.first expected=OK actual=OK OK
+CHECK s04[sl4-strict] W3a.transition.second expected=ConditionalCheckFailedException actual=ConditionalCheckFailedException OK
+CHECK s04[sl4-strict] W3a.transition.final expected=PAID/1 actual=PAID/1 OK
+RESULT s04[sl4-strict] PASS mismatches=0
+CHECK s05[sl5-off] W8a.reserved1.ALLOW expected=1 actual=1 OK
+CHECK s05[sl5-off] W8a.reserved1.throttled expected=2 actual=2 OK
+CHECK s05[sl5-off] W8a.no-reservation.ALLOW expected=3 actual=3 OK
+CHECK s05[sl5-off] W8b.role-with-SendMessage.retries2.approximateInvokeCount expected=3 actual=3 OK
+CHECK s05[sl5-off] W8b.role-without-SendMessage.record-delivered(AWS: no) expected=True actual=True OK | doc: lambda.md: destination 전달 시 실행 role 권한 검사 언급 없음
+CHECK s05[sl5-off] W8b.retries0.approximateInvokeCount expected=1 actual=1 OK
+CHECK s05[sl5-off] W8c.role-without-queue-perms.ESM-created(AWS: rejected) expected=ALLOW actual=ALLOW OK | doc: lambda.md: ESM 생성 시 실행 role 권한 검사 언급 없음
+CHECK s05[sl5-off] W8c.role-without-queue-perms.message-consumed(AWS: no) expected=True actual=True OK
+CHECK s05[sl5-off] W8c.success.main/dlq expected=0/0 actual=0/0 OK
+CHECK s05[sl5-off] W8c.failure.main/dlq expected=0/1 actual=0/1 OK
+CHECK s05[sl5-off] W8c.failure.handler-calls(=maxReceiveCount 3) expected=3 actual=3 OK
+CHECK s05[sl5-off] D.crash-after-write.item(status/applied) expected=PAID/1 actual=PAID/1 OK
+CHECK s05[sl5-off] D.crash-after-write.handler-calls expected=2 actual=2 OK
+CHECK s05[sl5-off] D.duplicate-message.item(status/applied) expected=PAID/1 actual=PAID/1 OK
+CHECK s05[sl5-off] D.duplicate-message.handler-calls expected=2 actual=2 OK
+CHECK s05[sl5-off] D.main/dlq expected=0/0 actual=0/0 OK
+RESULT s05[sl5-off] PASS mismatches=0
+CHECK s05[sl5-strict] W8a.reserved1.ALLOW expected=1 actual=1 OK
+CHECK s05[sl5-strict] W8a.reserved1.throttled expected=2 actual=2 OK
+CHECK s05[sl5-strict] W8a.no-reservation.ALLOW expected=3 actual=3 OK
+CHECK s05[sl5-strict] W8b.role-with-SendMessage.retries2.approximateInvokeCount expected=3 actual=3 OK
+CHECK s05[sl5-strict] W8b.role-without-SendMessage.record-delivered(AWS: no) expected=True actual=True OK AWS-DIFF | doc: lambda.md: destination 전달 시 실행 role 권한 검사 언급 없음
+CHECK s05[sl5-strict] W8b.retries0.approximateInvokeCount expected=1 actual=1 OK
+CHECK s05[sl5-strict] W8c.role-without-queue-perms.ESM-created(AWS: rejected) expected=ALLOW actual=ALLOW OK AWS-DIFF | doc: lambda.md: ESM 생성 시 실행 role 권한 검사 언급 없음
+CHECK s05[sl5-strict] W8c.role-without-queue-perms.message-consumed(AWS: no) expected=True actual=True OK AWS-DIFF
+CHECK s05[sl5-strict] W8c.success.main/dlq expected=0/0 actual=0/0 OK
+CHECK s05[sl5-strict] W8c.failure.main/dlq expected=0/1 actual=0/1 OK
+CHECK s05[sl5-strict] W8c.failure.handler-calls(=maxReceiveCount 3) expected=3 actual=3 OK
+CHECK s05[sl5-strict] D.crash-after-write.item(status/applied) expected=PAID/1 actual=PAID/1 OK
+CHECK s05[sl5-strict] D.crash-after-write.handler-calls expected=2 actual=2 OK
+CHECK s05[sl5-strict] D.duplicate-message.item(status/applied) expected=PAID/1 actual=PAID/1 OK
+CHECK s05[sl5-strict] D.duplicate-message.handler-calls expected=2 actual=2 OK
+CHECK s05[sl5-strict] D.main/dlq expected=0/0 actual=0/0 OK
+RESULT s05[sl5-strict] PASS mismatches=0

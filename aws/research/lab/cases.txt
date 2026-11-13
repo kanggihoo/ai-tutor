@@ -1,0 +1,30 @@
+# label | script | env (공백 구분)
+t01-off      | t01_iam_eval.py   | LAB_IAM=false LAB_SIG=false
+t01-iam      | t01_iam_eval.py   | LAB_IAM=true LAB_SIG=false
+t01-iam-sig  | t01_iam_eval.py   | LAB_IAM=true LAB_SIG=true
+t02-off      | t02_sts_trust.py        | LAB_IAM=false
+t02-iam      | t02_sts_trust.py        | LAB_IAM=true
+t03-off      | t03_resource_policy.py  | LAB_IAM=false LAB_S3AUTH=false
+t03-iam      | t03_resource_policy.py  | LAB_IAM=true LAB_S3AUTH=false
+t03-s3auth   | t03_resource_policy.py  | LAB_IAM=false LAB_S3AUTH=true
+t04-iam      | t04_scp.py              | LAB_IAM=true LAB_SCP=false
+t04-iam-scp  | t04_scp.py              | LAB_IAM=true LAB_SCP=true
+t05-off      | t05_sg.sh               | LAB_SG=false
+t05-sg       | t05_sg.sh               | LAB_SG=true
+t06-lambda   | t06_lambda.py           | LAB_IAM=false
+t07-off      | t07_kms.py              | LAB_IAM=false
+t07-iam      | t07_kms.py              | LAB_IAM=true
+t08-cfn      | t08_cfn.py              | LAB_IAM=false
+t09-off      | t09_authn.py            | LAB_IAM=false
+t09-iam      | t09_authn.py            | LAB_IAM=true
+t10-off      | t10_irsa.py             | LAB_IAM=false
+t10-iam      | t10_irsa.py             | LAB_IAM=true
+sl1-strict   | s01_function.py         | LAB_IAM=true LAB_SIG=true LAB_S3AUTH=true LAB_NS=awslab
+sl1-off      | s01_function.py         | LAB_IAM=false LAB_NS=awslab
+sl2-strict   | s02_lifecycle.py        | LAB_IAM=true LAB_SIG=true LAB_S3AUTH=true LAB_NS=awslab LAB_IDLE=20
+sl3-strict   | s03_apigw.py            | LAB_IAM=true LAB_SIG=true LAB_S3AUTH=true LAB_NS=awslab
+sl3-off      | s03_apigw.py            | LAB_IAM=false LAB_NS=awslab
+sl4-strict   | s04_ddb.py              | LAB_IAM=true LAB_SIG=true LAB_S3AUTH=true LAB_NS=awslab
+sl4-off      | s04_ddb.py              | LAB_IAM=false LAB_NS=awslab
+sl5-strict   | s05_async.py            | LAB_IAM=true LAB_SIG=true LAB_S3AUTH=true LAB_NS=awslab
+sl5-off      | s05_async.py            | LAB_IAM=false LAB_NS=awslab

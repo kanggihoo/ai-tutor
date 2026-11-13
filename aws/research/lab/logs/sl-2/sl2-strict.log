@@ -1,0 +1,32 @@
+# case=sl2-strict script=s02_lifecycle.py env=[LAB_IAM=true LAB_SIG=true LAB_S3AUTH=true LAB_NS=awslab LAB_IDLE=20] round=sl-2 date=2026-11-13T17:17:08+09:00
+# floci: 2026-11-13 08:17:08,607 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+ Container awslab-floci Running 
+ Container awslab-client-run-7ad0e35f1fda Creating 
+ Container awslab-client-run-7ad0e35f1fda Created 
+=== s02 MODE=sl2-strict
+CHECK s02[sl2-strict] W10a.sequential.same-initId expected=1 actual=1 OK
+CHECK s02[sl2-strict] W10a.sequential.count expected=1,2,3 actual=1,2,3 OK
+INFO  burst initIds=['1893954b', '27dff7b2', '62f0e674'] warm=62f0e674 new=2
+CHECK s02[sl2-strict] W10b.burst3.distinct-initIds expected=3 actual=3 OK
+CHECK s02[sl2-strict] W10b.burst3.new-inits>=2 expected=True actual=True OK
+INFO  idle wait 70s (LAB_IDLE=20)
+CHECK s02[sl2-strict] W10c.after-idle.new-initId expected=True actual=True OK
+CHECK s02[sl2-strict] W10c.after-idle.count expected=1 actual=1 OK
+INFO  heavy init: cold wall=2.25s warm wall=0.01s (floci Docker 수치, AWS 값 아님)
+CHECK s02[sl2-strict] W10d.cold-slower-than-warm-by>=1.5s expected=True actual=True OK
+CHECK s02[sl2-strict] W10d.same-env expected=True actual=True OK
+CHECK s02[sl2-strict] W11.put-provisioned expected=ALLOW actual=ALLOW OK
+CHECK s02[sl2-strict] W11.status expected=READY actual=READY OK
+INFO  PC first invoke wall=0.01s body={'initId': '08861266', 'count': 1, 'initType': 'provisioned-concurrency', 'initAt': 1794557907.599044, 'now': 1794557914.3434527}
+CHECK s02[sl2-strict] W11.first.initType expected=provisioned-concurrency actual=provisioned-concurrency OK
+CHECK s02[sl2-strict] W11.first.count(handler not run during provisioning) expected=1 actual=1 OK
+CHECK s02[sl2-strict] W11.first.init-done-before-invoke(>=2s earlier) expected=True actual=True OK
+CHECK s02[sl2-strict] W11.first.no-cold-wait(<1.5s, INIT_SLEEP=2) expected=True actual=True OK
+INFO  spillover: held=[{'initId': '08861266', 'count': 2, 'initType': 'provisioned-concurrency', 'initAt': 1794557907.599044, 'now': 1794557919.347473}] second={'initId': '2f9d2f12', 'count': 1, 'initType': '', 'initAt': 1794557916.143084, 'now': 1794557918.1451566} wall=2.30s
+CHECK s02[sl2-strict] W11.spillover.second-initType(AWS: on-demand) expected= actual= OK AWS-DIFF | doc: lambda.md Provisioned concurrency: provisioned runtimes receive AWS_LAMBDA_INITIALIZATION_TYPE=provisioned-concurrency (on-demand 언급 없음)
+CHECK s02[sl2-strict] W11.spillover.second-new-env expected=True actual=True OK
+CHECK s02[sl2-strict] W11.spillover.second-paid-cold-start(>=1.5s) expected=True actual=True OK
+CHECK s02[sl2-strict] W11.$LATEST-not-provisioned(initType empty) expected= actual= OK AWS-DIFF
+INFO  INIT lines in /aws/lambda/life = 4
+CHECK s02[sl2-strict] W12.init-lines-match-distinct-envs(>=4) expected=True actual=True OK
+RESULT s02[sl2-strict] PASS mismatches=0

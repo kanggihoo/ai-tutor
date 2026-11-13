@@ -1,0 +1,30 @@
+# case=sl4-strict script=s04_ddb.py env=[LAB_IAM=true LAB_SIG=true LAB_S3AUTH=true LAB_NS=awslab] round=sl-2 date=2026-11-13T17:19:07+09:00
+# floci: 2026-11-13 08:19:07,748 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+ Container awslab-floci Running 
+ Container awslab-client-run-5b11588cf1e4 Creating 
+ Container awslab-client-run-5b11588cf1e4 Created 
+=== s04 MODE=sl4-strict
+CHECK s04[sl4-strict] W2.none.invoke expected=ALLOW actual=ALLOW OK
+CHECK s04[sl4-strict] W2.none.handler-PutItem expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK
+CHECK s04[sl4-strict] W2.none.handler-identity expected=True actual=True OK
+CHECK s04[sl4-strict] W2.none.item-exists expected=False actual=False OK
+CHECK s04[sl4-strict] W2.allow.invoke expected=ALLOW actual=ALLOW OK
+CHECK s04[sl4-strict] W2.allow.handler-PutItem expected=OK actual=OK OK
+CHECK s04[sl4-strict] W2.allow.handler-identity expected=True actual=True OK
+CHECK s04[sl4-strict] W2.allow.item-exists expected=True actual=True OK
+CHECK s04[sl4-strict] W2.deny.invoke expected=ALLOW actual=ALLOW OK
+CHECK s04[sl4-strict] W2.deny.handler-PutItem expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK
+CHECK s04[sl4-strict] W2.deny.handler-identity expected=True actual=True OK
+CHECK s04[sl4-strict] W2.deny.item-exists expected=False actual=False OK
+CHECK s04[sl4-strict] W3a.plain.first expected=OK actual=OK OK
+CHECK s04[sl4-strict] W3a.plain.second(overwrites) expected=OK actual=OK OK
+CHECK s04[sl4-strict] W3a.plain.final-amount expected=999 actual=999 OK
+CHECK s04[sl4-strict] W3a.cond.first expected=OK actual=OK OK
+CHECK s04[sl4-strict] W3a.cond.second expected=ConditionalCheckFailedException actual=ConditionalCheckFailedException OK
+CHECK s04[sl4-strict] W3a.cond.final-amount expected=100 actual=100 OK
+CHECK s04[sl4-strict] W3a.concurrent5.OK-count expected=1 actual=1 OK
+CHECK s04[sl4-strict] W3a.concurrent5.failed-count expected=4 actual=4 OK
+CHECK s04[sl4-strict] W3a.transition.first expected=OK actual=OK OK
+CHECK s04[sl4-strict] W3a.transition.second expected=ConditionalCheckFailedException actual=ConditionalCheckFailedException OK
+CHECK s04[sl4-strict] W3a.transition.final expected=PAID/1 actual=PAID/1 OK
+RESULT s04[sl4-strict] PASS mismatches=0

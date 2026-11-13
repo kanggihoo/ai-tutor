@@ -1,0 +1,71 @@
+ _____  _      ___   ____   __
+|  ___|| |    / _ \ / ___| | |
+| |_   | |   | | | || |    | |
+|  _|  | |___| |_| || |__  | |
+|_|    |_____|\___/ \____| |_|
+
+   AWS Local Emulator  ·  Always Free
+
+            Powered by Quarkus 3.40.1
+2026-11-12 06:04:23,240 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-12 06:04:23,271 INFO  [io.git.hec.flo.ser.clo.CloudTrailLogWriter] CloudTrail log writer started (flushIntervalSeconds=60)
+2026-11-12 06:04:23,271 INFO  [io.git.hec.flo.ser.fir.FirehoseService] Firehose buffer flusher started (tick every 1s)
+2026-11-12 06:04:23,271 INFO  [io.git.hec.flo.ser.iot.IotMqttBrokerService] IoT MQTT broker auto-start disabled by configuration
+2026-11-12 06:04:23,271 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-12 06:04:23,272 INFO  [io.git.hec.flo.cor.com.dns.EmbeddedDnsServer] Embedded DNS server started on 172.30.0.2:53, resolving [localhost.floci.io, localhost.localstack.cloud, floci] → 172.30.0.2
+2026-11-12 06:04:23,275 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator 2.4.0 Starting ===
+2026-11-12 06:04:23,275 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Endpoint:  http://0.0.0.0:4566
+2026-11-12 06:04:23,275 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Region:    us-east-1  Account: 000000000000
+2026-11-12 06:04:23,275 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Storage:   memory  Path: /app/data
+2026-11-12 06:04:23,275 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] TLS:       disabled (HTTP only)
+2026-11-12 06:04:23,275 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+2026-11-12 06:04:23,276 INFO  [io.git.hec.flo.cor.sto.PersistentPathValidator] Storage mode: persistent (state for resourceexplorer2=hybrid is written to /app/data)
+2026-11-12 06:04:23,276 INFO  [io.git.hec.flo.cor.com.ServiceRegistry] Enabled services: [ssm, sqs, s3, dynamodb, sns, lambda, apigateway, iam, msk, amazonmq, elasticache, memorydb, rds, rds-data, dsql, neptune, docdb, redshift, redshift-data, redshift-serverless, eventbridge, cloudmap, emr, emrserverless, wafv2, scheduler, cloudwatchlogs, cloudwatchmetrics, secretsmanager, apigatewayv2, kinesis, kinesisanalytics, kms, cognito, stepfunctions, swf, cloudformation, acm, athena, glue, firehose, ses, opensearch, ec2, ecs, appconfig, appconfigdata, ecr, resource-groups, tagging, bedrock, bedrock-runtime, eks, mwaa, pipes, bedrock-agentcore-control, bedrock-agentcore, elbv2, elb, codebuild, batch, sagemaker, codedeploy, codepipeline, servicequotas, ram, configservice, cloudtrail, lightsail, cloudcontrol, ssoadmin, ssooidc, macie2, account, accessanalyzer, identitystore, budgets, detective, inspector2, securityhub, autoscaling, applicationautoscaling, elasticbeanstalk, backup, resourceexplorer2, fis, transfer, route53, textract, comprehend, rekognition, pricing, transcribe, translate, ce, cur, bcmpricingcalculator, timestreaminfluxdb, bcmdataexports, oam, cloudfront, appsync, s3vectors, s3tables, iot, iotdata, cloudhsmv2, organizations, rum, guardduty, route53resolver, connect, appintegrations, dlm, cognitoidentity, globalaccelerator, datasync, networkfirewall, servicecatalog, controlcatalog, controltower, aps, lakeformation, efs, codegurureviewer, codeartifact, verifiedpermissions, marketplace, dms]
+2026-11-12 06:04:23,276 INFO  [io.git.hec.flo.ser.app.gra.SchemaCreationWorker] SchemaCreationWorker started with 4 threads
+2026-11-12 06:04:23,277 INFO  [io.git.hec.flo.ser.dyn.DynamoDbTtlService] DynamoDB TTL sweeper scheduled (60s interval)
+2026-11-12 06:04:23,277 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] SqsEventSourcePoller initialized, 0 ESM(s) active
+2026-11-12 06:04:23,277 INFO  [io.git.hec.flo.ser.lam.DynamoDbStreamsEventSourcePoller] DynamoDbStreamsEventSourcePoller initialized
+2026-11-12 06:04:23,278 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Creating control-plane DockerClient pool (maxConnections=1,024) for host: unix:///var/run/docker.sock
+2026-11-12 06:04:23,283 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Wrapping control-plane docker transport in transient-I/O retry
+2026-11-12 06:04:23,303 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator Ready ===
+2026-11-12 06:04:23,303 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Ready.
+2026-11-12 06:04:23,303 INFO  [io.git.hec.flo.ser.ec2.Ec2MetadataServer] EC2 IMDS server listening on port 9169
+2026-11-12 06:04:23,304 INFO  [io.git.hec.flo.ser.sch.ScheduleDispatcher] Scheduler dispatcher started (tick every 10s)
+2026-11-12 06:04:23,304 INFO  [io.git.hec.flo.ser.sqs.SqsRetentionSweeper] SQS retention sweeper scheduled (60s interval)
+2026-11-12 06:04:23,305 INFO  [io.git.hec.flo.ser.sec.SecretRotationScheduler] Secrets Manager rotation scheduler started (tick every 60s)
+2026-11-12 06:04:23,307 INFO  [io.git.hec.flo.ser.ec2.FlowLogService] FlowLog generator scheduled (every 60s)
+2026-11-12 06:04:23,307 INFO  [io.git.hec.flo.con.PartitionStartupValidator] Partition: aws (default-region us-east-1, dns suffix amazonaws.com)
+2026-11-12 06:04:23,307 INFO  [io.git.hec.flo.ser.lam.WarmPool] Warm pool idle eviction enabled: timeout=300s, check interval=30s
+2026-11-12 06:04:23,328 INFO  [io.quarkus] floci 2.4.0 native (powered by Quarkus 3.40.1) started in 0.091s. Listening on: http://0.0.0.0:4566
+2026-11-12 06:04:23,328 INFO  [io.quarkus] Profile prod activated. 
+2026-11-12 06:04:23,328 INFO  [io.quarkus] Installed features: [cdi, config-yaml, rest, rest-jackson, security, smallrye-context-propagation, vertx]
+2026-11-12 06:04:24,853 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: eve
+2026-11-12 06:04:24,862 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: eve
+2026-11-12 06:04:24,873 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: gus
+2026-11-12 06:04:24,877 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: gus
+2026-11-12 06:04:24,884 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: CreateKey
+2026-11-12 06:04:24,884 INFO  [io.git.hec.flo.ser.kms.KmsService] Created KMS key: 5d8598a1-2efa-4a9f-b024-f90cc905e936 (ENCRYPT_DECRYPT/SYMMETRIC_DEFAULT, origin AWS_KMS) in us-east-1
+2026-11-12 06:04:24,889 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: PutKeyPolicy
+2026-11-12 06:04:24,889 INFO  [io.git.hec.flo.ser.kms.KmsService] Updated key policy for KMS key: 5d8598a1-2efa-4a9f-b024-f90cc905e936 in us-east-1
+2026-11-12 06:04:24,899 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: Encrypt
+2026-11-12 06:04:24,903 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: CreateKey
+2026-11-12 06:04:24,904 INFO  [io.git.hec.flo.ser.kms.KmsService] Created KMS key: a1842127-d9a5-44b7-a8be-6a1f30adac71 (ENCRYPT_DECRYPT/SYMMETRIC_DEFAULT, origin AWS_KMS) in us-east-1
+2026-11-12 06:04:24,907 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: PutKeyPolicy
+2026-11-12 06:04:24,907 INFO  [io.git.hec.flo.ser.kms.KmsService] Updated key policy for KMS key: a1842127-d9a5-44b7-a8be-6a1f30adac71 in us-east-1
+2026-11-12 06:04:24,912 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: Encrypt
+2026-11-12 06:04:24,920 INFO  [io.git.hec.flo.cor.com.IamEnforcementFilter] IAM enforcement DENY: akid=AKIA3ZUVYVUL6K61VDKQ action=kms:Encrypt resource=arn:aws:kms:us-east-1:000000000000:key/a1842127-d9a5-44b7-a8be-6a1f30adac71
+2026-11-12 06:04:24,926 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: CreateKey
+2026-11-12 06:04:24,927 INFO  [io.git.hec.flo.ser.kms.KmsService] Created KMS key: 6ef50367-1e61-472d-960b-dac862868044 (ENCRYPT_DECRYPT/SYMMETRIC_DEFAULT, origin AWS_KMS) in us-east-1
+2026-11-12 06:04:24,931 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: CreateGrant
+2026-11-12 06:04:24,932 INFO  [io.git.hec.flo.ser.kms.KmsService] Created KMS grant: 20da3ac8-7ffc-4eeb-ac94-9636ab9cb00d for key 6ef50367-1e61-472d-960b-dac862868044 in us-east-1
+2026-11-12 06:04:24,935 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: ListGrants
+2026-11-12 06:04:24,943 INFO  [io.git.hec.flo.cor.com.IamEnforcementFilter] IAM enforcement DENY: akid=AKIA3ZUVYVUL6K61VDKQ action=kms:Encrypt resource=arn:aws:kms:us-east-1:000000000000:key/6ef50367-1e61-472d-960b-dac862868044
+2026-11-12 06:04:24,948 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: CreateKey
+2026-11-12 06:04:24,948 INFO  [io.git.hec.flo.ser.kms.KmsService] Created KMS key: 05ab9d16-bf2e-4c6a-878b-65ba419b63a4 (ENCRYPT_DECRYPT/SYMMETRIC_DEFAULT, origin AWS_KMS) in us-east-1
+2026-11-12 06:04:24,952 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: GenerateDataKey
+2026-11-12 06:04:24,956 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: Decrypt
+2026-11-12 06:04:24,959 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: Decrypt
+2026-11-12 06:04:24,964 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: Decrypt
+2026-11-12 06:04:24,969 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: DisableKey
+2026-11-12 06:04:24,969 INFO  [io.git.hec.flo.ser.kms.KmsService] Disabled KMS key: 05ab9d16-bf2e-4c6a-878b-65ba419b63a4 in us-east-1
+2026-11-12 06:04:24,973 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller kms action: Decrypt

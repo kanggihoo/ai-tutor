@@ -1,0 +1,16 @@
+CHECK t05[t05-off] E0.reported-private-ip-held-by-container expected=yes actual=yes OK | doc: ec2.md VPC Docker networks: reported private IP is an address its container actually holds
+CHECK t05[t05-off] E0.reported-private-ip-reachable expected=OPEN actual=OPEN OK
+CHECK t05[t05-off] E1.no-ingress-rule.A->B:8080 expected=OPEN actual=OPEN OK AWS-DIFF
+CHECK t05[t05-off] E1.ingress-from-sg-client.A->B:8080 expected=OPEN actual=OPEN OK
+CHECK t05[t05-off] E2.A-egress-revoked.A->B:8080 expected=OPEN actual=OPEN OK AWS-DIFF
+CHECK t05[t05-off] E2.A-egress-8080-to-sg-server.A->B:8080 expected=OPEN actual=OPEN OK
+CHECK t05[t05-off] E3.deny-all-NACL-on-subnet.A->B:8080(AWS would block) expected=OPEN actual=OPEN OK AWS-DIFF | doc: ec2.md: does not emulate VPC routing, NACLs, NAT gateways, or peering
+RESULT t05[t05-off] PASS mismatches=0
+CHECK t05[t05-sg] E0.reported-private-ip-held-by-container expected=no actual=no OK DOC-DIFF | doc: ec2.md VPC Docker networks: reported private IP is an address its container actually holds
+CHECK t05[t05-sg] E0.reported-private-ip-reachable expected=BLOCKED actual=BLOCKED OK
+CHECK t05[t05-sg] E1.no-ingress-rule.A->B:8080 expected=BLOCKED actual=BLOCKED OK
+CHECK t05[t05-sg] E1.ingress-from-sg-client.A->B:8080 expected=OPEN actual=OPEN OK
+CHECK t05[t05-sg] E2.A-egress-revoked.A->B:8080 expected=BLOCKED actual=BLOCKED OK
+CHECK t05[t05-sg] E2.A-egress-8080-to-sg-server.A->B:8080 expected=OPEN actual=OPEN OK
+CHECK t05[t05-sg] E3.deny-all-NACL-on-subnet.A->B:8080(AWS would block) expected=OPEN actual=OPEN OK AWS-DIFF | doc: ec2.md: does not emulate VPC routing, NACLs, NAT gateways, or peering
+RESULT t05[t05-sg] PASS mismatches=0

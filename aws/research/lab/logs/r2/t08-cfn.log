@@ -1,0 +1,19 @@
+# case=t08-cfn script=t08_cfn.py env=[LAB_IAM=false] round=r2 date=2026-11-12T15:04:30+09:00
+# floci: 2026-11-12 06:04:30,732 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+ Container awslab-floci Running 
+ Container awslab-client-run-d21b0483663a Creating 
+ Container awslab-client-run-d21b0483663a Created 
+=== t08 MODE=t08-cfn
+CHECK t08[t08-cfn] E1.default.status expected=ROLLBACK_COMPLETE actual=ROLLBACK_COMPLETE OK
+CHECK t08[t08-cfn] E1.default.good-queue-removed expected=False actual=False OK
+INFO  events: s-rollback:ROLLBACK_COMPLETE: | Good:DELETE_COMPLETE: | Good:DELETE_IN_PROGRESS: | s-rollback:ROLLBACK_IN_PROGRESS:The following resource(s) failed to create: [Bad]. Rollback requested by user. | Bad:CREATE_FAILED:Invalid value for the parameter DelaySeconds. | Bad:CREATE_IN_PROGRESS: | Good:CREATE_COMPLETE: | Good:CREATE_IN_PROGRESS:
+CHECK t08[t08-cfn] E1.DO_NOTHING.status(AWS: CREATE_FAILED) expected=ROLLBACK_COMPLETE actual=ROLLBACK_COMPLETE OK AWS-DIFF | doc: cloudformation.md: OnFailure/DisableRollback 언급 없음
+CHECK t08[t08-cfn] E1.DO_NOTHING.good-queue-kept(AWS: True) expected=False actual=False OK AWS-DIFF
+CHECK t08[t08-cfn] E2.create.status expected=CREATE_COMPLETE actual=CREATE_COMPLETE OK
+CHECK t08[t08-cfn] E2.failed-update.status expected=UPDATE_ROLLBACK_COMPLETE actual=UPDATE_ROLLBACK_COMPLETE OK
+CHECK t08[t08-cfn] E2.good-queue-VisibilityTimeout-restored expected=30 actual=30 OK
+CHECK t08[t08-cfn] E2.bad-queue-absent expected=False actual=False OK
+INFO  events: s-upd:UPDATE_ROLLBACK_COMPLETE: | Good:UPDATE_COMPLETE:Resource update rolled back | Bad:DELETE_COMPLETE:Resource creation cancelled during update rollback | s-upd:UPDATE_ROLLBACK_IN_PROGRESS:The following resource(s) failed to create: [Bad]. | Bad:CREATE_FAILED:Invalid value for the parameter DelaySeconds. | Bad:CREATE_IN_PROGRESS: | Good:UPDATE_COMPLETE: | Good:UPDATE_IN_PROGRESS:
+CHECK t08[t08-cfn] E3.unknown-type.status(AWS: rollback) expected=CREATE_COMPLETE actual=CREATE_COMPLETE OK AWS-DIFF | doc: cloudformation.md:257 Resource type AWS::Fake::Thing is not supported by Floci. It was stubbed and nothing was created for it.
+INFO  events: s-fake:CREATE_COMPLETE: | Fake:CREATE_COMPLETE:Resource type AWS::Fake::Thing is not supported by Floci. It was stubbed and not | Fake:CREATE_IN_PROGRESS: | Good:CREATE_COMPLETE: | Good:CREATE_IN_PROGRESS: | s-fake:CREATE_IN_PROGRESS: | s-fake:REVIEW_IN_PROGRESS:User Initiated
+RESULT t08[t08-cfn] PASS mismatches=0

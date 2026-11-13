@@ -1,0 +1,63 @@
+ _____  _      ___   ____   __
+|  ___|| |    / _ \ / ___| | |
+| |_   | |   | | | || |    | |
+|  _|  | |___| |_| || |__  | |
+|_|    |_____|\___/ \____| |_|
+
+   AWS Local Emulator  ·  Always Free
+
+            Powered by Quarkus 3.40.1
+2026-11-12 05:58:21,863 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-12 05:58:21,889 INFO  [io.git.hec.flo.ser.clo.CloudTrailLogWriter] CloudTrail log writer started (flushIntervalSeconds=60)
+2026-11-12 05:58:21,890 INFO  [io.git.hec.flo.ser.fir.FirehoseService] Firehose buffer flusher started (tick every 1s)
+2026-11-12 05:58:21,890 INFO  [io.git.hec.flo.ser.iot.IotMqttBrokerService] IoT MQTT broker auto-start disabled by configuration
+2026-11-12 05:58:21,890 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-12 05:58:21,891 INFO  [io.git.hec.flo.cor.com.dns.EmbeddedDnsServer] Embedded DNS server started on 172.30.0.2:53, resolving [localhost.floci.io, localhost.localstack.cloud, floci] → 172.30.0.2
+2026-11-12 05:58:21,894 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator 2.4.0 Starting ===
+2026-11-12 05:58:21,894 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Endpoint:  http://0.0.0.0:4566
+2026-11-12 05:58:21,894 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Region:    us-east-1  Account: 000000000000
+2026-11-12 05:58:21,894 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Storage:   memory  Path: /app/data
+2026-11-12 05:58:21,894 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] TLS:       disabled (HTTP only)
+2026-11-12 05:58:21,894 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+2026-11-12 05:58:21,894 INFO  [io.git.hec.flo.cor.sto.PersistentPathValidator] Storage mode: persistent (state for resourceexplorer2=hybrid is written to /app/data)
+2026-11-12 05:58:21,895 INFO  [io.git.hec.flo.cor.com.ServiceRegistry] Enabled services: [ssm, sqs, s3, dynamodb, sns, lambda, apigateway, iam, msk, amazonmq, elasticache, memorydb, rds, rds-data, dsql, neptune, docdb, redshift, redshift-data, redshift-serverless, eventbridge, cloudmap, emr, emrserverless, wafv2, scheduler, cloudwatchlogs, cloudwatchmetrics, secretsmanager, apigatewayv2, kinesis, kinesisanalytics, kms, cognito, stepfunctions, swf, cloudformation, acm, athena, glue, firehose, ses, opensearch, ec2, ecs, appconfig, appconfigdata, ecr, resource-groups, tagging, bedrock, bedrock-runtime, eks, mwaa, pipes, bedrock-agentcore-control, bedrock-agentcore, elbv2, elb, codebuild, batch, sagemaker, codedeploy, codepipeline, servicequotas, ram, configservice, cloudtrail, lightsail, cloudcontrol, ssoadmin, ssooidc, macie2, account, accessanalyzer, identitystore, budgets, detective, inspector2, securityhub, autoscaling, applicationautoscaling, elasticbeanstalk, backup, resourceexplorer2, fis, transfer, route53, textract, comprehend, rekognition, pricing, transcribe, translate, ce, cur, bcmpricingcalculator, timestreaminfluxdb, bcmdataexports, oam, cloudfront, appsync, s3vectors, s3tables, iot, iotdata, cloudhsmv2, organizations, rum, guardduty, route53resolver, connect, appintegrations, dlm, cognitoidentity, globalaccelerator, datasync, networkfirewall, servicecatalog, controlcatalog, controltower, aps, lakeformation, efs, codegurureviewer, codeartifact, verifiedpermissions, marketplace, dms]
+2026-11-12 05:58:21,895 INFO  [io.git.hec.flo.ser.app.gra.SchemaCreationWorker] SchemaCreationWorker started with 4 threads
+2026-11-12 05:58:21,895 INFO  [io.git.hec.flo.ser.dyn.DynamoDbTtlService] DynamoDB TTL sweeper scheduled (60s interval)
+2026-11-12 05:58:21,895 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] SqsEventSourcePoller initialized, 0 ESM(s) active
+2026-11-12 05:58:21,896 INFO  [io.git.hec.flo.ser.lam.DynamoDbStreamsEventSourcePoller] DynamoDbStreamsEventSourcePoller initialized
+2026-11-12 05:58:21,899 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Creating control-plane DockerClient pool (maxConnections=1,024) for host: unix:///var/run/docker.sock
+2026-11-12 05:58:21,904 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Wrapping control-plane docker transport in transient-I/O retry
+2026-11-12 05:58:21,924 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator Ready ===
+2026-11-12 05:58:21,924 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Ready.
+2026-11-12 05:58:21,924 INFO  [io.git.hec.flo.ser.ec2.Ec2MetadataServer] EC2 IMDS server listening on port 9169
+2026-11-12 05:58:21,925 INFO  [io.git.hec.flo.ser.sch.ScheduleDispatcher] Scheduler dispatcher started (tick every 10s)
+2026-11-12 05:58:21,925 INFO  [io.git.hec.flo.ser.sqs.SqsRetentionSweeper] SQS retention sweeper scheduled (60s interval)
+2026-11-12 05:58:21,925 INFO  [io.git.hec.flo.ser.sec.SecretRotationScheduler] Secrets Manager rotation scheduler started (tick every 60s)
+2026-11-12 05:58:21,927 INFO  [io.git.hec.flo.ser.ec2.FlowLogService] FlowLog generator scheduled (every 60s)
+2026-11-12 05:58:21,927 INFO  [io.git.hec.flo.con.PartitionStartupValidator] Partition: aws (default-region us-east-1, dns suffix amazonaws.com)
+2026-11-12 05:58:21,927 INFO  [io.git.hec.flo.ser.lam.WarmPool] Warm pool idle eviction enabled: timeout=300s, check interval=30s
+2026-11-12 05:58:22,195 INFO  [io.git.hec.flo.ser.ec2.net.VpcNetworkManager] Reconciled orphaned VPC network floci-aws-vpc-4566-us-east-1-vpc-01185596 (vpc vpc-01185596) left by a previous run
+2026-11-12 05:58:22,195 INFO  [io.git.hec.flo.ser.ec2.net.VpcNetworkManager] Removed 1 orphaned VPC network(s)
+2026-11-12 05:58:22,208 INFO  [io.quarkus] floci 2.4.0 native (powered by Quarkus 3.40.1) started in 0.347s. Listening on: http://0.0.0.0:4566
+2026-11-12 05:58:22,208 INFO  [io.quarkus] Profile prod activated. 
+2026-11-12 05:58:22,208 INFO  [io.quarkus] Installed features: [cdi, config-yaml, rest, rest-jackson, security, smallrye-context-propagation, vertx]
+2026-11-12 05:58:24,633 INFO  [io.git.hec.flo.cor.com.doc.CurrentContainerNetworkResolver] Detected current Docker network for spawned containers: awslab_default (172.30.0.2)
+2026-11-12 05:58:24,633 INFO  [io.git.hec.flo.cor.com.doc.CurrentContainerNetworkResolver] Detected current Docker network for spawned containers: awslab_default (172.30.0.2)
+2026-11-12 05:58:24,633 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-12 05:58:24,633 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-12 05:58:24,800 INFO  [io.git.hec.flo.ser.lam.lau.ImageCacheService] Image already present locally, skipping pull: floci/network-helper:local
+2026-11-12 05:58:24,869 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 5a78c004d975a944ffc3b81b5a4cdbebd611c3612e625a8bf085bbcea0862d33 (name=floci-aws-sg-i-3436f4d7ecdee31b4, not yet started)
+2026-11-12 05:58:24,922 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 6d40abce3f58bd48edaf7dd0d73747b2befe59b925a1fb3aea1e64ae85b03d53 (name=floci-aws-sg-i-a899ab3b3e27bfea4, not yet started)
+2026-11-12 05:58:25,071 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 5a78c004d975a944ffc3b81b5a4cdbebd611c3612e625a8bf085bbcea0862d33
+2026-11-12 05:58:25,100 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 6d40abce3f58bd48edaf7dd0d73747b2befe59b925a1fb3aea1e64ae85b03d53
+2026-11-12 05:58:25,508 INFO  [io.git.hec.flo.ser.lam.lau.ImageCacheService] Image already present locally, skipping pull: public.ecr.aws/docker/library/alpine:latest
+2026-11-12 05:58:25,590 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container ad844dabb029a4df50fd5ef7b2abc0f908bcb3830331ee132c016d1307e41a5a (name=floci-aws-ec2-i-3436f4d7ecdee31b4, not yet started)
+2026-11-12 05:58:25,741 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container ad844dabb029a4df50fd5ef7b2abc0f908bcb3830331ee132c016d1307e41a5a
+2026-11-12 05:58:25,752 INFO  [io.git.hec.flo.ser.ec2.Ec2ContainerManager] EC2 instance i-3436f4d7ecdee31b4 running in container ad844dabb029a4df50fd5ef7b2abc0f908bcb3830331ee132c016d1307e41a5a (SSH host port 2200)
+2026-11-12 05:58:25,849 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 911242d8be3cd3fa0b707fd92fa09470b52fdd9b7b1a7703bd119ee4fb0cc19f (name=floci-aws-ec2-i-a899ab3b3e27bfea4, not yet started)
+2026-11-12 05:58:25,939 INFO  [io.git.hec.flo.ser.ec2.Ec2ContainerManager] Configured link-local IMDS endpoint for EC2 instance i-3436f4d7ecdee31b4
+2026-11-12 05:58:25,969 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 911242d8be3cd3fa0b707fd92fa09470b52fdd9b7b1a7703bd119ee4fb0cc19f
+2026-11-12 05:58:25,982 INFO  [io.git.hec.flo.ser.ec2.Ec2ContainerManager] EC2 instance i-a899ab3b3e27bfea4 running in container 911242d8be3cd3fa0b707fd92fa09470b52fdd9b7b1a7703bd119ee4fb0cc19f (SSH host port 2201)
+2026-11-12 05:58:26,096 INFO  [io.git.hec.flo.ser.ec2.Ec2ContainerManager] Configured link-local IMDS endpoint for EC2 instance i-a899ab3b3e27bfea4
+2026-11-12 05:58:27,312 INFO  [io.git.hec.flo.ser.ec2.Ec2ContainerManager] Started sshd in EC2 instance i-a899ab3b3e27bfea4
+2026-11-12 05:58:27,315 INFO  [io.git.hec.flo.ser.ec2.Ec2ContainerManager] Started sshd in EC2 instance i-3436f4d7ecdee31b4

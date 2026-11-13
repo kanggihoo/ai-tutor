@@ -1,0 +1,15 @@
+# case=t10-off script=t10_irsa.py env=[LAB_IAM=false] round=r1 date=2026-11-12T15:00:31+09:00
+# floci: 2026-11-12 06:00:31,630 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+ Container awslab-floci Running 
+ Container awslab-client-run-9e5f3ade03d8 Creating 
+ Container awslab-client-run-9e5f3ade03d8 Created 
+=== t10 MODE=t10-off
+INFO  issuer = https://oidc.eks.us-east-1.amazonaws.com/id/98E40BD2443E43989081ECBDC1873795
+INFO  CreateOpenIDConnectProvider = ALLOW
+CHECK t10[t10-off] E1.right-service-account expected=ALLOW actual=ALLOW OK
+INFO  SubjectFromWebIdentityToken = system:serviceaccount:app:reader
+CHECK t10[t10-off] E1.other-service-account expected=AccessDenied actual=AccessDenied OK
+CHECK t10[t10-off] E1.tampered-signature expected=InvalidIdentityToken actual=InvalidIdentityToken OK
+CHECK t10[t10-off] E1.wrong-audience expected=InvalidIdentityToken actual=InvalidIdentityToken OK
+CHECK t10[t10-off] E2.foreign-issuer-unsigned-token expected=ALLOW actual=ALLOW OK | doc: sts.md: tokens from an issuer Floci does not host are accepted unless IAM enforcement is on
+RESULT t10[t10-off] PASS mismatches=0

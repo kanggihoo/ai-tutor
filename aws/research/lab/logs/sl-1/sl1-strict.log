@@ -1,0 +1,27 @@
+# case=sl1-strict script=s01_function.py env=[LAB_IAM=true LAB_SIG=true LAB_S3AUTH=true LAB_NS=awslab] round=sl-1 date=2026-11-13T17:10:03+09:00
+# floci: 2026-11-13 08:10:03,063 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+ Container awslab-floci Running 
+ Container awslab-client-run-4bf2be72a99e Creating 
+ Container awslab-client-run-4bf2be72a99e Created 
+=== s01 MODE=sl1-strict
+CHECK s01[sl1-strict] W0.ok.invoke expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-strict] W0.ok.FunctionError expected=None actual=None OK
+CHECK s01[sl1-strict] W0.ok.remainingMs<=2000 expected=True actual=True OK
+CHECK s01[sl1-strict] W0.raise.invoke(HTTP 200) expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-strict] W0.raise.FunctionError expected=Unhandled actual=Unhandled OK
+CHECK s01[sl1-strict] W0.raise.errorType expected=ValueError actual=ValueError OK
+CHECK s01[sl1-strict] W0.timeout.FunctionError expected=Unhandled actual=Unhandled OK
+CHECK s01[sl1-strict] W0.timeout.errorMessage has 'Task timed out' expected=True actual=True OK
+INFO  timeout invoke wall=3.2s body={'errorMessage': 'Task timed out after 2 seconds', 'errorType': 'Function.TimedOut'}
+CHECK s01[sl1-strict] W0.caller-without-InvokeFunction expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK
+CHECK s01[sl1-strict] W9.print-line-in-/aws/lambda/fn expected=True actual=True OK
+CHECK s01[sl1-strict] W9.REPORT-line-present expected=False actual=False OK DOC-DIFF | doc: lambda.md:1010 'write their logs, START, END and REPORT included, to the LogGroup'
+CHECK s01[sl1-strict] W9.exception-logged expected=True actual=True OK
+CHECK s01[sl1-strict] W9.timeout-logged(AWS: yes) expected=False actual=False OK AWS-DIFF
+CHECK s01[sl1-strict] W9.reader-with-FilterLogEvents(log-group scoped) expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK DOC-DIFF | doc: iam.md:1820 CloudWatch Logs는 floci가 ARN을 직접 만든다 -> 실제 resource=*로 평가
+CHECK s01[sl1-strict] W9.reader-with-FilterLogEvents(Resource *) expected=ALLOW actual=ALLOW OK
+CHECK s01[sl1-strict] W9.reader-without-FilterLogEvents expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK
+CHECK s01[sl1-strict] W9.nolog-role.invoke expected=ALLOW actual=ALLOW OK
+INFO  nolog-role log hits = 1
+CHECK s01[sl1-strict] W9.nolog-role.log-delivered(AWS: no) expected=True actual=True OK AWS-DIFF | doc: lambda.md: 문서는 실행 role의 logs 권한을 언급하지 않음
+RESULT s01[sl1-strict] PASS mismatches=0

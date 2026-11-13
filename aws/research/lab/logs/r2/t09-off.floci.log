@@ -1,0 +1,70 @@
+ _____  _      ___   ____   __
+|  ___|| |    / _ \ / ___| | |
+| |_   | |   | | | || |    | |
+|  _|  | |___| |_| || |__  | |
+|_|    |_____|\___/ \____| |_|
+
+   AWS Local Emulator  ·  Always Free
+
+            Powered by Quarkus 3.40.1
+2026-11-12 06:04:37,679 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-12 06:04:37,711 INFO  [io.git.hec.flo.ser.clo.CloudTrailLogWriter] CloudTrail log writer started (flushIntervalSeconds=60)
+2026-11-12 06:04:37,711 INFO  [io.git.hec.flo.ser.fir.FirehoseService] Firehose buffer flusher started (tick every 1s)
+2026-11-12 06:04:37,711 INFO  [io.git.hec.flo.ser.iot.IotMqttBrokerService] IoT MQTT broker auto-start disabled by configuration
+2026-11-12 06:04:37,711 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-12 06:04:37,713 INFO  [io.git.hec.flo.cor.com.dns.EmbeddedDnsServer] Embedded DNS server started on 172.30.0.2:53, resolving [localhost.floci.io, localhost.localstack.cloud, floci] → 172.30.0.2
+2026-11-12 06:04:37,716 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator 2.4.0 Starting ===
+2026-11-12 06:04:37,716 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Endpoint:  http://0.0.0.0:4566
+2026-11-12 06:04:37,716 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Region:    us-east-1  Account: 000000000000
+2026-11-12 06:04:37,716 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Storage:   memory  Path: /app/data
+2026-11-12 06:04:37,716 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] TLS:       disabled (HTTP only)
+2026-11-12 06:04:37,716 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+2026-11-12 06:04:37,716 INFO  [io.git.hec.flo.cor.sto.PersistentPathValidator] Storage mode: persistent (state for resourceexplorer2=hybrid is written to /app/data)
+2026-11-12 06:04:37,716 INFO  [io.git.hec.flo.cor.com.ServiceRegistry] Enabled services: [ssm, sqs, s3, dynamodb, sns, lambda, apigateway, iam, msk, amazonmq, elasticache, memorydb, rds, rds-data, dsql, neptune, docdb, redshift, redshift-data, redshift-serverless, eventbridge, cloudmap, emr, emrserverless, wafv2, scheduler, cloudwatchlogs, cloudwatchmetrics, secretsmanager, apigatewayv2, kinesis, kinesisanalytics, kms, cognito, stepfunctions, swf, cloudformation, acm, athena, glue, firehose, ses, opensearch, ec2, ecs, appconfig, appconfigdata, ecr, resource-groups, tagging, bedrock, bedrock-runtime, eks, mwaa, pipes, bedrock-agentcore-control, bedrock-agentcore, elbv2, elb, codebuild, batch, sagemaker, codedeploy, codepipeline, servicequotas, ram, configservice, cloudtrail, lightsail, cloudcontrol, ssoadmin, ssooidc, macie2, account, accessanalyzer, identitystore, budgets, detective, inspector2, securityhub, autoscaling, applicationautoscaling, elasticbeanstalk, backup, resourceexplorer2, fis, transfer, route53, textract, comprehend, rekognition, pricing, transcribe, translate, ce, cur, bcmpricingcalculator, timestreaminfluxdb, bcmdataexports, oam, cloudfront, appsync, s3vectors, s3tables, iot, iotdata, cloudhsmv2, organizations, rum, guardduty, route53resolver, connect, appintegrations, dlm, cognitoidentity, globalaccelerator, datasync, networkfirewall, servicecatalog, controlcatalog, controltower, aps, lakeformation, efs, codegurureviewer, codeartifact, verifiedpermissions, marketplace, dms]
+2026-11-12 06:04:37,716 INFO  [io.git.hec.flo.ser.app.gra.SchemaCreationWorker] SchemaCreationWorker started with 4 threads
+2026-11-12 06:04:37,717 INFO  [io.git.hec.flo.ser.dyn.DynamoDbTtlService] DynamoDB TTL sweeper scheduled (60s interval)
+2026-11-12 06:04:37,717 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] SqsEventSourcePoller initialized, 0 ESM(s) active
+2026-11-12 06:04:37,717 INFO  [io.git.hec.flo.ser.lam.DynamoDbStreamsEventSourcePoller] DynamoDbStreamsEventSourcePoller initialized
+2026-11-12 06:04:37,718 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Creating control-plane DockerClient pool (maxConnections=1,024) for host: unix:///var/run/docker.sock
+2026-11-12 06:04:37,722 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Wrapping control-plane docker transport in transient-I/O retry
+2026-11-12 06:04:37,748 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator Ready ===
+2026-11-12 06:04:37,748 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Ready.
+2026-11-12 06:04:37,749 INFO  [io.git.hec.flo.ser.ec2.Ec2MetadataServer] EC2 IMDS server listening on port 9169
+2026-11-12 06:04:37,749 INFO  [io.git.hec.flo.ser.sch.ScheduleDispatcher] Scheduler dispatcher started (tick every 10s)
+2026-11-12 06:04:37,750 INFO  [io.git.hec.flo.ser.sqs.SqsRetentionSweeper] SQS retention sweeper scheduled (60s interval)
+2026-11-12 06:04:37,750 INFO  [io.git.hec.flo.ser.sec.SecretRotationScheduler] Secrets Manager rotation scheduler started (tick every 60s)
+2026-11-12 06:04:37,752 INFO  [io.git.hec.flo.ser.ec2.FlowLogService] FlowLog generator scheduled (every 60s)
+2026-11-12 06:04:37,752 INFO  [io.git.hec.flo.con.PartitionStartupValidator] Partition: aws (default-region us-east-1, dns suffix amazonaws.com)
+2026-11-12 06:04:37,752 INFO  [io.git.hec.flo.ser.lam.WarmPool] Warm pool idle eviction enabled: timeout=300s, check interval=30s
+2026-11-12 06:04:37,769 INFO  [io.quarkus] floci 2.4.0 native (powered by Quarkus 3.40.1) started in 0.092s. Listening on: http://0.0.0.0:4566
+2026-11-12 06:04:37,769 INFO  [io.quarkus] Profile prod activated. 
+2026-11-12 06:04:37,769 INFO  [io.quarkus] Installed features: [cdi, config-yaml, rest, rest-jackson, security, smallrye-context-propagation, vertx]
+2026-11-12 06:04:39,144 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: CreateUserPool
+2026-11-12 06:04:39,214 INFO  [io.git.hec.flo.ser.cog.CognitoService] Created User Pool: us-east-1_dc4886bdd
+2026-11-12 06:04:39,225 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: DescribeUserPool
+2026-11-12 06:04:39,230 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: CreateUserPoolClient
+2026-11-12 06:04:39,230 INFO  [io.git.hec.flo.ser.cog.CognitoService] Created User Pool Client: a95c861bbb8e4656835db8809c for pool us-east-1_dc4886bdd
+2026-11-12 06:04:39,233 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: AdminCreateUser
+2026-11-12 06:04:39,236 INFO  [io.git.hec.flo.ser.cog.CognitoService] Created user kim in pool us-east-1_dc4886bdd
+2026-11-12 06:04:39,240 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: AdminSetUserPassword
+2026-11-12 06:04:39,242 INFO  [io.git.hec.flo.ser.cog.CognitoService] Set password for user kim in pool us-east-1_dc4886bdd (permanent=true)
+2026-11-12 06:04:39,245 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: InitiateAuth
+2026-11-12 06:04:39,258 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: CreateUserPool
+2026-11-12 06:04:39,431 INFO  [io.git.hec.flo.ser.cog.CognitoService] Created User Pool: us-east-1_9de395cb6
+2026-11-12 06:04:39,434 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: DescribeUserPool
+2026-11-12 06:04:39,436 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: CreateUserPoolClient
+2026-11-12 06:04:39,436 INFO  [io.git.hec.flo.ser.cog.CognitoService] Created User Pool Client: 4b01f58a71f149afbbe2a9f14f for pool us-east-1_9de395cb6
+2026-11-12 06:04:39,439 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: AdminCreateUser
+2026-11-12 06:04:39,441 INFO  [io.git.hec.flo.ser.cog.CognitoService] Created user lee in pool us-east-1_9de395cb6
+2026-11-12 06:04:39,443 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: AdminSetUserPassword
+2026-11-12 06:04:39,447 INFO  [io.git.hec.flo.ser.cog.CognitoService] Set password for user lee in pool us-east-1_9de395cb6 (permanent=true)
+2026-11-12 06:04:39,449 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller cognito-idp action: InitiateAuth
+2026-11-12 06:04:39,461 INFO  [io.git.hec.flo.ser.api.ApiGatewayService] Created REST API: lab-api (13ed007e22) in us-east-1
+2026-11-12 06:04:39,466 INFO  [io.git.hec.flo.ser.api.ApiGatewayService] Created authorizer efcbe8 for API 13ed007e22
+2026-11-12 06:04:39,469 INFO  [io.git.hec.flo.ser.api.ApiGatewayService] Created resource 5c134344 path=/open in API 13ed007e22
+2026-11-12 06:04:39,484 INFO  [io.git.hec.flo.ser.api.ApiGatewayService] Created resource 9cac12f0 path=/secure in API 13ed007e22
+2026-11-12 06:04:39,493 INFO  [io.git.hec.flo.ser.api.ApiGatewayService] Created resource a276480a path=/iam in API 13ed007e22
+2026-11-12 06:04:39,507 INFO  [io.git.hec.flo.ser.api.ApiGatewayService] Created deployment ccc9fd846b for API 13ed007e22
+2026-11-12 06:04:39,507 INFO  [io.git.hec.flo.ser.api.ApiGatewayService] Deployed stage dev of API 13ed007e22 to deployment ccc9fd846b
+2026-11-12 06:04:39,542 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: nobody
+2026-11-12 06:04:39,546 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: nobody

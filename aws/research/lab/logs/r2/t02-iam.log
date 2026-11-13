@@ -1,0 +1,20 @@
+# case=t02-iam script=t02_sts_trust.py env=[LAB_IAM=true] round=r2 date=2026-11-12T15:01:18+09:00
+# floci: 2026-11-12 06:01:18,820 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+ Container awslab-floci Running 
+ Container awslab-client-run-fdd9e0fb514c Creating 
+ Container awslab-client-run-fdd9e0fb514c Created 
+=== t02 MODE=t02-iam
+CHECK t02[t02-iam] E1.alice(in trust, identity allows) expected=ALLOW actual=ALLOW OK
+CHECK t02[t02-iam] E1.bob(not in trust, identity allows) expected=AccessDenied actual=AccessDenied OK
+CHECK t02[t02-iam] E1.carol(in trust, no identity allow) expected=AccessDenied actual=AccessDenied OK
+CHECK t02[t02-iam] E1.alice->nonexistent-role expected=AccessDenied actual=AccessDenied OK | doc: sts.md: target role must exist (enforcement 무관)
+CHECK t02[t02-iam] E2.no-external-id expected=AccessDenied actual=AccessDenied OK
+CHECK t02[t02-iam] E2.wrong-external-id expected=AccessDenied actual=AccessDenied OK
+CHECK t02[t02-iam] E2.right-external-id expected=ALLOW actual=ALLOW OK
+CHECK t02[t02-iam] E3.session-tag-condition(AWS would ALLOW) expected=AccessDenied actual=AccessDenied OK AWS-DIFF | doc: sts.md Known limitations: aws:RequestTag/* not in request context
+CHECK t02[t02-iam] E3.mfa-gated-allow(never grants) expected=AccessDenied actual=AccessDenied OK AWS-DIFF | doc: iam.md: Allow gated on aws:MultiFactorAuthPresent never grants
+CHECK t02[t02-iam] E3.duration-above-max(7200>MaxSessionDuration 3600) expected=ALLOW actual=ALLOW OK DOC-DIFF | doc: sts.md Trust Policy Enforcement: rejects DurationSeconds above MaxSessionDuration with ValidationError (400)
+CHECK t02[t02-iam] E3.duration-above-max.issued-lifetime>3600s expected=True actual=True OK
+CHECK t02[t02-iam] E3.duration-above-43200(API hard limit) expected=ValidationError actual=ValidationError OK
+CHECK t02[t02-iam] E3.duration-equal-max expected=ALLOW actual=ALLOW OK
+RESULT t02[t02-iam] PASS mismatches=0

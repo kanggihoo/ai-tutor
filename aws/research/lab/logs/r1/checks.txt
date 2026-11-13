@@ -1,0 +1,263 @@
+CHECK t01[t01-iam-sig] E1.alice.s3:ListAllMyBuckets(allowed by identity) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam-sig] E1.alice.sqs:ListQueues(no allow -> implicit deny) expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E1.test-key.sqs:ListQueues(bypass) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam-sig] E1.unknown-AKIA.sqs:ListQueues expected=('InvalidClientTokenId', 'UnrecognizedClientException') actual=UnrecognizedClientException OK
+CHECK t01[t01-iam-sig] E2.explicit-deny-beats-allow.s3:CreateBucket expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam-sig] E2.same-user-other-action.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam-sig] E2.boundary-caps.s3:ListAllMyBuckets expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam-sig] E2.boundary-allows.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam-sig] E2.session-policy-allows.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam-sig] E2.session-policy-caps.sqs:ListQueues expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E2.no-session-policy.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam-sig] E3.coverage.s3:ListAllMyBuckets expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam-sig] E3.coverage.sqs:ListQueues expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E3.coverage.sns:ListTopics expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AuthorizationError OK
+CHECK t01[t01-iam-sig] E3.coverage.dynamodb:ListTables expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E3.coverage.lambda:ListFunctions expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E3.coverage.kms:ListKeys expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E3.coverage.secretsmanager:ListSecrets expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E3.coverage.ssm:DescribeParameters expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E3.coverage.ec2:DescribeVpcs expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam-sig] E3.coverage.iam:ListUsers expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam-sig] E3.coverage.events:ListRules expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E3.coverage.logs:DescribeLogGroups expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E3.coverage.cloudformation:ListStacks expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam-sig] E3.coverage.states:ListStateMachines expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam-sig] E3.coverage.sts:GetCallerIdentity(no policy needed) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam-sig] E3.forged-secret.s3:ListAllMyBuckets expected=SignatureDoesNotMatch actual=SignatureDoesNotMatch OK | doc: validate-signatures 꺼져 있으면 AKID만 본다(multi-account.md)
+CHECK t01[t01-iam-sig] E3.forged-secret.sqs:ListQueues(alice has no sqs allow) expected=('SignatureDoesNotMatch', 'InvalidSignatureException') actual=InvalidSignatureException OK
+RESULT t01[t01-iam-sig] PASS mismatches=0
+CHECK t01[t01-iam] E1.alice.s3:ListAllMyBuckets(allowed by identity) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E1.alice.sqs:ListQueues(no allow -> implicit deny) expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E1.test-key.sqs:ListQueues(bypass) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E1.unknown-AKIA.sqs:ListQueues expected=('InvalidClientTokenId', 'UnrecognizedClientException') actual=UnrecognizedClientException OK
+CHECK t01[t01-iam] E2.explicit-deny-beats-allow.s3:CreateBucket expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E2.same-user-other-action.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E2.boundary-caps.s3:ListAllMyBuckets expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E2.boundary-allows.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E2.session-policy-allows.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E2.session-policy-caps.sqs:ListQueues expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E2.no-session-policy.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E3.coverage.s3:ListAllMyBuckets expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E3.coverage.sqs:ListQueues expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.sns:ListTopics expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AuthorizationError OK
+CHECK t01[t01-iam] E3.coverage.dynamodb:ListTables expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.lambda:ListFunctions expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.kms:ListKeys expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.secretsmanager:ListSecrets expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.ssm:DescribeParameters expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.ec2:DescribeVpcs expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E3.coverage.iam:ListUsers expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E3.coverage.events:ListRules expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.logs:DescribeLogGroups expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.cloudformation:ListStacks expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDenied OK
+CHECK t01[t01-iam] E3.coverage.states:ListStateMachines expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+CHECK t01[t01-iam] E3.coverage.sts:GetCallerIdentity(no policy needed) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-iam] E3.forged-secret.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK AWS-DIFF | doc: validate-signatures 꺼져 있으면 AKID만 본다(multi-account.md)
+CHECK t01[t01-iam] E3.forged-secret.sqs:ListQueues(alice has no sqs allow) expected=('AccessDenied', 'AccessDeniedException', 'AuthorizationError') actual=AccessDeniedException OK
+RESULT t01[t01-iam] PASS mismatches=0
+CHECK t01[t01-off] E1.alice.s3:ListAllMyBuckets(allowed by identity) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E1.alice.sqs:ListQueues(no allow -> implicit deny) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E1.test-key.sqs:ListQueues(bypass) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E1.unknown-AKIA.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.explicit-deny-beats-allow.s3:CreateBucket expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.same-user-other-action.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.boundary-caps.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.boundary-allows.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.session-policy-allows.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.session-policy-caps.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E2.no-session-policy.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.sqs:ListQueues expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.sns:ListTopics expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.dynamodb:ListTables expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.lambda:ListFunctions expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.kms:ListKeys expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.secretsmanager:ListSecrets expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.ssm:DescribeParameters expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.ec2:DescribeVpcs expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.iam:ListUsers expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.events:ListRules expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.logs:DescribeLogGroups expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.cloudformation:ListStacks expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.states:ListStateMachines expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.coverage.sts:GetCallerIdentity(no policy needed) expected=ALLOW actual=ALLOW OK
+CHECK t01[t01-off] E3.forged-secret.s3:ListAllMyBuckets expected=ALLOW actual=ALLOW OK AWS-DIFF | doc: validate-signatures 꺼져 있으면 AKID만 본다(multi-account.md)
+CHECK t01[t01-off] E3.forged-secret.sqs:ListQueues(alice has no sqs allow) expected=ALLOW actual=ALLOW OK
+RESULT t01[t01-off] PASS mismatches=0
+CHECK t02[t02-iam] E1.alice(in trust, identity allows) expected=ALLOW actual=ALLOW OK
+CHECK t02[t02-iam] E1.bob(not in trust, identity allows) expected=AccessDenied actual=AccessDenied OK
+CHECK t02[t02-iam] E1.carol(in trust, no identity allow) expected=AccessDenied actual=AccessDenied OK
+CHECK t02[t02-iam] E1.alice->nonexistent-role expected=AccessDenied actual=AccessDenied OK | doc: sts.md: target role must exist (enforcement 무관)
+CHECK t02[t02-iam] E2.no-external-id expected=AccessDenied actual=AccessDenied OK
+CHECK t02[t02-iam] E2.wrong-external-id expected=AccessDenied actual=AccessDenied OK
+CHECK t02[t02-iam] E2.right-external-id expected=ALLOW actual=ALLOW OK
+CHECK t02[t02-iam] E3.session-tag-condition(AWS would ALLOW) expected=AccessDenied actual=AccessDenied OK AWS-DIFF | doc: sts.md Known limitations: aws:RequestTag/* not in request context
+CHECK t02[t02-iam] E3.mfa-gated-allow(never grants) expected=AccessDenied actual=AccessDenied OK AWS-DIFF | doc: iam.md: Allow gated on aws:MultiFactorAuthPresent never grants
+CHECK t02[t02-iam] E3.duration-above-max(7200>MaxSessionDuration 3600) expected=ALLOW actual=ALLOW OK DOC-DIFF | doc: sts.md Trust Policy Enforcement: rejects DurationSeconds above MaxSessionDuration with ValidationError (400)
+CHECK t02[t02-iam] E3.duration-above-max.issued-lifetime>3600s expected=True actual=True OK
+CHECK t02[t02-iam] E3.duration-above-43200(API hard limit) expected=ValidationError actual=ValidationError OK
+CHECK t02[t02-iam] E3.duration-equal-max expected=ALLOW actual=ALLOW OK
+RESULT t02[t02-iam] PASS mismatches=0
+CHECK t02[t02-off] E1.alice(in trust, identity allows) expected=ALLOW actual=ALLOW OK
+CHECK t02[t02-off] E1.bob(not in trust, identity allows) expected=ALLOW actual=ALLOW OK
+CHECK t02[t02-off] E1.carol(in trust, no identity allow) expected=ALLOW actual=ALLOW OK
+CHECK t02[t02-off] E1.alice->nonexistent-role expected=AccessDenied actual=AccessDenied OK | doc: sts.md: target role must exist (enforcement 무관)
+CHECK t02[t02-off] E2.no-external-id expected=ALLOW actual=ALLOW OK
+CHECK t02[t02-off] E2.wrong-external-id expected=ALLOW actual=ALLOW OK
+CHECK t02[t02-off] E2.right-external-id expected=ALLOW actual=ALLOW OK
+CHECK t02[t02-off] E3.session-tag-condition(AWS would ALLOW) expected=ALLOW actual=ALLOW OK | doc: sts.md Known limitations: aws:RequestTag/* not in request context
+CHECK t02[t02-off] E3.mfa-gated-allow(never grants) expected=ALLOW actual=ALLOW OK | doc: iam.md: Allow gated on aws:MultiFactorAuthPresent never grants
+CHECK t02[t02-off] E3.duration-above-max(7200>MaxSessionDuration 3600) expected=ALLOW actual=ALLOW OK DOC-DIFF | doc: sts.md Trust Policy Enforcement: rejects DurationSeconds above MaxSessionDuration with ValidationError (400)
+CHECK t02[t02-off] E3.duration-above-max.issued-lifetime>3600s expected=True actual=True OK
+CHECK t02[t02-off] E3.duration-above-43200(API hard limit) expected=ValidationError actual=ValidationError OK
+CHECK t02[t02-off] E3.duration-equal-max expected=ALLOW actual=ALLOW OK
+RESULT t02[t02-off] PASS mismatches=0
+CHECK t03[t03-iam] E1.dave(named in bucket policy, no identity) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-iam] E1.erin(account-root only, no identity) expected=AccessDenied actual=AccessDenied OK
+CHECK t03[t03-iam] E1.frank(identity allow + bucket deny) expected=AccessDenied actual=AccessDenied OK
+CHECK t03[t03-iam] E2.B.beeall(sqs:*)->A.queue(no queue policy) expected=ALLOW actual=ALLOW OK DOC-DIFF | doc: cross-account needs queue policy too -> AWS: AccessDenied
+CHECK t03[t03-iam] E2.B.bee(A-queue-ARN)->A.queue(no queue policy) expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK
+CHECK t03[t03-iam] E2.B.bee(A-queue-ARN)->A.queue(queue policy names bee) expected=('AccessDenied', 'AccessDeniedException') actual=AccessDeniedException OK DOC-DIFF | doc: identity + queue policy both allow -> AWS: ALLOW
+CHECK t03[t03-iam] E2.messages-landed-in-A-queue expected=1 actual=1 OK
+CHECK t03[t03-iam] E2.queues-in-B(count) expected=0 actual=0 OK
+CHECK t03[t03-iam] E3.anonymous-GET(private bucket) expected=200 actual=200 OK AWS-DIFF | doc: iam.md: REST requests are not checked (IAM filter). s3.md: ENFORCE_AUTH decides anonymous
+CHECK t03[t03-iam] E3.anonymous-GET(public-read policy) expected=200 actual=200 OK
+CHECK t03[t03-iam] E3.fresh-bucket.GetPublicAccessBlock(all four true) expected=True actual=True OK
+CHECK t03[t03-iam] E3.fresh-bucket.public-policy(default BPA) expected=ALLOW actual=ALLOW OK DOC-DIFF | doc: s3.md: a bucket nobody configured enforces the default ... all four settings on -> AccessDenied
+CHECK t03[t03-iam] E3.explicit-PutPublicAccessBlock.public-policy expected=AccessDenied actual=AccessDenied OK
+RESULT t03[t03-iam] PASS mismatches=0
+CHECK t03[t03-off] E1.dave(named in bucket policy, no identity) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-off] E1.erin(account-root only, no identity) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-off] E1.frank(identity allow + bucket deny) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-off] E2.B.beeall(sqs:*)->A.queue(no queue policy) expected=ALLOW actual=ALLOW OK | doc: cross-account needs queue policy too -> AWS: AccessDenied
+CHECK t03[t03-off] E2.B.bee(A-queue-ARN)->A.queue(no queue policy) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-off] E2.B.bee(A-queue-ARN)->A.queue(queue policy names bee) expected=ALLOW actual=ALLOW OK | doc: identity + queue policy both allow -> AWS: ALLOW
+CHECK t03[t03-off] E2.messages-landed-in-A-queue expected=3 actual=3 OK
+CHECK t03[t03-off] E2.queues-in-B(count) expected=0 actual=0 OK
+CHECK t03[t03-off] E3.anonymous-GET(private bucket) expected=200 actual=200 OK AWS-DIFF | doc: iam.md: REST requests are not checked (IAM filter). s3.md: ENFORCE_AUTH decides anonymous
+CHECK t03[t03-off] E3.anonymous-GET(public-read policy) expected=200 actual=200 OK
+CHECK t03[t03-off] E3.fresh-bucket.GetPublicAccessBlock(all four true) expected=True actual=True OK
+CHECK t03[t03-off] E3.fresh-bucket.public-policy(default BPA) expected=ALLOW actual=ALLOW OK DOC-DIFF | doc: s3.md: a bucket nobody configured enforces the default ... all four settings on -> AccessDenied
+CHECK t03[t03-off] E3.explicit-PutPublicAccessBlock.public-policy expected=AccessDenied actual=AccessDenied OK
+RESULT t03[t03-off] PASS mismatches=0
+CHECK t03[t03-s3auth] E1.dave(named in bucket policy, no identity) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-s3auth] E1.erin(account-root only, no identity) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-s3auth] E1.frank(identity allow + bucket deny) expected=AccessDenied actual=AccessDenied OK
+CHECK t03[t03-s3auth] E2.B.beeall(sqs:*)->A.queue(no queue policy) expected=ALLOW actual=ALLOW OK | doc: cross-account needs queue policy too -> AWS: AccessDenied
+CHECK t03[t03-s3auth] E2.B.bee(A-queue-ARN)->A.queue(no queue policy) expected=ALLOW actual=ALLOW OK
+CHECK t03[t03-s3auth] E2.B.bee(A-queue-ARN)->A.queue(queue policy names bee) expected=ALLOW actual=ALLOW OK | doc: identity + queue policy both allow -> AWS: ALLOW
+CHECK t03[t03-s3auth] E2.messages-landed-in-A-queue expected=3 actual=3 OK
+CHECK t03[t03-s3auth] E2.queues-in-B(count) expected=0 actual=0 OK
+CHECK t03[t03-s3auth] E3.anonymous-GET(private bucket) expected=403 actual=403 OK | doc: iam.md: REST requests are not checked (IAM filter). s3.md: ENFORCE_AUTH decides anonymous
+CHECK t03[t03-s3auth] E3.anonymous-GET(public-read policy) expected=200 actual=200 OK
+CHECK t03[t03-s3auth] E3.fresh-bucket.GetPublicAccessBlock(all four true) expected=True actual=True OK
+CHECK t03[t03-s3auth] E3.fresh-bucket.public-policy(default BPA) expected=ALLOW actual=ALLOW OK DOC-DIFF | doc: s3.md: a bucket nobody configured enforces the default ... all four settings on -> AccessDenied
+CHECK t03[t03-s3auth] E3.explicit-PutPublicAccessBlock.public-policy expected=AccessDenied actual=AccessDenied OK
+RESULT t03[t03-s3auth] PASS mismatches=0
+CHECK t04[t04-iam-scp] E1.assume-OrganizationAccountAccessRole expected=ALLOW actual=ALLOW OK
+CHECK t04[t04-iam-scp] E1.member-session.s3:ListAllMyBuckets(SCP deny s3:*) expected=('AccessDenied', 'AccessDeniedException') actual=AccessDenied OK
+CHECK t04[t04-iam-scp] E1.member-session.sqs:ListQueues(not in SCP deny) expected=ALLOW actual=ALLOW OK
+CHECK t04[t04-iam-scp] E2.member-bare-key(account root).s3 expected=('AccessDenied', 'AccessDeniedException') actual=AccessDenied OK | doc: iam.md: account-root principal is subject to SCPs
+CHECK t04[t04-iam-scp] E2.management-account-user.s3(exempt) expected=ALLOW actual=ALLOW OK
+CHECK t04[t04-iam-scp] E2.test-key.s3(never SCP-denied) expected=ALLOW actual=ALLOW OK
+RESULT t04[t04-iam-scp] PASS mismatches=0
+CHECK t04[t04-iam] E1.assume-OrganizationAccountAccessRole expected=ALLOW actual=ALLOW OK
+CHECK t04[t04-iam] E1.member-session.s3:ListAllMyBuckets(SCP deny s3:*) expected=ALLOW actual=ALLOW OK
+CHECK t04[t04-iam] E1.member-session.sqs:ListQueues(not in SCP deny) expected=ALLOW actual=ALLOW OK
+CHECK t04[t04-iam] E2.member-bare-key(account root).s3 expected=ALLOW actual=ALLOW OK | doc: iam.md: account-root principal is subject to SCPs
+CHECK t04[t04-iam] E2.management-account-user.s3(exempt) expected=ALLOW actual=ALLOW OK
+CHECK t04[t04-iam] E2.test-key.s3(never SCP-denied) expected=ALLOW actual=ALLOW OK
+RESULT t04[t04-iam] PASS mismatches=0
+CHECK t05[t05-off] E0.reported-private-ip-held-by-container expected=yes actual=yes OK | doc: ec2.md VPC Docker networks: reported private IP is an address its container actually holds
+CHECK t05[t05-off] E0.reported-private-ip-reachable expected=OPEN actual=OPEN OK
+CHECK t05[t05-off] E1.no-ingress-rule.A->B:8080 expected=OPEN actual=OPEN OK AWS-DIFF
+CHECK t05[t05-off] E1.ingress-from-sg-client.A->B:8080 expected=OPEN actual=OPEN OK
+CHECK t05[t05-off] E2.A-egress-revoked.A->B:8080 expected=OPEN actual=OPEN OK AWS-DIFF
+CHECK t05[t05-off] E2.A-egress-8080-to-sg-server.A->B:8080 expected=OPEN actual=OPEN OK
+CHECK t05[t05-off] E3.deny-all-NACL-on-subnet.A->B:8080(AWS would block) expected=OPEN actual=OPEN OK AWS-DIFF | doc: ec2.md: does not emulate VPC routing, NACLs, NAT gateways, or peering
+RESULT t05[t05-off] PASS mismatches=0
+CHECK t05[t05-sg] E0.reported-private-ip-held-by-container expected=no actual=no OK DOC-DIFF | doc: ec2.md VPC Docker networks: reported private IP is an address its container actually holds
+CHECK t05[t05-sg] E0.reported-private-ip-reachable expected=BLOCKED actual=BLOCKED OK
+CHECK t05[t05-sg] E1.no-ingress-rule.A->B:8080 expected=BLOCKED actual=BLOCKED OK
+CHECK t05[t05-sg] E1.ingress-from-sg-client.A->B:8080 expected=OPEN actual=OPEN OK
+CHECK t05[t05-sg] E2.A-egress-revoked.A->B:8080 expected=BLOCKED actual=BLOCKED OK
+CHECK t05[t05-sg] E2.A-egress-8080-to-sg-server.A->B:8080 expected=OPEN actual=OPEN OK
+CHECK t05[t05-sg] E3.deny-all-NACL-on-subnet.A->B:8080(AWS would block) expected=OPEN actual=OPEN OK AWS-DIFF | doc: ec2.md: does not emulate VPC routing, NACLs, NAT gateways, or peering
+RESULT t05[t05-sg] PASS mismatches=0
+CHECK t06[t06-lambda] E1.warmup-invoke expected=ALLOW actual=ALLOW OK
+CHECK t06[t06-lambda] E1.reserved=1,burst=3 -> ALLOW count expected=1 actual=1 OK
+CHECK t06[t06-lambda] E1.reserved=1,burst=3 -> TooManyRequestsException count expected=2 actual=2 OK
+CHECK t06[t06-lambda] E1.no-reservation,burst=3 -> ALLOW count expected=3 actual=3 OK
+CHECK t06[t06-lambda] E1.reserved=0 -> invoke expected=TooManyRequestsException actual=TooManyRequestsException OK
+CHECK t06[t06-lambda] E1.reserve 950 of 1000 (must leave 100 unreserved) expected=('InvalidParameterValueException', 'LimitExceededException') actual=LimitExceededException OK
+CHECK t06[t06-lambda] E2.retries=2 -> OnFailure.condition expected=RetriesExhausted actual=RetriesExhausted OK
+CHECK t06[t06-lambda] E2.retries=2 -> approximateInvokeCount expected=3 actual=3 OK
+CHECK t06[t06-lambda] E2.retries=0 -> approximateInvokeCount expected=1 actual=1 OK
+CHECK t06[t06-lambda] E2.DLQ.body=original-payload expected=x1 actual=x1 OK
+CHECK t06[t06-lambda] E2.DLQ.ErrorMessage-attr expected=True actual=True OK
+CHECK t06[t06-lambda] E3.success-fn -> main/dlq counts expected=0/0 actual=0/0 OK
+CHECK t06[t06-lambda] E3.failing-fn -> main/dlq counts expected=0/1 actual=0/1 OK
+RESULT t06[t06-lambda] PASS mismatches=0
+CHECK t07[t07-iam] E1.key-policy-explicit-deny(AWS: AccessDenied) expected=ALLOW actual=ALLOW OK AWS-DIFF | doc: iam.md Resource-based policies 목록(S3,SQS,SNS,Lambda,EventBridge,DSQL)에 KMS 없음 -> key policy 미평가로 읽힘
+CHECK t07[t07-iam] E1.key-policy-without-root(AWS: AccessDenied) expected=ALLOW actual=ALLOW OK AWS-DIFF
+CHECK t07[t07-iam] E1.no-identity-policy(gus) expected=AccessDeniedException actual=AccessDeniedException OK | doc: identity policy는 KMS key ARN으로 평가(kms.md IAM Enforcement)
+CHECK t07[t07-iam] E2.grant-to-gus.Encrypt(AWS: ALLOW) expected=AccessDeniedException actual=AccessDeniedException OK AWS-DIFF | doc: kms.md Grant Support Scope: grants are not evaluated during crypto operations
+CHECK t07[t07-iam] E3.data-key.plaintext-32-bytes expected=32 actual=32 OK
+CHECK t07[t07-iam] E3.decrypt-with-same-context expected=True actual=True OK
+CHECK t07[t07-iam] E3.decrypt-with-other-context expected=InvalidCiphertextException actual=InvalidCiphertextException OK
+CHECK t07[t07-iam] E3.decrypt-without-context expected=InvalidCiphertextException actual=InvalidCiphertextException OK
+CHECK t07[t07-iam] E3.decrypt-after-DisableKey expected=DisabledException actual=DisabledException OK
+RESULT t07[t07-iam] PASS mismatches=0
+CHECK t07[t07-off] E1.key-policy-explicit-deny(AWS: AccessDenied) expected=ALLOW actual=ALLOW OK AWS-DIFF | doc: iam.md Resource-based policies 목록(S3,SQS,SNS,Lambda,EventBridge,DSQL)에 KMS 없음 -> key policy 미평가로 읽힘
+CHECK t07[t07-off] E1.key-policy-without-root(AWS: AccessDenied) expected=ALLOW actual=ALLOW OK AWS-DIFF
+CHECK t07[t07-off] E1.no-identity-policy(gus) expected=ALLOW actual=ALLOW OK | doc: identity policy는 KMS key ARN으로 평가(kms.md IAM Enforcement)
+CHECK t07[t07-off] E2.grant-to-gus.Encrypt(AWS: ALLOW) expected=ALLOW actual=ALLOW OK | doc: kms.md Grant Support Scope: grants are not evaluated during crypto operations
+CHECK t07[t07-off] E3.data-key.plaintext-32-bytes expected=32 actual=32 OK
+CHECK t07[t07-off] E3.decrypt-with-same-context expected=True actual=True OK
+CHECK t07[t07-off] E3.decrypt-with-other-context expected=InvalidCiphertextException actual=InvalidCiphertextException OK
+CHECK t07[t07-off] E3.decrypt-without-context expected=InvalidCiphertextException actual=InvalidCiphertextException OK
+CHECK t07[t07-off] E3.decrypt-after-DisableKey expected=DisabledException actual=DisabledException OK
+RESULT t07[t07-off] PASS mismatches=0
+CHECK t08[t08-cfn] E1.default.status expected=ROLLBACK_COMPLETE actual=ROLLBACK_COMPLETE OK
+CHECK t08[t08-cfn] E1.default.good-queue-removed expected=False actual=False OK
+CHECK t08[t08-cfn] E1.DO_NOTHING.status(AWS: CREATE_FAILED) expected=ROLLBACK_COMPLETE actual=ROLLBACK_COMPLETE OK AWS-DIFF | doc: cloudformation.md: OnFailure/DisableRollback 언급 없음
+CHECK t08[t08-cfn] E1.DO_NOTHING.good-queue-kept(AWS: True) expected=False actual=False OK AWS-DIFF
+CHECK t08[t08-cfn] E2.create.status expected=CREATE_COMPLETE actual=CREATE_COMPLETE OK
+CHECK t08[t08-cfn] E2.failed-update.status expected=UPDATE_ROLLBACK_COMPLETE actual=UPDATE_ROLLBACK_COMPLETE OK
+CHECK t08[t08-cfn] E2.good-queue-VisibilityTimeout-restored expected=30 actual=30 OK
+CHECK t08[t08-cfn] E2.bad-queue-absent expected=False actual=False OK
+CHECK t08[t08-cfn] E3.unknown-type.status(AWS: rollback) expected=CREATE_COMPLETE actual=CREATE_COMPLETE OK AWS-DIFF | doc: cloudformation.md:257 Resource type AWS::Fake::Thing is not supported by Floci. It was stubbed and nothing was created for it.
+RESULT t08[t08-cfn] PASS mismatches=0
+CHECK t09[t09-iam] E1.open(NONE).no-token expected=200 actual=200 OK
+CHECK t09[t09-iam] E1.secure.no-token expected=401 actual=401 OK
+CHECK t09[t09-iam] E1.secure.garbage-token expected=401 actual=401 OK
+CHECK t09[t09-iam] E1.secure.token-from-other-pool expected=401 actual=401 OK
+CHECK t09[t09-iam] E1.secure.IdToken expected=200 actual=200 OK
+CHECK t09[t09-iam] E2.iam.unsigned expected=403 actual=403 OK
+CHECK t09[t09-iam] E2.iam.signed-test-key expected=200 actual=200 OK
+CHECK t09[t09-iam] E2.iam.signed-user-without-execute-api:Invoke(AWS: 403) expected=200 actual=200 OK AWS-DIFF | doc: api-gateway.md: Floci authenticates the caller but does not authorize the call
+CHECK t09[t09-iam] E2.iam.signed-wrong-secret expected=403 actual=403 OK
+RESULT t09[t09-iam] PASS mismatches=0
+CHECK t09[t09-off] E1.open(NONE).no-token expected=200 actual=200 OK
+CHECK t09[t09-off] E1.secure.no-token expected=401 actual=401 OK
+CHECK t09[t09-off] E1.secure.garbage-token expected=401 actual=401 OK
+CHECK t09[t09-off] E1.secure.token-from-other-pool expected=401 actual=401 OK
+CHECK t09[t09-off] E1.secure.IdToken expected=200 actual=200 OK
+CHECK t09[t09-off] E2.iam.unsigned expected=403 actual=403 OK
+CHECK t09[t09-off] E2.iam.signed-test-key expected=200 actual=200 OK
+CHECK t09[t09-off] E2.iam.signed-user-without-execute-api:Invoke(AWS: 403) expected=200 actual=200 OK | doc: api-gateway.md: Floci authenticates the caller but does not authorize the call
+CHECK t09[t09-off] E2.iam.signed-wrong-secret expected=403 actual=403 OK
+RESULT t09[t09-off] PASS mismatches=0
+CHECK t10[t10-iam] E1.right-service-account expected=ALLOW actual=ALLOW OK
+CHECK t10[t10-iam] E1.other-service-account expected=AccessDenied actual=AccessDenied OK
+CHECK t10[t10-iam] E1.tampered-signature expected=InvalidIdentityToken actual=InvalidIdentityToken OK
+CHECK t10[t10-iam] E1.wrong-audience expected=InvalidIdentityToken actual=InvalidIdentityToken OK
+CHECK t10[t10-iam] E2.foreign-issuer-unsigned-token expected=InvalidIdentityToken actual=InvalidIdentityToken OK | doc: sts.md: tokens from an issuer Floci does not host are accepted unless IAM enforcement is on
+RESULT t10[t10-iam] PASS mismatches=0
+CHECK t10[t10-off] E1.right-service-account expected=ALLOW actual=ALLOW OK
+CHECK t10[t10-off] E1.other-service-account expected=AccessDenied actual=AccessDenied OK
+CHECK t10[t10-off] E1.tampered-signature expected=InvalidIdentityToken actual=InvalidIdentityToken OK
+CHECK t10[t10-off] E1.wrong-audience expected=InvalidIdentityToken actual=InvalidIdentityToken OK
+CHECK t10[t10-off] E2.foreign-issuer-unsigned-token expected=ALLOW actual=ALLOW OK | doc: sts.md: tokens from an issuer Floci does not host are accepted unless IAM enforcement is on
+RESULT t10[t10-off] PASS mismatches=0

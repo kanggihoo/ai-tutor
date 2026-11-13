@@ -1,0 +1,41 @@
+# floci 실험용 compose. 이미지는 digest로 고정한다 (2.4.0, 2026-10-31 빌드).
+# 각 실험은 run.sh가 환경 변수(LAB_*)를 바꿔 가며 up/down -v 한다.
+name: awslab
+
+services:
+  floci:
+    image: floci/floci@sha256:5ee85db604c4aa74ac76e07ea5cc83086f37bb472bf3dbb97e34019e48efae9c
+    container_name: awslab-floci
+    ports:
+      - "4566:4566"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      FLOCI_HOSTNAME: floci
+      FLOCI_SERVICES_DOCKER_NETWORK: awslab_default
+      FLOCI_RUN_AS_ROOT: "true"
+      FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED: "${LAB_IAM:-false}"
+      FLOCI_SERVICES_ORGANIZATIONS_SCP_ENFORCEMENT_ENABLED: "${LAB_SCP:-false}"
+      FLOCI_AUTH_VALIDATE_SIGNATURES: "${LAB_SIG:-false}"
+      FLOCI_SERVICES_S3_ENFORCE_AUTH: "${LAB_S3AUTH:-false}"
+      FLOCI_NETWORK_SECURITY_GROUP_ENFORCEMENT_ENABLED: "${LAB_SG:-false}"
+      FLOCI_SERVICES_EKS_MOCK: "${LAB_EKSMOCK:-true}"
+      FLOCI_SERVICES_LAMBDA_ASYNC_RETRY_DELAY_SECONDS: "0"
+      FLOCI_SERVICES_LAMBDA_CONTAINER_IDLE_TIMEOUT_SECONDS: "${LAB_IDLE:-300}"
+      FLOCI_DOCKER_RESOURCE_NAMESPACE: "${LAB_NS:-awslab}"
+      FLOCI_SERVICES_LAMBDA_EPHEMERAL: "false"
+
+  # boto3 클라이언트. run.sh가 `docker compose run --rm client python /lab/xxx.py`로 쓴다.
+  client:
+    build: ./client
+    image: awslab-client:boto3-1.35.36
+    profiles: ["client"]
+    volumes:
+      - ./:/lab
+    working_dir: /lab
+    environment:
+      AWS_ENDPOINT_URL: http://floci:4566
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      PYTHONUNBUFFERED: "1"

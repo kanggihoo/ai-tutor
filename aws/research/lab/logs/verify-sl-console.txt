@@ -1,0 +1,28 @@
+PASS sl1-strict
+PASS sl1-off
+PASS sl2-strict
+PASS sl3-strict
+PASS sl3-off
+PASS sl4-strict
+PASS sl4-off
+PASS sl5-strict
+PASS sl5-off
+PASS sl1-strict
+PASS sl1-off
+PASS sl2-strict
+PASS sl3-strict
+PASS sl3-off
+PASS sl4-strict
+PASS sl4-off
+PASS sl5-strict
+PASS sl5-off
+sl-1 != sl-2, see logs/sl-1-vs-2.diff
+rc1=0 rc2=0
+sl exit=1
+PASS t05-off
+PASS t05-sg
+PASS t05-off
+PASS t05-sg
+t05ns-1 == t05ns-2 (16 lines)
+rc1=0 rc2=0
+t05ns exit=0

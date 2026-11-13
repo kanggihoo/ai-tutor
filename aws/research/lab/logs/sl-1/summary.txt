@@ -1,0 +1,9 @@
+PASS sl1-strict
+PASS sl1-off
+PASS sl2-strict
+PASS sl3-strict
+PASS sl3-off
+PASS sl4-strict
+PASS sl4-off
+PASS sl5-strict
+PASS sl5-off

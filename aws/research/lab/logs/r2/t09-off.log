@@ -1,0 +1,16 @@
+# case=t09-off script=t09_authn.py env=[LAB_IAM=false] round=r2 date=2026-11-12T15:04:37+09:00
+# floci: 2026-11-12 06:04:37,716 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement disabled (set FLOCI_SERVICES_IAM_ENFORCEMENT_ENABLED=true to enforce)
+ Container awslab-floci Running 
+ Container awslab-client-run-b7fa330b9abd Creating 
+ Container awslab-client-run-b7fa330b9abd Created 
+=== t09 MODE=t09-off
+CHECK t09[t09-off] E1.open(NONE).no-token expected=200 actual=200 OK
+CHECK t09[t09-off] E1.secure.no-token expected=401 actual=401 OK
+CHECK t09[t09-off] E1.secure.garbage-token expected=401 actual=401 OK
+CHECK t09[t09-off] E1.secure.token-from-other-pool expected=401 actual=401 OK
+CHECK t09[t09-off] E1.secure.IdToken expected=200 actual=200 OK
+CHECK t09[t09-off] E2.iam.unsigned expected=403 actual=403 OK
+CHECK t09[t09-off] E2.iam.signed-test-key expected=200 actual=200 OK
+CHECK t09[t09-off] E2.iam.signed-user-without-execute-api:Invoke(AWS: 403) expected=200 actual=200 OK | doc: api-gateway.md: Floci authenticates the caller but does not authorize the call
+CHECK t09[t09-off] E2.iam.signed-wrong-secret expected=403 actual=403 OK
+RESULT t09[t09-off] PASS mismatches=0

@@ -1,0 +1,199 @@
+ _____  _      ___   ____   __
+|  ___|| |    / _ \ / ___| | |
+| |_   | |   | | | || |    | |
+|  _|  | |___| |_| || |__  | |
+|_|    |_____|\___/ \____| |_|
+
+   AWS Local Emulator  ·  Always Free
+
+            Powered by Quarkus 3.40.1
+2026-11-13 08:19:24,946 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-13 08:19:24,970 INFO  [io.git.hec.flo.ser.clo.CloudTrailLogWriter] CloudTrail log writer started (flushIntervalSeconds=60)
+2026-11-13 08:19:24,971 INFO  [io.git.hec.flo.ser.fir.FirehoseService] Firehose buffer flusher started (tick every 1s)
+2026-11-13 08:19:24,971 INFO  [io.git.hec.flo.ser.iot.IotMqttBrokerService] IoT MQTT broker auto-start disabled by configuration
+2026-11-13 08:19:24,971 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-13 08:19:24,972 INFO  [io.git.hec.flo.cor.com.dns.EmbeddedDnsServer] Embedded DNS server started on 172.30.0.2:53, resolving [localhost.floci.io, localhost.localstack.cloud, floci] → 172.30.0.2
+2026-11-13 08:19:24,975 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator 2.4.0 Starting ===
+2026-11-13 08:19:24,975 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Endpoint:  http://0.0.0.0:4566
+2026-11-13 08:19:24,976 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Region:    us-east-1  Account: 000000000000
+2026-11-13 08:19:24,976 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Storage:   memory  Path: /app/data
+2026-11-13 08:19:24,976 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] TLS:       disabled (HTTP only)
+2026-11-13 08:19:24,976 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+2026-11-13 08:19:24,976 INFO  [io.git.hec.flo.cor.sto.PersistentPathValidator] Storage mode: persistent (state for resourceexplorer2=hybrid is written to /app/data)
+2026-11-13 08:19:24,976 INFO  [io.git.hec.flo.cor.com.ServiceRegistry] Enabled services: [ssm, sqs, s3, dynamodb, sns, lambda, apigateway, iam, msk, amazonmq, elasticache, memorydb, rds, rds-data, dsql, neptune, docdb, redshift, redshift-data, redshift-serverless, eventbridge, cloudmap, emr, emrserverless, wafv2, scheduler, cloudwatchlogs, cloudwatchmetrics, secretsmanager, apigatewayv2, kinesis, kinesisanalytics, kms, cognito, stepfunctions, swf, cloudformation, acm, athena, glue, firehose, ses, opensearch, ec2, ecs, appconfig, appconfigdata, ecr, resource-groups, tagging, bedrock, bedrock-runtime, eks, mwaa, pipes, bedrock-agentcore-control, bedrock-agentcore, elbv2, elb, codebuild, batch, sagemaker, codedeploy, codepipeline, servicequotas, ram, configservice, cloudtrail, lightsail, cloudcontrol, ssoadmin, ssooidc, macie2, account, accessanalyzer, identitystore, budgets, detective, inspector2, securityhub, autoscaling, applicationautoscaling, elasticbeanstalk, backup, resourceexplorer2, fis, transfer, route53, textract, comprehend, rekognition, pricing, transcribe, translate, ce, cur, bcmpricingcalculator, timestreaminfluxdb, bcmdataexports, oam, cloudfront, appsync, s3vectors, s3tables, iot, iotdata, cloudhsmv2, organizations, rum, guardduty, route53resolver, connect, appintegrations, dlm, cognitoidentity, globalaccelerator, datasync, networkfirewall, servicecatalog, controlcatalog, controltower, aps, lakeformation, efs, codegurureviewer, codeartifact, verifiedpermissions, marketplace, dms]
+2026-11-13 08:19:24,976 INFO  [io.git.hec.flo.ser.app.gra.SchemaCreationWorker] SchemaCreationWorker started with 4 threads
+2026-11-13 08:19:24,977 INFO  [io.git.hec.flo.ser.dyn.DynamoDbTtlService] DynamoDB TTL sweeper scheduled (60s interval)
+2026-11-13 08:19:24,977 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] SqsEventSourcePoller initialized, 0 ESM(s) active
+2026-11-13 08:19:24,977 INFO  [io.git.hec.flo.ser.lam.DynamoDbStreamsEventSourcePoller] DynamoDbStreamsEventSourcePoller initialized
+2026-11-13 08:19:24,978 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Creating control-plane DockerClient pool (maxConnections=1,024) for host: unix:///var/run/docker.sock
+2026-11-13 08:19:24,983 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Wrapping control-plane docker transport in transient-I/O retry
+2026-11-13 08:19:25,008 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator Ready ===
+2026-11-13 08:19:25,008 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Ready.
+2026-11-13 08:19:25,008 INFO  [io.git.hec.flo.ser.ec2.Ec2MetadataServer] EC2 IMDS server listening on port 9169
+2026-11-13 08:19:25,009 INFO  [io.git.hec.flo.ser.sch.ScheduleDispatcher] Scheduler dispatcher started (tick every 10s)
+2026-11-13 08:19:25,009 INFO  [io.git.hec.flo.ser.sqs.SqsRetentionSweeper] SQS retention sweeper scheduled (60s interval)
+2026-11-13 08:19:25,010 INFO  [io.git.hec.flo.ser.sec.SecretRotationScheduler] Secrets Manager rotation scheduler started (tick every 60s)
+2026-11-13 08:19:25,011 INFO  [io.git.hec.flo.ser.ec2.FlowLogService] FlowLog generator scheduled (every 60s)
+2026-11-13 08:19:25,012 INFO  [io.git.hec.flo.con.PartitionStartupValidator] Partition: aws (default-region us-east-1, dns suffix amazonaws.com)
+2026-11-13 08:19:25,012 INFO  [io.git.hec.flo.ser.lam.WarmPool] Warm pool idle eviction enabled: timeout=300s, check interval=30s
+2026-11-13 08:19:25,028 INFO  [io.quarkus] floci 2.4.0 native (powered by Quarkus 3.40.1) started in 0.084s. Listening on: http://0.0.0.0:4566
+2026-11-13 08:19:25,029 INFO  [io.quarkus] Profile prod activated. 
+2026-11-13 08:19:25,029 INFO  [io.quarkus] Installed features: [cdi, config-yaml, rest, rest-jackson, security, smallrye-context-propagation, vertx]
+2026-11-13 08:19:26,263 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM role: conc-role
+2026-11-13 08:19:26,272 INFO  [io.git.hec.flo.ser.s3.S3Service] Created bucket: awslambda-us-east-1-tasks in region: us-east-1
+2026-11-13 08:19:26,272 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: conc in region us-east-1
+2026-11-13 08:19:26,283 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: dev
+2026-11-13 08:19:26,288 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: dev
+2026-11-13 08:19:26,294 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: conc
+2026-11-13 08:19:26,294 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12000
+2026-11-13 08:19:26,310 INFO  [io.git.hec.flo.cor.com.doc.CurrentContainerNetworkResolver] Detected current Docker network for spawned containers: awslab_default (172.30.0.2)
+2026-11-13 08:19:26,311 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:19:26,346 INFO  [io.git.hec.flo.ser.lam.lau.ImageCacheService] Image already present locally, skipping pull: public.ecr.aws/lambda/python:3.12
+2026-11-13 08:19:26,390 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 76d514911c9e8165cc9d63b4ff728e1c2e88c7515504fb1a45ba22de72cd8401 (name=floci-aws-awslab-conc-97e6c087, not yet started)
+2026-11-13 08:19:26,390 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 76d514911c9e8165cc9d63b4ff728e1c2e88c7515504fb1a45ba22de72cd8401 for function conc
+2026-11-13 08:19:26,552 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 76d514911c9e8165cc9d63b4ff728e1c2e88c7515504fb1a45ba22de72cd8401
+2026-11-13 08:19:26,553 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/conc in region us-east-1
+2026-11-13 08:19:26,553 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/conc/2026/11/13/[$LATEST]97e6c087
+2026-11-13 08:19:26,559 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Creating streaming DockerClient pool (maxConnections=512) for host: unix:///var/run/docker.sock
+2026-11-13 08:19:30,990 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: conc
+2026-11-13 08:19:30,990 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12001
+2026-11-13 08:19:30,991 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:19:31,058 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 2c8eedb896ff284da163f39b2191142f06082a71f7fe1ea8d28a8e350d177bf4 (name=floci-aws-awslab-conc-b86a5eaa, not yet started)
+2026-11-13 08:19:31,058 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 2c8eedb896ff284da163f39b2191142f06082a71f7fe1ea8d28a8e350d177bf4 for function conc
+2026-11-13 08:19:31,193 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: conc
+2026-11-13 08:19:31,194 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12002
+2026-11-13 08:19:31,194 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:19:31,227 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 2c8eedb896ff284da163f39b2191142f06082a71f7fe1ea8d28a8e350d177bf4
+2026-11-13 08:19:31,228 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/conc/2026/11/13/[$LATEST]b86a5eaa
+2026-11-13 08:19:31,280 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 658010dd4002850195c9642d991b5650e51728a2f3c905aa525421472346a152 (name=floci-aws-awslab-conc-b515e9dc, not yet started)
+2026-11-13 08:19:31,281 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 658010dd4002850195c9642d991b5650e51728a2f3c905aa525421472346a152 for function conc
+2026-11-13 08:19:31,459 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 658010dd4002850195c9642d991b5650e51728a2f3c905aa525421472346a152
+2026-11-13 08:19:31,460 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/conc/2026/11/13/[$LATEST]b515e9dc
+2026-11-13 08:19:35,596 INFO  [io.git.hec.flo.ser.sqs.SqsService] Created standard queue: onfailure in region us-east-1
+2026-11-13 08:19:35,601 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM role: af-with-role
+2026-11-13 08:19:35,606 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: af-with in region us-east-1
+2026-11-13 08:19:35,615 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: af-with
+2026-11-13 08:19:35,615 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12003
+2026-11-13 08:19:35,615 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:19:35,685 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container f7aaa5fa599902c02086a5f3fee5785bcdad2e8b03574f8b54b24864678a93a0 (name=floci-aws-awslab-af-with-15c644f0, not yet started)
+2026-11-13 08:19:35,686 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container f7aaa5fa599902c02086a5f3fee5785bcdad2e8b03574f8b54b24864678a93a0 for function af-with
+2026-11-13 08:19:35,903 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container f7aaa5fa599902c02086a5f3fee5785bcdad2e8b03574f8b54b24864678a93a0
+2026-11-13 08:19:35,904 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/af-with in region us-east-1
+2026-11-13 08:19:35,904 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/af-with/2026/11/13/[$LATEST]15c644f0
+2026-11-13 08:19:36,039 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:af-with] [ERROR] Exception: async-failTraceback (most recent call last):  File "/var/task/app.py", line 8, in handler    raise Exception("async-fail")
+2026-11-13 08:19:36,044 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:af-with] [ERROR] Exception: async-failTraceback (most recent call last):  File "/var/task/app.py", line 8, in handler    raise Exception("async-fail")
+2026-11-13 08:19:36,048 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:af-with] [ERROR] Exception: async-failTraceback (most recent call last):  File "/var/task/app.py", line 8, in handler    raise Exception("async-fail")
+2026-11-13 08:19:36,054 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM role: af-without-role
+2026-11-13 08:19:36,060 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: af-without in region us-east-1
+2026-11-13 08:19:36,068 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: af-without
+2026-11-13 08:19:36,068 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12004
+2026-11-13 08:19:36,069 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:19:36,139 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container c816a1678cb94dac5c38fb226986030a35dc65d59dce8d059a7fe8f3b28b2fc9 (name=floci-aws-awslab-af-without-013f4d29, not yet started)
+2026-11-13 08:19:36,139 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container c816a1678cb94dac5c38fb226986030a35dc65d59dce8d059a7fe8f3b28b2fc9 for function af-without
+2026-11-13 08:19:36,310 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container c816a1678cb94dac5c38fb226986030a35dc65d59dce8d059a7fe8f3b28b2fc9
+2026-11-13 08:19:36,311 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/af-without in region us-east-1
+2026-11-13 08:19:36,311 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/af-without/2026/11/13/[$LATEST]013f4d29
+2026-11-13 08:19:36,439 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:af-without] [ERROR] Exception: async-failTraceback (most recent call last):  File "/var/task/app.py", line 8, in handler    raise Exception("async-fail")
+2026-11-13 08:19:36,445 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:af-without] [ERROR] Exception: async-failTraceback (most recent call last):  File "/var/task/app.py", line 8, in handler    raise Exception("async-fail")
+2026-11-13 08:19:36,450 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:af-without] [ERROR] Exception: async-failTraceback (most recent call last):  File "/var/task/app.py", line 8, in handler    raise Exception("async-fail")
+2026-11-13 08:19:36,464 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:af-with] [ERROR] Exception: async-failTraceback (most recent call last):  File "/var/task/app.py", line 8, in handler    raise Exception("async-fail")
+2026-11-13 08:19:36,469 INFO  [io.git.hec.flo.ser.sqs.SqsService] Created standard queue: noperm-main in region us-east-1
+2026-11-13 08:19:36,473 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM role: w-noperm-role
+2026-11-13 08:19:36,480 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: w-noperm in region us-east-1
+2026-11-13 08:19:36,489 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created ESM e9dd0650-2419-4480-8a23-174d63514a80: arn:aws:sqs:us-east-1:000000000000:noperm-main → w-noperm
+2026-11-13 08:19:37,491 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM e9dd0650-2419-4480-8a23-174d63514a80: received 1 message(s)
+2026-11-13 08:19:37,492 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM e9dd0650-2419-4480-8a23-174d63514a80: invoking function w-noperm
+2026-11-13 08:19:37,492 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: w-noperm
+2026-11-13 08:19:37,492 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12005
+2026-11-13 08:19:37,492 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:19:37,581 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 4f0f0aae0716521bc9546bbdd60df8dea28ce506ec818696a00b1e21b6e37bc9 (name=floci-aws-awslab-w-noperm-1e548f3f, not yet started)
+2026-11-13 08:19:37,581 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 4f0f0aae0716521bc9546bbdd60df8dea28ce506ec818696a00b1e21b6e37bc9 for function w-noperm
+2026-11-13 08:19:37,737 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 4f0f0aae0716521bc9546bbdd60df8dea28ce506ec818696a00b1e21b6e37bc9
+2026-11-13 08:19:37,738 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/w-noperm in region us-east-1
+2026-11-13 08:19:37,738 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/w-noperm/2026/11/13/[$LATEST]1e548f3f
+2026-11-13 08:19:37,901 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM e9dd0650-2419-4480-8a23-174d63514a80: Lambda succeeded, deleting 1 of 1 delivered message(s) (0 reported as failed)
+2026-11-13 08:19:37,903 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:w-noperm] WORKER np-1 receive=1
+2026-11-13 08:19:38,502 INFO  [io.git.hec.flo.ser.sqs.SqsService] Created standard queue: ok-dlq in region us-east-1
+2026-11-13 08:19:38,506 INFO  [io.git.hec.flo.ser.sqs.SqsService] Created standard queue: ok-main in region us-east-1
+2026-11-13 08:19:38,509 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM role: ok-role
+2026-11-13 08:19:38,523 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: ok-fn in region us-east-1
+2026-11-13 08:19:38,529 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created ESM 05fc4dd0-e4c5-4f4e-8aa7-9c94683048c6: arn:aws:sqs:us-east-1:000000000000:ok-main → ok-fn
+2026-11-13 08:19:39,530 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 05fc4dd0-e4c5-4f4e-8aa7-9c94683048c6: received 1 message(s)
+2026-11-13 08:19:39,530 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 05fc4dd0-e4c5-4f4e-8aa7-9c94683048c6: invoking function ok-fn
+2026-11-13 08:19:39,530 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: ok-fn
+2026-11-13 08:19:39,531 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12006
+2026-11-13 08:19:39,531 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:19:39,623 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 9107d6824d5c45f479939fd21b9c24001026d628395236ea997cce4fc566ca55 (name=floci-aws-awslab-ok-fn-7ee787ce, not yet started)
+2026-11-13 08:19:39,623 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 9107d6824d5c45f479939fd21b9c24001026d628395236ea997cce4fc566ca55 for function ok-fn
+2026-11-13 08:19:39,803 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 9107d6824d5c45f479939fd21b9c24001026d628395236ea997cce4fc566ca55
+2026-11-13 08:19:39,804 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/ok-fn in region us-east-1
+2026-11-13 08:19:39,804 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/ok-fn/2026/11/13/[$LATEST]7ee787ce
+2026-11-13 08:19:39,948 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 05fc4dd0-e4c5-4f4e-8aa7-9c94683048c6: Lambda succeeded, deleting 1 of 1 delivered message(s) (0 reported as failed)
+2026-11-13 08:19:39,949 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:ok-fn] WORKER ok-1 receive=1
+2026-11-13 08:19:48,546 INFO  [io.git.hec.flo.ser.sqs.SqsService] Created standard queue: bad-dlq in region us-east-1
+2026-11-13 08:19:48,549 INFO  [io.git.hec.flo.ser.sqs.SqsService] Created standard queue: bad-main in region us-east-1
+2026-11-13 08:19:48,553 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM role: bad-role
+2026-11-13 08:19:48,566 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: bad-fn in region us-east-1
+2026-11-13 08:19:48,572 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created ESM 64ce08b8-99df-4fe1-a37b-b832ef125973: arn:aws:sqs:us-east-1:000000000000:bad-main → bad-fn
+2026-11-13 08:19:49,573 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 64ce08b8-99df-4fe1-a37b-b832ef125973: received 1 message(s)
+2026-11-13 08:19:49,573 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 64ce08b8-99df-4fe1-a37b-b832ef125973: invoking function bad-fn
+2026-11-13 08:19:49,573 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: bad-fn
+2026-11-13 08:19:49,574 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12007
+2026-11-13 08:19:49,574 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:19:49,671 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container d8ae10d544b38a3c570ba5eb3292cc357cae3c714b59fad795bbee977cb900ea (name=floci-aws-awslab-bad-fn-27c6ea86, not yet started)
+2026-11-13 08:19:49,671 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container d8ae10d544b38a3c570ba5eb3292cc357cae3c714b59fad795bbee977cb900ea for function bad-fn
+2026-11-13 08:19:49,861 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container d8ae10d544b38a3c570ba5eb3292cc357cae3c714b59fad795bbee977cb900ea
+2026-11-13 08:19:49,862 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/bad-fn in region us-east-1
+2026-11-13 08:19:49,862 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/bad-fn/2026/11/13/[$LATEST]27c6ea86
+2026-11-13 08:19:50,000 WARN  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 64ce08b8-99df-4fe1-a37b-b832ef125973: Lambda returned error [Unhandled], returning 1 delivered message(s) to queue for retry/redrive
+2026-11-13 08:19:50,001 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:bad-fn] WORKER bad-1 receive=1
+2026-11-13 08:19:50,001 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:bad-fn] [ERROR] Exception: worker-failTraceback (most recent call last):  File "/var/task/app.py", line 15, in handler    raise Exception("worker-fail")
+2026-11-13 08:19:53,571 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 64ce08b8-99df-4fe1-a37b-b832ef125973: received 1 message(s)
+2026-11-13 08:19:53,572 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 64ce08b8-99df-4fe1-a37b-b832ef125973: invoking function bad-fn
+2026-11-13 08:19:53,577 WARN  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 64ce08b8-99df-4fe1-a37b-b832ef125973: Lambda returned error [Unhandled], returning 1 delivered message(s) to queue for retry/redrive
+2026-11-13 08:19:53,578 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:bad-fn] WORKER bad-1 receive=2
+2026-11-13 08:19:53,578 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:bad-fn] [ERROR] Exception: worker-failTraceback (most recent call last):  File "/var/task/app.py", line 15, in handler    raise Exception("worker-fail")
+2026-11-13 08:19:57,572 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 64ce08b8-99df-4fe1-a37b-b832ef125973: received 1 message(s)
+2026-11-13 08:19:57,572 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 64ce08b8-99df-4fe1-a37b-b832ef125973: invoking function bad-fn
+2026-11-13 08:19:57,578 WARN  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM 64ce08b8-99df-4fe1-a37b-b832ef125973: Lambda returned error [Unhandled], returning 1 delivered message(s) to queue for retry/redrive
+2026-11-13 08:19:57,578 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:bad-fn] WORKER bad-1 receive=3
+2026-11-13 08:19:57,578 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:bad-fn] [ERROR] Exception: worker-failTraceback (most recent call last):  File "/var/task/app.py", line 15, in handler    raise Exception("worker-fail")
+2026-11-13 08:20:01,572 INFO  [io.git.hec.flo.ser.sqs.SqsService] Moved 1 messages to DLQ http://floci:4566/000000000000/bad-dlq
+2026-11-13 08:20:01,622 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:20:01,625 INFO  [io.git.hec.flo.ser.dyn.DynamoDbService] Created table: Orders in region us-east-1
+2026-11-13 08:20:01,632 INFO  [io.git.hec.flo.ser.sqs.SqsService] Created standard queue: pay-dlq in region us-east-1
+2026-11-13 08:20:01,635 INFO  [io.git.hec.flo.ser.sqs.SqsService] Created standard queue: pay-main in region us-east-1
+2026-11-13 08:20:01,637 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM role: pay-role
+2026-11-13 08:20:01,641 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created Lambda function: pay-fn in region us-east-1
+2026-11-13 08:20:01,646 INFO  [io.git.hec.flo.ser.lam.LambdaService] Created ESM a46d7ade-823d-47e5-b280-0abaa2805f13: arn:aws:sqs:us-east-1:000000000000:pay-main → pay-fn
+2026-11-13 08:20:02,647 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: received 1 message(s)
+2026-11-13 08:20:02,647 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: invoking function pay-fn
+2026-11-13 08:20:02,647 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Launching container for function: pay-fn
+2026-11-13 08:20:02,648 INFO  [io.git.hec.flo.ser.lam.run.RuntimeApiServer] RuntimeApiServer started on port 12008
+2026-11-13 08:20:02,648 INFO  [io.git.hec.flo.cor.com.doc.DockerHostResolver] Running in Docker — using current network IP for Runtime API: 172.30.0.2
+2026-11-13 08:20:02,722 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Created container 823e0c041a51c133b3e6451947fcbb257f066be414f2789178c3322f6f66bbf1 (name=floci-aws-awslab-pay-fn-198cfcf7, not yet started)
+2026-11-13 08:20:02,722 INFO  [io.git.hec.flo.ser.lam.lau.ContainerLauncher] Created container 823e0c041a51c133b3e6451947fcbb257f066be414f2789178c3322f6f66bbf1 for function pay-fn
+2026-11-13 08:20:02,906 INFO  [io.git.hec.flo.cor.com.doc.ContainerLifecycleManager] Started container 823e0c041a51c133b3e6451947fcbb257f066be414f2789178c3322f6f66bbf1
+2026-11-13 08:20:02,906 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log group: /aws/lambda/pay-fn in region us-east-1
+2026-11-13 08:20:02,907 INFO  [io.git.hec.flo.ser.clo.log.CloudWatchLogsService] Created log stream: /aws/lambda/pay-fn/2026/11/13/[$LATEST]198cfcf7
+2026-11-13 08:20:03,048 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pay-fn] WORKER o-17 receive=1
+2026-11-13 08:20:03,121 WARN  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: Lambda returned error [Unhandled], returning 1 delivered message(s) to queue for retry/redrive
+2026-11-13 08:20:03,122 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pay-fn] APPLIED o-17
+2026-11-13 08:20:03,122 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pay-fn] [ERROR] Exception: crash-after-writeTraceback (most recent call last):  File "/var/task/app.py", line 32, in handler    raise Exception("crash-after-write")
+2026-11-13 08:20:03,647 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: received 1 message(s)
+2026-11-13 08:20:03,647 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: invoking function pay-fn
+2026-11-13 08:20:03,654 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pay-fn] WORKER o-18 receive=1
+2026-11-13 08:20:03,661 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: Lambda succeeded, deleting 1 of 1 delivered message(s) (0 reported as failed)
+2026-11-13 08:20:03,661 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pay-fn] APPLIED o-18
+2026-11-13 08:20:04,647 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: received 1 message(s)
+2026-11-13 08:20:04,647 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: invoking function pay-fn
+2026-11-13 08:20:04,654 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pay-fn] WORKER o-18 receive=1
+2026-11-13 08:20:04,664 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: Lambda succeeded, deleting 1 of 1 delivered message(s) (0 reported as failed)
+2026-11-13 08:20:04,665 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pay-fn] ALREADY o-18
+2026-11-13 08:20:06,646 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: received 1 message(s)
+2026-11-13 08:20:06,647 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: invoking function pay-fn
+2026-11-13 08:20:06,653 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pay-fn] WORKER o-17 receive=2
+2026-11-13 08:20:06,664 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] ESM a46d7ade-823d-47e5-b280-0abaa2805f13: Lambda succeeded, deleting 1 of 1 delivered message(s) (0 reported as failed)
+2026-11-13 08:20:06,664 INFO  [io.git.hec.flo.cor.com.doc.ContainerLogStreamer] [lambda:pay-fn] ALREADY o-17
+2026-11-13 08:20:14,667 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents
+2026-11-13 08:20:14,669 INFO  [io.git.hec.flo.cor.com.AwsJson11Controller] AwsJson11Controller logs action: FilterLogEvents

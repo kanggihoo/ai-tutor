@@ -1,0 +1,61 @@
+ _____  _      ___   ____   __
+|  ___|| |    / _ \ / ___| | |
+| |_   | |   | | | || |    | |
+|  _|  | |___| |_| || |__  | |
+|_|    |_____|\___/ \____| |_|
+
+   AWS Local Emulator  ·  Always Free
+
+            Powered by Quarkus 3.40.1
+2026-11-12 05:57:15,487 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-12 05:57:15,515 INFO  [io.git.hec.flo.ser.clo.CloudTrailLogWriter] CloudTrail log writer started (flushIntervalSeconds=60)
+2026-11-12 05:57:15,515 INFO  [io.git.hec.flo.ser.fir.FirehoseService] Firehose buffer flusher started (tick every 1s)
+2026-11-12 05:57:15,516 INFO  [io.git.hec.flo.ser.iot.IotMqttBrokerService] IoT MQTT broker auto-start disabled by configuration
+2026-11-12 05:57:15,516 INFO  [io.git.hec.flo.cor.com.doc.ContainerDetector] Container detection result: true
+2026-11-12 05:57:15,517 INFO  [io.git.hec.flo.cor.com.dns.EmbeddedDnsServer] Embedded DNS server started on 172.30.0.2:53, resolving [localhost.floci.io, localhost.localstack.cloud, floci] → 172.30.0.2
+2026-11-12 05:57:15,521 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator 2.4.0 Starting ===
+2026-11-12 05:57:15,521 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Endpoint:  http://0.0.0.0:4566
+2026-11-12 05:57:15,521 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Region:    us-east-1  Account: 000000000000
+2026-11-12 05:57:15,521 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Storage:   memory  Path: /app/data
+2026-11-12 05:57:15,521 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] TLS:       disabled (HTTP only)
+2026-11-12 05:57:15,521 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] IAM:       policy enforcement enabled
+2026-11-12 05:57:15,521 INFO  [io.git.hec.flo.cor.sto.PersistentPathValidator] Storage mode: persistent (state for resourceexplorer2=hybrid is written to /app/data)
+2026-11-12 05:57:15,522 INFO  [io.git.hec.flo.cor.com.ServiceRegistry] Enabled services: [ssm, sqs, s3, dynamodb, sns, lambda, apigateway, iam, msk, amazonmq, elasticache, memorydb, rds, rds-data, dsql, neptune, docdb, redshift, redshift-data, redshift-serverless, eventbridge, cloudmap, emr, emrserverless, wafv2, scheduler, cloudwatchlogs, cloudwatchmetrics, secretsmanager, apigatewayv2, kinesis, kinesisanalytics, kms, cognito, stepfunctions, swf, cloudformation, acm, athena, glue, firehose, ses, opensearch, ec2, ecs, appconfig, appconfigdata, ecr, resource-groups, tagging, bedrock, bedrock-runtime, eks, mwaa, pipes, bedrock-agentcore-control, bedrock-agentcore, elbv2, elb, codebuild, batch, sagemaker, codedeploy, codepipeline, servicequotas, ram, configservice, cloudtrail, lightsail, cloudcontrol, ssoadmin, ssooidc, macie2, account, accessanalyzer, identitystore, budgets, detective, inspector2, securityhub, autoscaling, applicationautoscaling, elasticbeanstalk, backup, resourceexplorer2, fis, transfer, route53, textract, comprehend, rekognition, pricing, transcribe, translate, ce, cur, bcmpricingcalculator, timestreaminfluxdb, bcmdataexports, oam, cloudfront, appsync, s3vectors, s3tables, iot, iotdata, cloudhsmv2, organizations, rum, guardduty, route53resolver, connect, appintegrations, dlm, cognitoidentity, globalaccelerator, datasync, networkfirewall, servicecatalog, controlcatalog, controltower, aps, lakeformation, efs, codegurureviewer, codeartifact, verifiedpermissions, marketplace, dms]
+2026-11-12 05:57:15,522 INFO  [io.git.hec.flo.ser.app.gra.SchemaCreationWorker] SchemaCreationWorker started with 4 threads
+2026-11-12 05:57:15,522 INFO  [io.git.hec.flo.ser.dyn.DynamoDbTtlService] DynamoDB TTL sweeper scheduled (60s interval)
+2026-11-12 05:57:15,522 INFO  [io.git.hec.flo.ser.lam.SqsEventSourcePoller] SqsEventSourcePoller initialized, 0 ESM(s) active
+2026-11-12 05:57:15,523 INFO  [io.git.hec.flo.ser.lam.DynamoDbStreamsEventSourcePoller] DynamoDbStreamsEventSourcePoller initialized
+2026-11-12 05:57:15,524 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Creating control-plane DockerClient pool (maxConnections=1,024) for host: unix:///var/run/docker.sock
+2026-11-12 05:57:15,529 INFO  [io.git.hec.flo.cor.com.doc.DockerClientProducer] Wrapping control-plane docker transport in transient-I/O retry
+2026-11-12 05:57:15,559 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] === AWS Local Emulator Ready ===
+2026-11-12 05:57:15,559 INFO  [io.git.hec.flo.lif.EmulatorLifecycle] Ready.
+2026-11-12 05:57:15,559 INFO  [io.git.hec.flo.ser.ec2.Ec2MetadataServer] EC2 IMDS server listening on port 9169
+2026-11-12 05:57:15,560 INFO  [io.git.hec.flo.ser.sch.ScheduleDispatcher] Scheduler dispatcher started (tick every 10s)
+2026-11-12 05:57:15,560 INFO  [io.git.hec.flo.ser.sqs.SqsRetentionSweeper] SQS retention sweeper scheduled (60s interval)
+2026-11-12 05:57:15,561 INFO  [io.git.hec.flo.ser.sec.SecretRotationScheduler] Secrets Manager rotation scheduler started (tick every 60s)
+2026-11-12 05:57:15,564 INFO  [io.git.hec.flo.ser.ec2.FlowLogService] FlowLog generator scheduled (every 60s)
+2026-11-12 05:57:15,564 INFO  [io.git.hec.flo.con.PartitionStartupValidator] Partition: aws (default-region us-east-1, dns suffix amazonaws.com)
+2026-11-12 05:57:15,564 INFO  [io.git.hec.flo.ser.lam.WarmPool] Warm pool idle eviction enabled: timeout=300s, check interval=30s
+2026-11-12 05:57:15,587 INFO  [io.quarkus] floci 2.4.0 native (powered by Quarkus 3.40.1) started in 0.102s. Listening on: http://0.0.0.0:4566
+2026-11-12 05:57:15,587 INFO  [io.quarkus] Profile prod activated. 
+2026-11-12 05:57:15,587 INFO  [io.quarkus] Installed features: [cdi, config-yaml, rest, rest-jackson, security, smallrye-context-propagation, vertx]
+2026-11-12 05:57:17,050 INFO  [io.git.hec.flo.ser.s3.S3Service] Created bucket: rp-bucket in region: us-east-1
+2026-11-12 05:57:17,071 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: dave
+2026-11-12 05:57:17,075 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: dave
+2026-11-12 05:57:17,081 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: erin
+2026-11-12 05:57:17,086 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: erin
+2026-11-12 05:57:17,092 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: frank
+2026-11-12 05:57:17,098 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: frank
+2026-11-12 05:57:17,118 INFO  [io.git.hec.flo.cor.com.IamEnforcementFilter] IAM enforcement DENY: akid=AKIAL3PQXKGH9FUS10W9 action=s3:GetObject resource=arn:aws:s3:::rp-bucket/k
+2026-11-12 05:57:17,127 INFO  [io.git.hec.flo.cor.com.IamEnforcementFilter] IAM enforcement DENY: akid=AKIAQ5HBDANI80A5FAX6 action=s3:GetObject resource=arn:aws:s3:::rp-bucket/k
+2026-11-12 05:57:17,137 INFO  [io.git.hec.flo.ser.sqs.SqsService] Created standard queue: shared-q in region us-east-1
+2026-11-12 05:57:17,143 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: bee
+2026-11-12 05:57:17,148 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: bee
+2026-11-12 05:57:17,151 INFO  [io.git.hec.flo.ser.iam.IamService] Created IAM user: beeall
+2026-11-12 05:57:17,154 INFO  [io.git.hec.flo.ser.iam.IamService] Created access key for user: beeall
+2026-11-12 05:57:17,173 INFO  [io.git.hec.flo.cor.com.IamEnforcementFilter] IAM enforcement DENY: akid=AKIANMSM0BYC60O1B00W action=sqs:SendMessage resource=arn:aws:sqs:us-east-1:111111111111:shared-q
+2026-11-12 05:57:17,177 INFO  [io.git.hec.flo.ser.sqs.SqsService] Updated attributes for queue: http://floci:4566/000000000000/shared-q
+2026-11-12 05:57:17,183 INFO  [io.git.hec.flo.cor.com.IamEnforcementFilter] IAM enforcement DENY: akid=AKIANMSM0BYC60O1B00W action=sqs:SendMessage resource=arn:aws:sqs:us-east-1:111111111111:shared-q
+2026-11-12 05:57:17,193 INFO  [io.git.hec.flo.ser.s3.S3Service] Created bucket: anon-bucket in region: us-east-1
+2026-11-12 05:57:17,207 INFO  [io.git.hec.flo.ser.s3.S3Service] Created bucket: bpa-bucket in region: us-east-1
+2026-11-12 05:57:17,213 INFO  [io.git.hec.flo.ser.s3.S3Service] Created bucket: bpa-explicit in region: us-east-1
